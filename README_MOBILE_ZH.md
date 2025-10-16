@@ -440,6 +440,6 @@ export const Colors = {
 
 ## 💪 支持
 
-如果你觉得这个模板有帮助：
-- 给它一个星标 ⭐️
-- [给我买杯咖啡](https://buymeacoffee.com/razikus)
+如果你觉得这个项目有帮助，请在 GitHub 上给本仓库一个 star：
+
+- [GitHub](https://github.com/Nimboo3/ai-code-reviewer)

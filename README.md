@@ -161,36 +161,20 @@ The template includes customizable legal documents - these are in markdown, so y
 - Refund Policy (`/public/terms/refund-policy.md`)
 
 ## 🎨 Theming
-
+Demo and project information are available in this repository: https://github.com/Nimboo3/ai-code-reviewer
 The template includes several pre-built themes:
 - `theme-sass` (Default)
-- `theme-blue`
-- `theme-purple`
-- `theme-green`
-
-Change the theme by updating the `NEXT_PUBLIC_THEME` environment variable.
-
-## 🤝 Contributing
+This project (AI Code Reviewer) is maintained in the GitHub repository: https://github.com/Nimboo3/ai-code-reviewer
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-
+See migration notes and the migrations folder in this repository for details. If you need to migrate from an older version, check `supabase/migrations_for_old/20250525183944_auth_removal.sql` in this repo.
 ## Need Multitenancy, Billing (Paddle) and Role Based Access Control?
 
-I have paid template as well available here:
-
-https://sasstemplate.razikus.com
-
-Basically it's the same template but with Paddle + organisations API keys + multiple organisations + Role Based Access Control
+If you need advanced paid features (multitenancy, billing integrations, RBAC), check the project repository and issue tracker for options and integrations.
 
 For code GITHUB you can get -50% off
-
-https://razikus.gumroad.com/l/supatemplate/GITHUB
-
-## 📝 License
-
-This project is licensed under the Apache License - see the LICENSE file for details.
-
+If you find this project helpful, please consider giving it a star on GitHub:
+- [GitHub](https://github.com/Nimboo3/ai-code-reviewer)
 ## 💪 Support
 
 If you find this template helpful, please consider giving it a star ⭐️

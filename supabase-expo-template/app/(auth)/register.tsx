@@ -142,7 +142,8 @@ export default function RegisterScreen() {
               style={[styles.link, { color: colors.tint }]}
               onPress={(e) => {
                 e.stopPropagation()
-                openLink('https://basicsass.razikus.com/legal/terms')
+                // Link to local terms file in the repo or public terms
+                openLink('https://github.com/Nimboo3/ai-code-reviewer/blob/main/public/terms/terms-of-service.md')
               }}
             >
               {t('auth.termsOfService')}
@@ -152,7 +153,8 @@ export default function RegisterScreen() {
               style={[styles.link, { color: colors.tint }]}
               onPress={(e) => {
                 e.stopPropagation()
-                openLink('https://basicsass.razikus.com/legal/privacy')
+                // Link to local privacy file in the repo or public terms
+                openLink('https://github.com/Nimboo3/ai-code-reviewer/blob/main/public/terms/privacy-notice.md')
               }}
             >
               {t('auth.privacyPolicy')}

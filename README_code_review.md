@@ -23,7 +23,7 @@ OPENAI_MODEL=gpt-4o-mini
 2) Apply Supabase migrations from `supabase/` so `code_reviews` table exists (via CLI or Studio)
 3) Install and run Next.js:
 ```
-cd /d c:\Users\Tanmay\Desktop\supabase-nextjs-template-main\nextjs
+cd nextjs
 npm install
 npm run dev
 ```

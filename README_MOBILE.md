@@ -436,6 +436,6 @@ This project is licensed under the Apache License - see the LICENSE file for det
 
 ## 💪 Support
 
-If you find this template helpful:
-- Give it a star ⭐️
-- [Buy me a coffee](https://buymeacoffee.com/razikus)
+If you find this project helpful, please consider giving it a star:
+
+- [GitHub](https://github.com/Nimboo3/ai-code-reviewer)

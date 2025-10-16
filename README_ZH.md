@@ -9,16 +9,10 @@
 
 ## 在线演示
 
-演示地址 - https://basicsass.razikus.com
+演示和项目信息请见本仓库： https://github.com/Nimboo3/ai-code-reviewer
 
-## 自我推广
-嘿，别在AI时代做代码打印机。看看我的书
-```
-http://razikus.gumroad.com/l/dirtycode - 现已上线！
-https://www.amazon.com/dp/B0FNR716CF - 9月1日起上线
-https://books.apple.com/us/book/dirty-code-but-works/id6751538660 - 9月1日起上线
-https://play.google.com/store/books/details?id=5UWBEQAAQBAJ - 9月1日起上线
-```
+## 关于
+本项目（AI Code Reviewer）托管于： https://github.com/Nimboo3/ai-code-reviewer
 
 ## 部署视频
 
@@ -26,9 +20,7 @@ https://play.google.com/store/books/details?id=5UWBEQAAQBAJ - 9月1日起上线
 
 ## 从 auth 架构迁移
 
-根据这个问题 - https://github.com/Razikus/supabase-nextjs-template/issues/4
-
-我们不再能够修改 auth 架构。我修改了原始迁移以将其重命名为自定义架构。如果你需要从旧版本迁移 - 查看 supabase/migrations_for_old/20250525183944_auth_removal.sql
+请参阅本仓库中的迁移说明和 migrations 文件夹以获取详细信息。如果需要从旧版本迁移，请查看本仓库的 `supabase/migrations_for_old/20250525183944_auth_removal.sql`。
 
 
 ## 🚀 功能特性
@@ -162,15 +154,7 @@ PRIVATE_SUPABASE_SERVICE_KEY=SERVICEROLEKEY
 
 ## 需要多租户、计费（Paddle）和基于角色的访问控制？
 
-我也有付费模板可用：
-
-https://sasstemplate.razikus.com
-
-基本上是相同的模板，但带有 Paddle + 组织 API 密钥 + 多个组织 + 基于角色的访问控制
-
-使用代码 GITHUB 可获得 50% 折扣
-
-https://razikus.gumroad.com/l/supatemplate/GITHUB
+有关高级功能（多租户、计费、基于角色的访问控制）的选项，请在仓库和 issue 跟踪中查看可用的集成方案。
 
 ## 📝 许可证
 
@@ -178,17 +162,9 @@ https://razikus.gumroad.com/l/supatemplate/GITHUB
 
 ## 💪 支持
 
-如果你觉得这个模板有帮助，请考虑给它一个星标 ⭐️
+如果你觉得这个项目有帮助，请在 GitHub 上给本仓库一个 star：
 
-或者给我买杯咖啡！
-
-- [BuyMeACoffee](https://buymeacoffee.com/razikus)
-
-我的社交媒体：
-
-- [Twitter](https://twitter.com/Razikus_)
-- [GitHub](https://github.com/Razikus)
-- [网站](https://www.razikus.com)
+- [GitHub](https://github.com/Nimboo3/ai-code-reviewer)
 
 ## 🙏 致谢
 
