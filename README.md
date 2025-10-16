@@ -1,55 +1,7 @@
-# Supabase Full-Stack SaaS Template
-
-A production-ready SaaS template built with Next.js 15, Supabase, and Tailwind CSS. This template provides everything you need to quickly launch your SaaS product, including authentication, user management, file storage, and more.
-
-
-> **🎉 NEW: Mobile App Now Available!** Check out [README_MOBILE.md](./README_MOBILE.md) for the complete React Native + Expo mobile app that shares the same Supabase backend!
-> https://youtube.com/shorts/qcASa0Ywsy4?feature=share
-
-
-## 🇨🇳 Chinese Documentation Available
-
-[中文文档](./README_ZH.md) | [移动端中文文档](./README_MOBILE_ZH.md)
-
-This repository includes full documentation in Simplified Chinese:
-- **README_ZH.md** - Complete Chinese translation of the main documentation
-- **README_MOBILE_ZH.md** - Complete Chinese translation of the mobile app documentation
-
-本仓库包含完整的简体中文文档：
-- **README_ZH.md** - 主文档的完整中文翻译
-- **README_MOBILE_ZH.md** - 移动应用文档的完整中文翻译
-
-## LIVE DEMO
-
-Demo is here - https://basicsass.razikus.com
-
-
-## Self promo
-Hey, don't be a code printer in AI era. Check my book
-```
-http://razikus.gumroad.com/l/dirtycode - live now!
-https://www.amazon.com/dp/B0FNR716CF - live from 01.09
-https://books.apple.com/us/book/dirty-code-but-works/id6751538660 - live from 01.09
-https://play.google.com/store/books/details?id=5UWBEQAAQBAJ - live from 01.09
-```
-
-## Deployment video
-
-Video is here - https://www.youtube.com/watch?v=kzbXavLndmE
-
-## Migration from auth schema
-
-According to this - https://github.com/Razikus/supabase-nextjs-template/issues/4
-
-We are no longer able to modify auth schema. I modified original migrations to rename it to custom schema. If you need to migrate from older version - check supabase/migrations_for_old/20250525183944_auth_removal.sql
-
-## 🚀 Features
-
 # AI Code Reviewer
 
-This repository contains the AI Code Review Assistant — a focused tool and demo app that helps automate code reviews by analyzing structure, readability, and best practices using LLMs and a Supabase backend.
+AI Code Review Assistant — a focused tool and demo app that helps automate code reviews by analyzing structure, readability, and best practices using LLMs and a Supabase backend.
 
-This README is the canonical project document. Other template README files and translations were removed so this single file is the source of truth for features, setup, and contribution.
 
 ## Features
 
@@ -246,37 +198,11 @@ The template includes customizable legal documents - these are in markdown, so y
 - Terms of Service (`/public/terms/terms-of-service.md`)
 - Refund Policy (`/public/terms/refund-policy.md`)
 
-## 🎨 Theming
-Demo and project information are available in this repository: https://github.com/Nimboo3/ai-code-reviewer
-The template includes several pre-built themes:
-- `theme-sass` (Default)
-This project (AI Code Reviewer) is maintained in the GitHub repository: https://github.com/Nimboo3/ai-code-reviewer
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-See migration notes and the migrations folder in this repository for details. If you need to migrate from an older version, check `supabase/migrations_for_old/20250525183944_auth_removal.sql` in this repo.
-## Need Multitenancy, Billing (Paddle) and Role Based Access Control?
-
-If you need advanced paid features (multitenancy, billing integrations, RBAC), check the project repository and issue tracker for options and integrations.
-
-For code GITHUB you can get -50% off
 If you find this project helpful, please consider giving it a star on GitHub:
 - [GitHub](https://github.com/Nimboo3/ai-code-reviewer)
-## 💪 Support
-
-If you find this template helpful, please consider giving it a star ⭐️
-
-Or buy me a coffee!
-
-- [BuyMeACoffee](https://buymeacoffee.com/razikus)
-
-My socials:
-
-- [Twitter](https://twitter.com/Razikus_)
-- [GitHub](https://github.com/Razikus)
-- [Website](https://www.razikus.com)
 
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Next.js](https://nextjs.org/)
 - [Supabase](https://supabase.com/)
