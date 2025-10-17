@@ -93,13 +93,6 @@ export default function HomePricing() {
           <div className="flex flex-col relative overflow-hidden rounded-3xl bg-gradient-to-br from-purple-100 via-pink-100 to-indigo-100 border-2 border-purple-300 shadow-2xl p-8 hover:shadow-purple-300/50 hover:scale-[1.02] transition-all duration-300 group">
             {/* Animated shimmer effect */}
             <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/30 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            
-            {/* MVP Badge */}
-            <div className="absolute top-6 right-6 z-10">
-              <div className="bg-yellow-400 text-gray-900 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow-xl">
-                MVP Demo
-              </div>
-            </div>
 
             <div className="flex-grow relative z-10">
               <div className="mb-6">
@@ -158,16 +151,13 @@ export default function HomePricing() {
               </div>
             </div>
 
-            <div className="relative z-10 space-y-3">
-              <p className="text-center text-sm text-gray-600">
-                Payment integration coming soon
-              </p>
-              <button
-                disabled
-                className="block w-full py-4 px-6 text-center font-bold text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl cursor-not-allowed opacity-75 hover:opacity-90 transition-opacity shadow-lg"
+            <div className="relative z-10">
+              <Link
+                href="/"
+                className="block w-full py-4 px-6 text-center font-bold text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
-                Coming Soon
-              </button>
+                Get Premium
+              </Link>
             </div>
           </div>
         </div>

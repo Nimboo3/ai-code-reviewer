@@ -77,37 +77,37 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 />
             )}
 
-            {/* Sidebar */}
-            <div className={`fixed inset-y-0 left-0 w-64 glass-dark shadow-2xl transform transition-all duration-300 ease-out z-30 
+            {/* Sidebar - Minimal Light Design */}
+            <div className={`fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-200 shadow-sm transform transition-all duration-300 ease-out z-30 
                 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
 
-                <div className="h-16 flex items-center justify-between px-6 border-b border-white/10">
-                    <span className="text-xl font-bold gradient-text">{productName}</span>
+                <div className="h-16 flex items-center justify-between px-6 border-b border-gray-100">
+                    <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">{productName}</span>
                     <button
                         onClick={toggleSidebar}
-                        className="lg:hidden text-gray-400 hover:text-white transition-colors duration-200"
+                        className="lg:hidden text-gray-400 hover:text-gray-600 transition-colors duration-200"
                     >
-                        <X className="h-6 w-6" />
+                        <X className="h-5 w-5" />
                     </button>
                 </div>
 
                 {/* Navigation */}
-                <nav className="mt-6 px-3 space-y-2">
+                <nav className="mt-8 px-4 space-y-1">
                     {navigation.map((item) => {
                         const isActive = pathname === item.href;
                         return (
                             <Link
                                 key={item.name}
                                 href={item.href}
-                                className={`group flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 ${
+                                className={`group flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
                                     isActive
-                                        ? 'gradient-bg-primary text-white shadow-lg'
-                                        : 'text-gray-300 hover:bg-white/10 hover:text-white'
+                                        ? 'bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 shadow-sm border border-blue-100'
+                                        : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                                 }`}
                             >
                                 <item.icon
-                                    className={`mr-3 h-5 w-5 transition-transform duration-200 ${
-                                        isActive ? 'text-white scale-110' : 'text-gray-400 group-hover:text-white group-hover:scale-110'
+                                    className={`mr-3 h-5 w-5 transition-all duration-200 ${
+                                        isActive ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600'
                                     }`}
                                 />
                                 {item.name}
@@ -119,16 +119,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
 
             <div className="lg:pl-64">
-                <div className="sticky top-0 z-40 flex items-center justify-between h-16 glass px-6">
+                {/* Header - Minimal Light Design */}
+                <div className="sticky top-0 z-40 flex items-center justify-between h-16 bg-white/80 backdrop-blur-md border-b border-gray-200 px-6 shadow-sm">
                     <button
                         onClick={toggleSidebar}
-                        className="lg:hidden text-gray-600 hover:text-gray-900 transition-colors duration-200"
+                        className="lg:hidden text-gray-500 hover:text-gray-700 transition-colors duration-200"
                     >
-                        <Menu className="h-6 w-6"/>
+                        <Menu className="h-5 w-5"/>
                     </button>
 
                     <div className="relative ml-auto flex items-center gap-3 z-50">
-                        {/* Free Tier Badge */}
+                        {/* Free Tier Badge - Minimalist */}
                         <button
                             onClick={() => {
                                 // If already on homepage, just scroll
@@ -143,9 +144,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                     router.push('/');
                                 }
                             }}
-                            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 border-2 border-blue-200 rounded-full text-xs font-bold text-blue-700 transition-all duration-200 hover:scale-105 shadow-sm hover:shadow-md group cursor-pointer"
+                            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-full text-xs font-semibold text-blue-700 transition-all duration-200 group cursor-pointer"
                         >
-                            <svg className="w-3.5 h-3.5 text-blue-500 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
                             FREE TIER
@@ -156,20 +157,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 onClick={() => setUserDropdownOpen(!isUserDropdownOpen)}
                                 className="flex items-center space-x-3 text-sm text-gray-700 hover:text-gray-900 transition-all duration-200 group"
                             >
-                                <div className="w-10 h-10 rounded-xl gradient-bg-primary flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-200">
-                                    <span className="text-white font-bold text-sm">
+                                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow duration-200">
+                                    <span className="text-white font-semibold text-xs">
                                         {user ? getInitials(user.email) : '??'}
                                     </span>
                                 </div>
-                                <span className="font-medium hidden sm:inline">{user?.email || 'Loading...'}</span>
-                                <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:translate-y-0.5"/>
+                                <span className="font-medium hidden sm:inline text-gray-700">{user?.email || 'Loading...'}</span>
+                                <ChevronDown className="h-4 w-4 text-gray-400"/>
                             </button>
 
                             {isUserDropdownOpen && (
-                                <div className="absolute right-0 mt-3 w-72 glass rounded-2xl shadow-2xl border border-white/20 overflow-hidden animate-scale-in z-50">
-                                <div className="p-4 border-b border-gray-100">
+                                <div className="absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden animate-scale-in z-50">
+                                <div className="p-4 border-b border-gray-100 bg-gray-50">
                                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Signed in as</p>
-                                    <p className="text-sm font-bold text-gray-900 truncate mt-1">
+                                    <p className="text-sm font-semibold text-gray-900 truncate mt-1">
                                         {user?.email}
                                     </p>
                                 </div>
@@ -181,8 +182,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                         }}
                                         className="w-full flex items-center px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors duration-150"
                                     >
-                                        <Key className="mr-3 h-5 w-5 text-gray-400"/>
-                                        Change Password
+                                        <Key className="mr-3 h-4 w-4 text-gray-400"/>
+                                        User Settings
                                     </button>
                                     <button
                                         onClick={() => {
@@ -191,7 +192,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                         }}
                                         className="w-full flex items-center px-5 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors duration-150"
                                     >
-                                        <LogOut className="mr-3 h-5 w-5 text-red-400"/>
+                                        <LogOut className="mr-3 h-4 w-4 text-red-500"/>
                                         Sign Out
                                     </button>
                                 </div>
