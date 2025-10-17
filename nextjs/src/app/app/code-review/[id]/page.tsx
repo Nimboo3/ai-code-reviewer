@@ -66,10 +66,24 @@ export default function CodeReviewDetailPage() {
   let structured: StructuredReview | null = null
   try {
     if (review.structured_data) {
-      structured = review.structured_data as unknown as StructuredReview
+      // Handle both object and string formats
+      if (typeof review.structured_data === 'string') {
+        structured = JSON.parse(review.structured_data) as StructuredReview
+      } else {
+        structured = review.structured_data as unknown as StructuredReview
+      }
+      
+      // Validate the structure
+      if (!structured?.summary || !structured?.issues || !structured?.metrics) {
+        console.warn('Invalid structured data format, falling back to markdown')
+        structured = null
+      } else {
+        console.log('✅ Loaded structured review data successfully')
+      }
     }
   } catch (e) {
     console.error('Failed to parse structured data:', e)
+    structured = null
   }
 
   const handleCopyLink = () => {

@@ -99,7 +99,7 @@ function headerGet(
 // Parse LLM response into structured format with fallback to markdown
 function parseReviewResponse(text: string, model: string, tokens: number | null): ReviewResult {
   let structured: StructuredReview | null = null
-  let markdown = text
+  let markdown = ''
 
   try {
     // Try to extract JSON from response (LLM might wrap it in markdown code blocks)
@@ -107,24 +107,59 @@ function parseReviewResponse(text: string, model: string, tokens: number | null)
     
     // Remove markdown code blocks if present
     if (jsonText.startsWith('```json')) {
-      jsonText = jsonText.replace(/^```json\s*/i, '').replace(/\s*```$/,'')
+      jsonText = jsonText.replace(/^```json\s*/i, '').replace(/\s*```$/,'').trim()
     } else if (jsonText.startsWith('```')) {
-      jsonText = jsonText.replace(/^```\s*/, '').replace(/\s*```$/, '')
+      jsonText = jsonText.replace(/^```\s*/, '').replace(/\s*```$/, '').trim()
     }
     
     // Parse JSON
     const parsed = JSON.parse(jsonText) as StructuredReview
     
-    // Validate required fields
-    if (parsed.summary && parsed.issues && parsed.metrics && 
-        typeof parsed.summary.overallScore === 'number') {
+    // Validate required fields more thoroughly
+    if (
+      parsed &&
+      typeof parsed === 'object' &&
+      parsed.summary && 
+      typeof parsed.summary === 'object' &&
+      typeof parsed.summary.overallScore === 'number' &&
+      typeof parsed.summary.grade === 'string' &&
+      Array.isArray(parsed.issues) && 
+      parsed.metrics && 
+      typeof parsed.metrics === 'object' &&
+      typeof parsed.metrics.security === 'number'
+    ) {
       structured = parsed
       
-      // Generate markdown from structured data as fallback
+      // Generate markdown from structured data
       markdown = generateMarkdownFromStructured(parsed)
+      
+      console.log('✅ Successfully parsed structured review data')
+    } else {
+      console.warn('⚠️ Parsed JSON but validation failed:', {
+        hasSummary: !!parsed?.summary,
+        hasIssues: !!parsed?.issues,
+        hasMetrics: !!parsed?.metrics,
+        scoreType: typeof parsed?.summary?.overallScore
+      })
+      // Try to generate markdown from partial data
+      markdown = text.startsWith('{') ? '# Code Review\n\nProcessing failed. Please try again.' : text
     }
-  } catch {
-    // JSON parsing failed, keep text as markdown
+  } catch (error) {
+    // JSON parsing failed - check if it looks like JSON or actual markdown
+    console.warn('⚠️ JSON parsing failed:', error instanceof Error ? error.message : 'Unknown error')
+    
+    // If text starts with '{', it's probably malformed JSON
+    if (text.trim().startsWith('{')) {
+      markdown = '# Code Review\n\n⚠️ **Error**: Unable to parse review response. Please try again.\n\n<details>\n<summary>Raw Response</summary>\n\n```json\n' + text + '\n```\n</details>'
+    } else {
+      // It's actual markdown
+      markdown = text
+    }
+  }
+
+  // Final fallback
+  if (!markdown) {
+    markdown = '# Code Review\n\nNo content generated.'
   }
 
   return {
@@ -262,7 +297,14 @@ Return ONLY the JSON object, nothing else.`
     try {
       const result = await genModel.generateContent(prompt)
       const response = result.response
-      const text = response.text()
+      let text = response.text().trim()
+      
+      // Gemini sometimes wraps JSON in markdown code blocks - clean it
+      if (text.startsWith('```json')) {
+        text = text.replace(/^```json\s*/i, '').replace(/\s*```$/,'').trim()
+      } else if (text.startsWith('```')) {
+        text = text.replace(/^```\s*/, '').replace(/\s*```$/, '').trim()
+      }
       
       // Try to get token count if available
       let tokens: number | null = null
