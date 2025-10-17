@@ -135,7 +135,7 @@ export default function DashboardContent() {
                         </div>
                         <h3 className="font-bold text-gray-900">Free Tier Active</h3>
                     </div>
-                    <p className="text-sm text-gray-600">7 reviews/day • 500KB files</p>
+                    <p className="text-sm text-gray-600">10 reviews/day • 500KB files</p>
                 </div>
 
                 <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border border-orange-200">

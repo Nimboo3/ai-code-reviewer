@@ -24,6 +24,9 @@ export default function CodeReviewPage() {
     fileName: string | null
   }>({ show: false, reportId: null, fileName: null })
 
+  // Check if running in local development
+  const isLocalDev = process.env.NODE_ENV === 'development'
+
   const fetchItems = async () => {
     setLoading(true)
     setError(null)
@@ -220,25 +223,39 @@ export default function CodeReviewPage() {
               <option value="gpt-4o">GPT-4o — $2.50 per 1M tokens</option>
             </optgroup>
             
-            <optgroup label="─── Local (Fast) ───">
-              <option value="gemma3:1b">Gemma 3 1B — Fastest, 1-2 seconds</option>
-              <option value="gemma3:4b">Gemma 3 4B — Balanced, 3-5 seconds</option>
-              <option value="qwen3:4b">Qwen 3 4B — Best for code, 3-5 seconds</option>
-            </optgroup>
-            
-            <optgroup label="─── Local (Quality) ───">
-              <option value="qwen3:8b">Qwen 3 8B — Better quality, 8-12 seconds</option>
-              <option value="deepseek-rl:8b">DeepSeek RL 8B — Code-focused, 8-12 seconds</option>
-              <option value="qwen2.5-coder:7b">Qwen 2.5 Coder 7B — Legacy</option>
-              <option value="llama3.2:3b">Llama 3.2 3B — General purpose</option>
-            </optgroup>
+            {/* Only show Ollama models in local development */}
+            {isLocalDev && (
+              <>
+                <optgroup label="─── Local (Fast) ───">
+                  <option value="gemma3:1b">Gemma 3 1B — Fastest, 1-2 seconds</option>
+                  <option value="gemma3:4b">Gemma 3 4B — Balanced, 3-5 seconds</option>
+                  <option value="qwen3:4b">Qwen 3 4B — Best for code, 3-5 seconds</option>
+                </optgroup>
+                
+                <optgroup label="─── Local (Quality) ───">
+                  <option value="qwen3:8b">Qwen 3 8B — Better quality, 8-12 seconds</option>
+                  <option value="deepseek-rl:8b">DeepSeek RL 8B — Code-focused, 8-12 seconds</option>
+                  <option value="qwen2.5-coder:7b">Qwen 2.5 Coder 7B — Legacy</option>
+                  <option value="llama3.2:3b">Llama 3.2 3B — General purpose</option>
+                </optgroup>
+              </>
+            )}
           </select>
-          <p className="text-xs text-gray-500 mt-2 flex items-center gap-1.5">
-            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Local models require Ollama running on your machine</span>
-          </p>
+          {isLocalDev ? (
+            <p className="text-xs text-gray-500 mt-2 flex items-center gap-1.5">
+              <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Local models require Ollama running on your machine</span>
+            </p>
+          ) : (
+            <p className="text-xs text-gray-500 mt-2 flex items-center gap-1.5">
+              <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Cloud-hosted models - no setup required</span>
+            </p>
+          )}
         </div>
         
         <div className="flex items-center gap-3">

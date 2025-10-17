@@ -33,12 +33,14 @@ NEXT_PUBLIC_SUPABASE_URL=https://zyywojowbfieflfhvunv.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 GEMINI_API_KEY=AIzaSyB35Q9ptQAXQD7A5rbyeCLeQt3PjFcE9f0
 OPENAI_API_KEY=sk-proj-cI_HtcAViPox_cyL...
-NEXT_PUBLIC_PRODUCTNAME=AI Code Reviewer
+NEXT_PUBLIC_PRODUCTNAME=CodeReview.ai
 NEXT_PUBLIC_THEME=theme-purple
 ```
 
-Do NOT add:
+**Do NOT add** (these are for local development only):
 - OPENAI_LOCAL_BASE_URL
 - OPENAI_LOCAL_API_KEY
+
+> **Important**: Ollama models only work in local development. Production deployments use cloud-hosted AI models (Gemini and OpenAI) only.
 
 Then redeploy for env vars to take effect.

@@ -1,12 +1,12 @@
-# CodeReviewAI
+# CodeReview.ai
 
 An AI-powered code review platform that provides automated analysis of your code, identifying issues, suggesting improvements, and evaluating overall code quality using advanced language models.
 
 ## Features
 
 - Automated code review with structured feedback (issues, metrics, suggestions)
-- Multiple AI provider support (OpenAI, Google Gemini, Local Ollama)
-- Two-tier pricing system (Free: 7 reviews/day, Premium: unlimited)
+- Multiple AI provider support (Google Gemini, OpenAI GPT, Local Ollama for development)
+- Two-tier pricing system (Free: 10 reviews/day, Premium: unlimited)
 - Secure authentication with optional MFA
 - Review history and analytics dashboard
 - File size limits: 500KB (Free), 10MB (Premium)
@@ -16,10 +16,11 @@ An AI-powered code review platform that provides automated analysis of your code
 
 - **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes, Supabase (PostgreSQL + Auth + Storage)
-- **AI Models**:
-  - OpenAI (gpt-4o-mini, gpt-4o)
-  - Google Gemini (gemini-1.5-flash, gemini-1.5-pro, gemini-2.0-flash-exp)
-  - Local Ollama (gemma3, qwen3, deepseek-rl)
+- **AI Models** (Production):
+  - Google Gemini (gemini-1.5-flash, gemini-1.5-pro, gemini-2.0-flash, gemini-2.0-flash-thinking)
+  - OpenAI GPT (gpt-4o-mini, gpt-4o)
+- **AI Models** (Local Development Only):
+  - Ollama (gemma3, qwen3, deepseek-rl, llama3.2)
 
 ## Getting Started
 
@@ -28,10 +29,12 @@ An AI-powered code review platform that provides automated analysis of your code
 - Node.js 18+
 - npm/yarn/pnpm
 - Supabase account
-- AI provider API key (choose one):
-  - OpenAI API key ([Get here](https://platform.openai.com/api-keys))
-  - Google Gemini API key ([Get here](https://aistudio.google.com/apikey)) - Recommended: 1500 free requests/day
-  - Local Ollama ([Install here](https://ollama.com/)) - Unlimited offline usage
+- AI provider API key (at least one required):
+  - **Google Gemini API key** ([Get here](https://aistudio.google.com/apikey)) - **Recommended**: 1500 free requests/day
+  - **OpenAI API key** ([Get here](https://platform.openai.com/api-keys)) - Paid usage
+  - **Local Ollama** ([Install here](https://ollama.com/)) - For local development only (won't work in production)
+
+> **Note**: Ollama models are only available when running locally (`npm run dev`). Production deployments (Vercel) only support cloud-hosted models (Gemini and OpenAI).
 
 ### Installation
 

@@ -1,17 +1,17 @@
 # Privacy Notice
 
-Last Updated: October 17, 2025
+Last Updated: January 17, 2025
 
 ## 1. Company Information
 
 This Privacy Notice applies to:
-Company Name: CodeReviewAI
+Service Name: CodeReview.ai
 
 Contact: https://github.com/Nimboo3
 
 ## 2. Introduction
 
-This Privacy Notice explains how we collect, use, disclose, and safeguard your information when you use CodeReviewAI services.
+This Privacy Notice explains how we collect, use, disclose, and safeguard your information when you use CodeReview.ai services.
 
 ## 3. Information We Collect
 

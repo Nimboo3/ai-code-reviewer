@@ -1,16 +1,16 @@
 # Terms of Service
 
-Last Updated: October 17, 2025
+Last Updated: January 17, 2025
 
 ## 1. Company Information
 
-Company Name: CodeReviewAI
+Service Name: CodeReview.ai
 
 Contact: https://github.com/Nimboo3
 
 ## 2. Introduction
 
-Welcome to CodeReviewAI ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, applications, and services (collectively, the "Services"), including AI-powered code review tools, security analysis features, and subscription services.
+Welcome to CodeReview.ai ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, applications, and services (collectively, the "Services"), including AI-powered code review tools, security analysis features, and subscription services.
 
 ## 3. Acceptance of Terms
 
@@ -22,9 +22,12 @@ Our Services include:
 - AI-powered code review and analysis
 - Security vulnerability detection
 - Bug detection and code quality metrics
-- Multi-AI model support (Gemini, GPT, Ollama)
-- Detailed code review reports
-- File upload and code analysis features
+- Multi-AI model support:
+  - **Google Gemini** (1.5 Flash, 1.5 Pro, 2.0 Flash, 2.0 Flash Thinking)
+  - **OpenAI GPT** (GPT-4o, GPT-4o Mini)
+  - **Local Ollama models** (available in self-hosted/local development only)
+- Detailed code review reports with actionable recommendations
+- File upload and code analysis features (up to 500KB for Free tier, 10MB for Premium)
 
 ## 5. Account Registration and Security
 
@@ -61,24 +64,28 @@ Our Services include:
 - Our AI tools analyze code you provide
 - Analysis results are for informational purposes only
 - We do not guarantee accuracy of AI-generated recommendations
-- Code analysis is performed using third-party AI models (Google Gemini, OpenAI GPT, Ollama)
+- Code analysis is performed using third-party AI models:
+  - **Google Gemini** and **OpenAI GPT** (available on all deployments)
+  - **Ollama models** (available only in local/self-hosted environments)
 
 ## 8. Usage Limits
 
 ### 8.1 Free Tier
-- 20 code reviews per hour
+- 10 code reviews per day
 - 500KB maximum file size
 - 50,000 character code length limit
+- Access to cloud-hosted AI models (Gemini, GPT)
 
 ### 8.2 Premium Tier
 - Unlimited code reviews
 - 10MB maximum file size
 - Priority processing queue
+- Access to all available AI models
 
 ## 9. Intellectual Property
 
 ### 9.1 Our Rights
-- All content, features, and functionality are owned by CodeReviewAI
+- All content, features, and functionality are owned by CodeReview.ai
 - Our trademarks and trade dress may not be used without written permission
 
 ### 9.2 Your Rights

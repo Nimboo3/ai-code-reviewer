@@ -45,7 +45,7 @@ export default function HomePricing() {
                     <Check className="h-4 w-4 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-gray-900 font-semibold">7 reviews per day</p>
+                    <p className="text-gray-900 font-semibold">10 reviews per day</p>
                     <p className="text-sm text-gray-600">Daily limit resets</p>
                   </div>
                 </div>

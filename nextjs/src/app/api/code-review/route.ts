@@ -94,7 +94,7 @@ export async function POST(request: Request) {
       }, { status: 413 })
     }
 
-    // Rate limiting check - Query user's recent reviews (Free tier: 7/day)
+    // Rate limiting check - Query user's recent reviews (Free tier: 10/day)
     const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
     const { data: recentReviews, error: countError } = await supabase
       .from('code_reviews')
@@ -105,7 +105,7 @@ export async function POST(request: Request) {
     if (countError) {
       // Continue anyway - don't block on rate limit check failure
     } else {
-      const RATE_LIMIT_PER_DAY = 7 // Free tier: 7 reviews per day
+      const RATE_LIMIT_PER_DAY = 10 // Free tier: 10 reviews per day
       const reviewCount = recentReviews?.length || 0
       
       if (reviewCount >= RATE_LIMIT_PER_DAY) {

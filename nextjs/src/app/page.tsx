@@ -35,7 +35,7 @@ export default function Home() {
     {
       icon: FileCode,
       title: 'Multi-AI Model Support',
-      description: 'Choose from Gemini, GPT, Ollama, and more AI models for tailored analysis that fits your needs',
+      description: 'Choose from Google Gemini and OpenAI GPT models for tailored analysis that fits your needs',
       color: 'text-purple-600'
     },
     {
@@ -122,7 +122,7 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
                   <div key={index} className="text-center animate-scale-in" style={{animationDelay: `${index * 0.1}s`}}>
-                    <div className="text-4xl md:text-5xl font-bold gradient-text">{stat.value}</div>
+                    <div className="text-5xl md:text-6xl font-bold gradient-text">{stat.value}</div>
                     <div className="mt-3 text-sm font-medium text-gray-600">{stat.label}</div>
                   </div>
               ))}
