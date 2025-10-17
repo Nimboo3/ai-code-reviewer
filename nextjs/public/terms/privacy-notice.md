@@ -1,103 +1,119 @@
 # Privacy Notice
 
-Last Updated: December 14, 2024
+Last Updated: October 17, 2025
 
 ## 1. Company Information
 
 This Privacy Notice applies to:
-Company Name:
+Company Name: CodeReviewAI
 
-Tax number: 1234567890
+Contact: https://github.com/Nimboo3
 
 ## 2. Introduction
 
-This Privacy Notice explains how we collect, use, disclose, and safeguard your information when you use SupaSasS services.
+This Privacy Notice explains how we collect, use, disclose, and safeguard your information when you use CodeReviewAI services.
 
 ## 3. Information We Collect
 
 ### 3.1 Personal Information
 - Email address
 - Account credentials
-- Payment information (processed by Paddle)
+- Payment information (when payment system is implemented)
 - Usage data
 
-### 3.2 Business Information
-- Shopify store data (when using analysis tools)
-- Domain search queries
-- Analytics data
+### 3.2 Code and Analysis Information
+- Source code files you upload for review
+- Code review results and metrics
+- File metadata (name, size, language)
+- Review history
 
 ### 3.3 Technical Information
 - IP address
 - Browser type
 - Device information
 - Cookies and similar technologies
+- Rate limit and usage statistics
 
 ## 4. How We Use Your Information
 
 We use collected information for:
-- Providing and maintaining our services
-- Processing payments
-- Improving our services
-- Communicating with you
+- Providing and maintaining our AI code review services
+- Processing code analysis through third-party AI models
+- Improving our services and AI accuracy
+- Communicating with you about your reviews
 - Analyzing usage patterns
-- Preventing fraud
+- Preventing fraud and abuse of service limits
+- Enforcing rate limits
 
 ## 5. Data Storage and Security
 
 ### 5.1 Storage
 - Data is stored on secure servers
 - We use Supabase for database management
-- Payment data is handled by Paddle
+- Code is temporarily processed and not permanently stored
+- Review results are stored for your access
 
 ### 5.2 Security Measures
 - Encryption in transit and at rest
 - Regular security audits
 - Access controls and monitoring
+- Rate limiting to prevent abuse
 
 ## 6. Data Sharing and Disclosure
 
 We may share information with:
-- Service providers (Paddle, Supabase)
-- Legal authorities when required
-- Business partners with your consent
+- AI service providers (Google Gemini, OpenAI, Ollama) for code analysis
+- Service providers (Supabase for database)
+- Legal authorities when required by law
+- We do not sell your personal data or code
 
-## 7. Your Rights
+## 7. Third-Party AI Processing
+
+- Your code is processed by third-party AI models
+- Code is sent to Google Gemini, OpenAI GPT, or Ollama based on your selection
+- These services have their own privacy policies
+- Code is not permanently stored by AI providers after analysis
+
+## 8. Your Rights
 
 You have the right to:
 - Access your personal data
 - Correct inaccurate data
 - Request data deletion
+- Export your review history
 - Object to processing
 - Data portability
 
-## 8. Cookies and Tracking
+## 9. Cookies and Tracking
 
 We use cookies for:
-- Authentication
-- Preferences
-- Analytics
-- Marketing (with consent)
+- Authentication and session management
+- User preferences
+- Service functionality
+- We do not use advertising cookies
 
-## 9. International Data Transfers
+## 10. Data Retention
 
-- Data may be processed in various locations
-- We ensure appropriate safeguards
-- EU data protection standards applied
+- Account data retained while account is active
+- Review results retained for 90 days by default
+- You can delete reviews at any time
+- Code files are not permanently stored after analysis
 
-## 10. Children's Privacy
+## 11. Children's Privacy
 
 - Services not intended for users under 18
 - We do not knowingly collect children's data
 - Parents may request data deletion
 
-## 11. Changes to Privacy Notice
+## 12. Changes to Privacy Notice
 
 - We may update this notice periodically
-- Changes effective upon posting
+- Pricing-related changes will be announced 7 days in advance
+- Other changes effective upon posting
 - Material changes notified via email
 
-## 12. Contact Information
+## 13. Contact Information
 
 For privacy-related questions:
-Email: contact@supasass.com
+GitHub: https://github.com/Nimboo3
 

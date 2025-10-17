@@ -139,7 +139,7 @@ export default function RegisterPage() {
                                     className="font-semibold text-primary-600 hover:text-primary-700 underline-offset-2 hover:underline transition-all duration-200"
                                     target="_blank"
                                 >
-                                    terms of Service
+                                    Terms of Service
                                 </Link>{' '}
                                 and{' '}
                                 <Link

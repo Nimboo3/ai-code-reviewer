@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Globe, Shield, Users, Key, Database, Clock } from 'lucide-react';
+import { ArrowRight, Shield, Zap, Bug, Target, FileCode, BarChart3 } from 'lucide-react';
 import AuthAwareButtons from '@/components/AuthAwareButtons';
 import HomePricing from "@/components/HomePricing";
 
@@ -9,40 +9,40 @@ export default function Home() {
 
   const features = [
     {
+      icon: Zap,
+      title: 'Instant Code Analysis',
+      description: 'Get comprehensive code reviews in seconds with AI-powered analysis across all major programming languages',
+      color: 'text-yellow-600'
+    },
+    {
       icon: Shield,
-      title: 'Robust Authentication',
-      description: 'Secure login with email/password, Multi-Factor Authentication, and SSO providers',
+      title: 'Security Scanning',
+      description: 'Automatically detect security vulnerabilities, hardcoded secrets, and potential exploits before they reach production',
       color: 'text-green-600'
     },
     {
-      icon: Database,
-      title: 'File Management',
-      description: 'Built-in file storage with secure sharing, downloads, and granular permissions',
-      color: 'text-orange-600'
-    },
-    {
-      icon: Users,
-      title: 'User Settings',
-      description: 'Complete user management with password updates, MFA setup, and profile controls',
+      icon: Bug,
+      title: 'Bug Detection',
+      description: 'Identify potential bugs, logic errors, and edge cases with intelligent pattern recognition and best practice checks',
       color: 'text-red-600'
     },
     {
-      icon: Clock,
-      title: 'Task Management',
-      description: 'Built-in todo system with real-time updates and priority management',
-      color: 'text-teal-600'
+      icon: Target,
+      title: 'Code Quality Metrics',
+      description: 'Track complexity, maintainability, readability, testability, and security scores with detailed insights',
+      color: 'text-blue-600'
     },
     {
-      icon: Globe,
-      title: 'Legal Documents',
-      description: 'Pre-configured privacy policy, terms of service, and refund policy pages',
+      icon: FileCode,
+      title: 'Multi-AI Model Support',
+      description: 'Choose from Gemini, GPT, Ollama, and more AI models for tailored analysis that fits your needs',
       color: 'text-purple-600'
     },
     {
-      icon: Key,
-      title: 'Cookie Consent',
-      description: 'GDPR-compliant cookie consent system with customizable preferences',
-      color: 'text-blue-600'
+      icon: BarChart3,
+      title: 'Detailed Reports',
+      description: 'Get actionable recommendations with priority levels, code snippets, and improvement suggestions for every issue',
+      color: 'text-orange-600'
     }
   ];
 
@@ -81,12 +81,12 @@ export default function Home() {
                 </Link>
 
                 <Link
-                    href="https://github.com/Nimboo3/ai-code-reviewer"
+                    href="https://github.com/Nimboo3"
                     className="gradient-bg-primary text-white px-4 py-2 rounded-lg hover-glow transition-all duration-200 shadow-md"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                  View source
+                  Contact Us
                 </Link>
 
                 <AuthAwareButtons variant="nav" />
@@ -117,7 +117,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-20 relative">
+        <section className="py-12 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
@@ -131,12 +131,12 @@ export default function Home() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-24 relative">
+        <section id="features" className="py-16 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900">Everything You Need</h2>
               <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
-                Built with modern technologies for reliability and speed
+                Powerful AI-driven code review features to catch issues before they become problems
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

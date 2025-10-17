@@ -1,40 +1,27 @@
 import OpenAI from 'openai'
 import { GoogleGenerativeAI } from '@google/generative-ai'
+import type { StructuredReview } from '@/lib/types'
 
-// Detect if a given model should be routed to a local provider (Ollama/LiteLLM)
 function isLocalModel(model: string) {
-  const isLocal = (
+  return (
     model.startsWith('llama') || 
     model.startsWith('qwen') || 
     model.startsWith('gemma') || 
     model.startsWith('deepseek') ||
     model.startsWith('gpt-oss') ||
-    model.includes(':')  // Ollama models typically have format like "qwen3:4b"
+    model.includes(':')
   )
-  
-  // Debug logging
-  console.log(`🔍 [isLocalModel] Input: "${model}" -> Result: ${isLocal}`)
-  
-  return isLocal
 }
 
-// Detect if a given model is a Gemini model
 function isGeminiModel(model: string) {
-  const isGemini = model.startsWith('gemini')
-  console.log(`🔍 [isGeminiModel] Input: "${model}" -> Result: ${isGemini}`)
-  return isGemini
+  return model.startsWith('gemini')
 }
 
-// Create an OpenAI-compatible client based on selected model
 export function getOpenAIClient(selectedModel?: string) {
-  console.log(`🔧 [getOpenAIClient] Called with selectedModel: "${selectedModel}"`)
-  
-  // Gemini models are handled separately with native SDK (not OpenAI-compatible)
   if (selectedModel && isGeminiModel(selectedModel)) {
     throw new Error('Use reviewCodeWithGemini() for Gemini models')
   }
 
-  // If the selected model is local, route to local endpoint with a placeholder key
   if (selectedModel && isLocalModel(selectedModel)) {
     const baseURL =
       process.env.OPENAI_LOCAL_BASE_URL ||
@@ -42,12 +29,9 @@ export function getOpenAIClient(selectedModel?: string) {
       'http://localhost:11434/v1'
     const apiKey = process.env.OPENAI_LOCAL_API_KEY || 'sk-local'
     
-    console.log(`✅ [getOpenAIClient] Using LOCAL Ollama endpoint: ${baseURL}`)
     return new OpenAI({ apiKey, baseURL })
   }
 
-  // Default: use OpenAI project key and optional global base URL (for hosted proxies if any)
-  console.log(`☁️ [getOpenAIClient] Using OPENAI cloud endpoint`)
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) throw new Error('OPENAI_API_KEY not set')
   const baseURL = process.env.OPENAI_BASE_URL || undefined
@@ -56,42 +40,36 @@ export function getOpenAIClient(selectedModel?: string) {
 
 export const DEFAULT_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini'
 
-// Allow a few safe/dev models; expand via env if needed
 const MODEL_ALLOWLIST = new Set<string>([
-  // OpenAI models (cloud, pay-per-use)
-  'gpt-4o-mini',           // Cheapest OpenAI model (~$0.15/1M tokens)
+  'gpt-4o-mini',
   'gpt-4o-mini-2024-07-18',
-  'gpt-4o',                // More expensive (~$2.50/1M tokens) - use sparingly
-  'gpt-4-turbo',           // Expensive (~$10/1M tokens) - removed below
-  
-  // Google Gemini models (cloud, free tier: 1500 req/day)
-  'gemini-1.5-flash-latest',  // RECOMMENDED: Fast & free
-  'gemini-1.5-pro-latest',    // Better quality, same free tier
+  'gpt-4o',
+  'gpt-4-turbo',
+  'gemini-1.5-flash-latest',
+  'gemini-1.5-pro-latest',
   'gemini-1.5-flash-002',
   'gemini-1.5-pro-002',
-  'gemini-2.0-flash-exp',     // Experimental (latest, most advanced)
-  'gemini-2.0-flash-thinking-exp-1219', // Experimental with thinking mode
-  
-  // Local Ollama models - OPTIMIZED FOR YOUR SPECS (16GB RAM, CPU only)
-  'gemma3:1b',          // Fastest (1-2s), basic quality, 2GB RAM
-  'gemma3:4b',          // ⭐ RECOMMENDED: Fast (3-5s), good quality, 4-5GB RAM
-  'qwen3:4b',           // ⭐ RECOMMENDED: Fast (3-5s), great for code, 4-5GB RAM
-  'qwen3:8b',           // Better quality (8-12s), 8GB RAM
-  'deepseek-rl:8b',     // Code-focused (8-12s), 8GB RAM
-  
-  // Legacy/manual installs
+  'gemini-2.0-flash-exp',
+  'gemini-2.0-flash-thinking-exp-1219',
+  'gemma3:1b',
+  'gemma3:4b',
+  'qwen3:4b',
+  'qwen3:8b',
+  'deepseek-rl:8b',
   'llama3.2:3b',
   'qwen2.5-coder:7b',
 ])
 
-
 export function pickModel(requested?: string | null) {
-  const picked = requested && MODEL_ALLOWLIST.has(requested) ? requested : DEFAULT_MODEL
-  console.log(`🎯 [pickModel] Requested: "${requested}" -> Picked: "${picked}" (in allowlist: ${requested ? MODEL_ALLOWLIST.has(requested) : 'N/A'})`)
-  return picked
+  return requested && MODEL_ALLOWLIST.has(requested) ? requested : DEFAULT_MODEL
 }
 
-type ReviewResult = { markdown: string; model: string; tokens: number | null }
+type ReviewResult = { 
+  structured: StructuredReview | null
+  markdown: string
+  model: string
+  tokens: number | null 
+}
 
 interface HttpErrorLike {
   status?: number
@@ -118,6 +96,98 @@ function headerGet(
   return val == null ? null : String(val)
 }
 
+// Parse LLM response into structured format with fallback to markdown
+function parseReviewResponse(text: string, model: string, tokens: number | null): ReviewResult {
+  let structured: StructuredReview | null = null
+  let markdown = text
+
+  try {
+    // Try to extract JSON from response (LLM might wrap it in markdown code blocks)
+    let jsonText = text.trim()
+    
+    // Remove markdown code blocks if present
+    if (jsonText.startsWith('```json')) {
+      jsonText = jsonText.replace(/^```json\s*/i, '').replace(/\s*```$/,'')
+    } else if (jsonText.startsWith('```')) {
+      jsonText = jsonText.replace(/^```\s*/, '').replace(/\s*```$/, '')
+    }
+    
+    // Parse JSON
+    const parsed = JSON.parse(jsonText) as StructuredReview
+    
+    // Validate required fields
+    if (parsed.summary && parsed.issues && parsed.metrics && 
+        typeof parsed.summary.overallScore === 'number') {
+      structured = parsed
+      
+      // Generate markdown from structured data as fallback
+      markdown = generateMarkdownFromStructured(parsed)
+    }
+  } catch {
+    // JSON parsing failed, keep text as markdown
+  }
+
+  return {
+    structured,
+    markdown,
+    model,
+    tokens,
+  }
+}
+
+// Generate markdown from structured review data
+function generateMarkdownFromStructured(review: StructuredReview): string {
+  const { summary, issues, metrics, strengths, recommendations } = review
+  
+  let md = `# Code Review Summary\n\n`
+  md += `**Grade:** ${summary.grade} (${summary.overallScore}/100)\n`
+  md += `**Total Issues:** ${summary.totalIssues} (Critical: ${summary.criticalCount}, High: ${summary.highCount}, Medium: ${summary.mediumCount}, Low: ${summary.lowCount})\n\n`
+  
+  md += `## Metrics\n\n`
+  md += `- **Complexity:** ${metrics.complexity}/10\n`
+  md += `- **Maintainability:** ${metrics.maintainability}/100\n`
+  md += `- **Readability:** ${metrics.readability}/100\n`
+  md += `- **Testability:** ${metrics.testability}/100\n`
+  md += `- **Security:** ${metrics.security}/100\n\n`
+  
+  if (strengths.length > 0) {
+    md += `## Strengths\n\n`
+    strengths.forEach(s => md += `- ${s}\n`)
+    md += `\n`
+  }
+  
+  if (issues.length > 0) {
+    md += `## Issues\n\n`
+    const grouped = issues.reduce((acc, issue) => {
+      if (!acc[issue.severity]) acc[issue.severity] = []
+      acc[issue.severity].push(issue)
+      return acc
+    }, {} as Record<string, typeof issues>)
+    
+    for (const severity of ['critical', 'high', 'medium', 'low', 'info'] as const) {
+      const items = grouped[severity]
+      if (items && items.length > 0) {
+        md += `### ${severity.toUpperCase()}\n\n`
+        items.forEach(issue => {
+          md += `#### ${issue.title}\n`
+          md += `**Category:** ${issue.category}\n`
+          md += `${issue.description}\n\n`
+          md += `**Suggestion:** ${issue.suggestion}\n`
+          md += `**Impact:** ${issue.impact}\n\n`
+        })
+      }
+    }
+  }
+  
+  if (recommendations.length > 0) {
+    md += `## Recommendations\n\n`
+    recommendations.forEach(r => md += `- ${r}\n`)
+    md += `\n`
+  }
+  
+  return md
+}
+
 // Review code using Google Gemini's native SDK
 async function reviewCodeWithGemini(opts: { code: string; filename: string; model: string }): Promise<ReviewResult> {
   const { code, filename, model } = opts
@@ -134,15 +204,53 @@ async function reviewCodeWithGemini(opts: { code: string; filename: string; mode
   const MAX_INPUT_CHARS = 3500
   const truncated = code.length > MAX_INPUT_CHARS ? code.slice(0, MAX_INPUT_CHARS) : code
 
-  const prompt = `You are a senior software engineer performing code reviews. Be concise and actionable.
+  const prompt = `You are a senior software engineer performing code reviews. Analyze the code and return ONLY a valid JSON object (no markdown, no code blocks, just raw JSON).
 
-Review this code for readability, modularity, best practices, and potential bugs. Then provide a prioritized list of improvement suggestions. Return Markdown with sections: Summary, Issues, Suggestions, Potential Bugs, and Refactoring Opportunities.
+The JSON must follow this exact structure:
+{
+  "summary": {
+    "overallScore": <number 0-100>,
+    "grade": "<A+, A, B, C, D, or F>",
+    "totalIssues": <number>,
+    "criticalCount": <number>,
+    "highCount": <number>,
+    "mediumCount": <number>,
+    "lowCount": <number>
+  },
+  "issues": [
+    {
+      "id": "<unique-id>",
+      "severity": "<critical|high|medium|low|info>",
+      "category": "<bug|security|performance|maintainability|style|best-practice>",
+      "title": "<short title>",
+      "description": "<detailed description>",
+      "lineNumber": <number or null>,
+      "codeSnippet": "<relevant code or null>",
+      "suggestion": "<how to fix>",
+      "impact": "<why this matters>"
+    }
+  ],
+  "metrics": {
+    "complexity": <number 1-10>,
+    "maintainability": <number 0-100>,
+    "readability": <number 0-100>,
+    "testability": <number 0-100>,
+    "security": <number 0-100>
+  },
+  "strengths": ["<strength 1>", "<strength 2>"],
+  "recommendations": ["<recommendation 1>", "<recommendation 2>"]
+}
 
+Note: Security metric (0-100) should assess production readiness, secrets detection, hardcoded credentials, auth vulnerabilities, and security best practices. Higher is better.
+
+Analyze this code:
 File: ${filename}
 
-<code>
+\`\`\`
 ${truncated}
-</code>`
+\`\`\`
+
+Return ONLY the JSON object, nothing else.`
 
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
@@ -168,11 +276,7 @@ ${truncated}
         // Token info not available
       }
 
-      return {
-        model,
-        tokens,
-        markdown: text,
-      }
+      return parseReviewResponse(text, model, tokens)
     } catch (e: unknown) {
       lastErr = e
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -186,9 +290,7 @@ ${truncated}
         (err?.message && err.message.includes('quota'))
 
       if (isRateLimit && attempt + 1 < MAX_ATTEMPTS) {
-        // Gemini free tier: wait 20-60s
         const waitSeconds = 30
-        console.log(`Gemini rate limit hit. Retrying in ${waitSeconds}s (attempt ${attempt + 1}/${MAX_ATTEMPTS})`)
         await sleep(waitSeconds * 1000)
         continue
       }
@@ -221,43 +323,65 @@ export async function reviewCode(opts: {
 }): Promise<ReviewResult> {
   const { code, filename, model: requestedModel } = opts
   const model = pickModel(requestedModel)
-  
-  console.log(`\n${'='.repeat(60)}`)
-  console.log(`📋 [reviewCode] CODE REVIEW REQUEST`)
-  console.log(`${'='.repeat(60)}`)
-  console.log(`📥 Requested model: "${requestedModel}"`)
-  console.log(`✅ Picked model: "${model}"`)
-  console.log(`🔍 Is Gemini?: ${isGeminiModel(model)}`)
-  console.log(`🔍 Is Local?: ${isLocalModel(model)}`)
-  console.log(`🌐 OPENAI_LOCAL_BASE_URL: ${process.env.OPENAI_LOCAL_BASE_URL || '(not set)'}`)
-  console.log(`🔑 OPENAI_LOCAL_API_KEY: ${process.env.OPENAI_LOCAL_API_KEY || '(not set)'}`)
-  console.log(`🔑 OPENAI_API_KEY: ${process.env.OPENAI_API_KEY ? 'SET' : '(not set)'}`)
-  console.log(`${'='.repeat(60)}\n`)
 
-  // Route to Gemini if it's a Gemini model
   if (isGeminiModel(model)) {
-    console.log(`🚀 [reviewCode] Routing to Gemini handler`)
     return reviewCodeWithGemini({ code, filename, model })
   }
 
-  // For OpenAI and Ollama models (both use OpenAI SDK)
-  console.log(`🚀 [reviewCode] Getting OpenAI SDK client for model: "${model}"`)
   const client = getOpenAIClient(model)
 
-  // Cost guards (tight for dev; keeps under default RPM/TPM)
+  // Input and output limits
   const MAX_INPUT_CHARS = 3500
-  const MAX_OUTPUT_TOKENS = 500
+  const MAX_OUTPUT_TOKENS = 1500
 
   const truncated = code.length > MAX_INPUT_CHARS ? code.slice(0, MAX_INPUT_CHARS) : code
 
-  const system = 'You are a senior software engineer performing code reviews. Be concise and actionable.'
-  const user = `Review this code for readability, modularity, best practices, and potential bugs. Then provide a prioritized list of improvement suggestions. Return Markdown with sections: Summary, Issues, Suggestions, Potential Bugs, and Refactoring Opportunities.
+  const system = 'You are a senior software engineer performing code reviews. Return only valid JSON objects.'
+  const user = `Analyze this code and return a valid JSON object following this structure:
+{
+  "summary": {
+    "overallScore": <number 0-100>,
+    "grade": "<A+, A, B, C, D, or F>",
+    "totalIssues": <number>,
+    "criticalCount": <number>,
+    "highCount": <number>,
+    "mediumCount": <number>,
+    "lowCount": <number>
+  },
+  "issues": [
+    {
+      "id": "<unique-id>",
+      "severity": "<critical|high|medium|low|info>",
+      "category": "<bug|security|performance|maintainability|style|best-practice>",
+      "title": "<short title>",
+      "description": "<detailed description>",
+      "lineNumber": <number or null>,
+      "codeSnippet": "<relevant code or null>",
+      "suggestion": "<how to fix>",
+      "impact": "<why this matters>"
+    }
+  ],
+  "metrics": {
+    "complexity": <number 1-10>,
+    "maintainability": <number 0-100>,
+    "readability": <number 0-100>,
+    "testability": <number 0-100>,
+    "security": <number 0-100>
+  },
+  "strengths": ["<strength 1>", "<strength 2>"],
+  "recommendations": ["<recommendation 1>", "<recommendation 2>"]
+}
 
+Note: Security metric (0-100) should assess production readiness, secrets detection, hardcoded credentials, auth vulnerabilities, and security best practices. Higher is better.
+
+Analyze this code:
 File: ${filename}
 
-<code>
+\`\`\`
 ${truncated}
-</code>`
+\`\`\`
+
+Return ONLY the JSON object, nothing else.`
 
   async function call() {
     return client.chat.completions.create({
@@ -280,11 +404,8 @@ ${truncated}
     try {
       const resp = await call()
       const choice = resp.choices?.[0]?.message?.content || 'No response'
-      return {
-        model: model,
-        tokens: (resp.usage?.total_tokens as number) || null,
-        markdown: choice,
-      }
+      const tokens = (resp.usage?.total_tokens as number) || null
+      return parseReviewResponse(choice, model, tokens)
     } catch (e: unknown) {
       const err = e as HttpErrorLike
       const status = err?.status ?? err?.response?.status
@@ -314,10 +435,8 @@ ${truncated}
           }
         }
         
-        // Cap wait time at 60 seconds for UX
         waitSeconds = Math.min(60, Math.max(1, waitSeconds))
         
-        console.log(`Rate limit hit. Retrying in ${waitSeconds}s (attempt ${attempt + 1}/${MAX_ATTEMPTS})`)
         await sleep(waitSeconds * 1000)
         continue
       }
@@ -333,19 +452,7 @@ ${truncated}
   const errorType = err?.error?.type
 
   if (status === 429 && headers) {
-    try {
-      const remaining = headerGet(headers, 'x-ratelimit-remaining-requests')
-      const resetReq = headerGet(headers, 'x-ratelimit-reset-requests')
-      console.warn('OpenAI rate limit info:', {
-        type: errorType,
-        requestsRemaining: remaining,
-        tokensRemaining: headerGet(headers, 'x-ratelimit-remaining-tokens'),
-        resetRequests: resetReq,
-        resetTokens: headerGet(headers, 'x-ratelimit-reset-tokens'),
-      })
-    } catch {
-      // noop
-    }
+    // Rate limit handling
   }
 
   const msg =

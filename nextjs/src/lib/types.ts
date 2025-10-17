@@ -51,6 +51,15 @@ export type Database = {
           status: string
           model: string | null
           tokens: number | null
+          structured_data: Json | null
+          overall_score: number | null
+          grade: string | null
+          critical_issues: number | null
+          high_issues: number | null
+          medium_issues: number | null
+          low_issues: number | null
+          total_issues: number | null
+          security_score: number | null
         }
         Insert: {
           id?: number
@@ -63,6 +72,15 @@ export type Database = {
           status?: string
           model?: string | null
           tokens?: number | null
+          structured_data?: Json | null
+          overall_score?: number | null
+          grade?: string | null
+          critical_issues?: number | null
+          high_issues?: number | null
+          medium_issues?: number | null
+          low_issues?: number | null
+          total_issues?: number | null
+          security_score?: number | null
         }
         Update: {
           id?: number
@@ -75,6 +93,15 @@ export type Database = {
           status?: string
           model?: string | null
           tokens?: number | null
+          structured_data?: Json | null
+          overall_score?: number | null
+          grade?: string | null
+          critical_issues?: number | null
+          high_issues?: number | null
+          medium_issues?: number | null
+          low_issues?: number | null
+          total_issues?: number | null
+          security_score?: number | null
         }
         Relationships: []
       }
@@ -252,3 +279,51 @@ export const Constants = {
     Enums: {},
   },
 } as const
+
+// Structured Code Review Types
+export type IssueSeverity = 'critical' | 'high' | 'medium' | 'low' | 'info'
+export type IssueCategory = 'bug' | 'security' | 'performance' | 'maintainability' | 'style' | 'best-practice'
+export type ReviewGrade = 'A+' | 'A' | 'B' | 'C' | 'D' | 'F'
+
+export interface ReviewIssue {
+  id: string
+  severity: IssueSeverity
+  category: IssueCategory
+  title: string
+  description: string
+  lineNumber?: number
+  codeSnippet?: string
+  suggestion: string
+  impact: string
+}
+
+export interface ReviewMetrics {
+  complexity: number // 1-10
+  maintainability: number // 0-100
+  readability: number // 0-100
+  testability: number // 0-100
+  security: number // 0-100
+}
+
+export interface ReviewSummary {
+  overallScore: number // 0-100
+  grade: ReviewGrade
+  totalIssues: number
+  criticalCount: number
+  highCount: number
+  mediumCount: number
+  lowCount: number
+}
+
+export interface StructuredReview {
+  summary: ReviewSummary
+  issues: ReviewIssue[]
+  metrics: ReviewMetrics
+  strengths: string[]
+  recommendations: string[]
+  metadata: {
+    reviewedAt: string
+    model: string
+    tokens: number | null
+  }
+}

@@ -1,16 +1,16 @@
 # Terms of Service
 
-Last Updated: December 14, 2024
+Last Updated: October 17, 2025
 
 ## 1. Company Information
 
-Company Name:
+Company Name: CodeReviewAI
 
-Tax number: 1234567890
+Contact: https://github.com/Nimboo3
 
 ## 2. Introduction
 
-Welcome to SupaSasS ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, applications, and services (collectively, the "Services"), including AI-powered tools, data analysis features, and subscription services.
+Welcome to CodeReviewAI ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, applications, and services (collectively, the "Services"), including AI-powered code review tools, security analysis features, and subscription services.
 
 ## 3. Acceptance of Terms
 
@@ -19,11 +19,12 @@ By accessing or using our Services, you agree to be bound by these Terms. If you
 ## 4. Services Description
 
 Our Services include:
-- AI-powered domain search tools
-- Shopify store analysis
-- Data marketplace access
-- Customer analytics tools
-- Multi-language support features
+- AI-powered code review and analysis
+- Security vulnerability detection
+- Bug detection and code quality metrics
+- Multi-AI model support (Gemini, GPT, Ollama)
+- Detailed code review reports
+- File upload and code analysis features
 
 ## 5. Account Registration and Security
 
@@ -40,9 +41,9 @@ Our Services include:
 ## 6. Subscription Terms
 
 ### 6.1 Billing
-- Subscription fees are billed in advance through Paddle
-- Prices are listed in EUR/USD and may be subject to local taxes
-- We reserve the right to change pricing with 30 days notice
+- Subscription fees are billed monthly in advance
+- Prices are listed in USD and may be subject to local taxes
+- We reserve the right to change pricing with 7 days advance notice
 
 ### 6.2 Cancellation
 - You may cancel your subscription at any time through your account dashboard
@@ -53,50 +54,67 @@ Our Services include:
 
 ### 7.1 Data Collection
 - We collect and process data as described in our Privacy Policy
-- You retain ownership of your content and data
+- You retain ownership of your code and data
 - We use data to improve and maintain our services
 
 ### 7.2 AI Analysis
-- Our AI tools analyze data you provide
+- Our AI tools analyze code you provide
 - Analysis results are for informational purposes only
 - We do not guarantee accuracy of AI-generated recommendations
+- Code analysis is performed using third-party AI models (Google Gemini, OpenAI GPT, Ollama)
 
-## 8. Intellectual Property
+## 8. Usage Limits
 
-### 8.1 Our Rights
-- All content, features, and functionality are owned by Adam Raźniewski oprogramowanie
+### 8.1 Free Tier
+- 20 code reviews per hour
+- 500KB maximum file size
+- 50,000 character code length limit
+
+### 8.2 Premium Tier
+- Unlimited code reviews
+- 10MB maximum file size
+- Priority processing queue
+
+## 9. Intellectual Property
+
+### 9.1 Our Rights
+- All content, features, and functionality are owned by CodeReviewAI
 - Our trademarks and trade dress may not be used without written permission
 
-### 8.2 Your Rights
-- You retain all rights to data you upload
-- You grant us license to use your data to provide services
+### 9.2 Your Rights
+- You retain all rights to code you upload
+- You grant us license to process your code to provide services
+- We do not store your code permanently after analysis
 
-## 9. Limitations of Liability
+## 10. Limitations of Liability
 
 - Services are provided "as is" without warranties
 - We are not liable for any indirect, incidental, or consequential damages
 - Our liability is limited to the amount paid for services in the past 12 months
+- We are not responsible for errors in AI-generated code reviews
 
-## 10. Termination
+## 11. Termination
 
 We reserve the right to terminate or suspend access to our Services:
 - For violations of these Terms
 - For fraudulent or illegal activities
+- For abuse of service limits
 - At our sole discretion with reasonable notice
 
-## 11. Changes to Terms
+## 12. Changes to Terms
 
 We may modify these Terms at any time:
-- Changes will be effective upon posting
+- Pricing changes will be announced 7 days in advance
+- Other changes will be effective upon posting
 - Continued use constitutes acceptance of changes
 - Material changes will be notified via email
 
-## 12. Governing Law
+## 13. Governing Law
 
-These Terms shall be governed by and construed in accordance with the laws of Poland, without regard to its conflict of law provisions.
+These Terms shall be governed by and construed in accordance with applicable international law and the laws of your jurisdiction.
 
-## 13. Contact Information
+## 14. Contact Information
 
 For any questions about these Terms, please contact us at:
-Email: contact@supasass.com
+GitHub: https://github.com/Nimboo3
 

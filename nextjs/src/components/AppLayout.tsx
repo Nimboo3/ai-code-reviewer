@@ -9,7 +9,7 @@ import {
     X,
     ChevronDown,
     LogOut,
-    Key, Files, LucideListTodo, Code,
+    Key, Files, Code,
 } from 'lucide-react';
 import { useGlobal } from "@/lib/context/GlobalContext";
 import { createSPASassClient } from "@/lib/supabase/client";
@@ -45,10 +45,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     const productName = process.env.NEXT_PUBLIC_PRODUCTNAME || 'CodeReviewAI';
 
     const navigation = [
-        { name: 'Homepage', href: '/app', icon: Home },
+        { name: 'Home', href: '/app', icon: Home },
         { name: 'Code Review', href: '/app/code-review', icon: Code },
-        { name: 'Example Storage', href: '/app/storage', icon: Files },
-        { name: 'Example Table', href: '/app/table', icon: LucideListTodo },
+        { name: 'All Reviews', href: '/app/code-review/archive', icon: Files },
         { name: 'User Settings', href: '/app/user-settings', icon: User },
     ];
 
@@ -113,22 +112,34 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         <Menu className="h-6 w-6"/>
                     </button>
 
-                    <div className="relative ml-auto">
-                        <button
-                            onClick={() => setUserDropdownOpen(!isUserDropdownOpen)}
-                            className="flex items-center space-x-3 text-sm text-gray-700 hover:text-gray-900 transition-all duration-200 group"
+                    <div className="relative ml-auto flex items-center gap-3">
+                        {/* Free Tier Badge */}
+                        <Link 
+                            href="/#pricing"
+                            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 border-2 border-blue-200 rounded-full text-xs font-bold text-blue-700 transition-all duration-200 hover:scale-105 shadow-sm hover:shadow-md group"
                         >
-                            <div className="w-10 h-10 rounded-xl gradient-bg-primary flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-200">
-                                <span className="text-white font-bold text-sm">
-                                    {user ? getInitials(user.email) : '??'}
-                                </span>
-                            </div>
-                            <span className="font-medium hidden sm:inline">{user?.email || 'Loading...'}</span>
-                            <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:translate-y-0.5"/>
-                        </button>
+                            <svg className="w-3.5 h-3.5 text-blue-500 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            FREE TIER
+                        </Link>
+                        
+                        <div className="relative">
+                            <button
+                                onClick={() => setUserDropdownOpen(!isUserDropdownOpen)}
+                                className="flex items-center space-x-3 text-sm text-gray-700 hover:text-gray-900 transition-all duration-200 group"
+                            >
+                                <div className="w-10 h-10 rounded-xl gradient-bg-primary flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-200">
+                                    <span className="text-white font-bold text-sm">
+                                        {user ? getInitials(user.email) : '??'}
+                                    </span>
+                                </div>
+                                <span className="font-medium hidden sm:inline">{user?.email || 'Loading...'}</span>
+                                <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:translate-y-0.5"/>
+                            </button>
 
-                        {isUserDropdownOpen && (
-                            <div className="absolute right-0 mt-3 w-72 glass rounded-2xl shadow-2xl border border-white/20 overflow-hidden animate-scale-in">
+                            {isUserDropdownOpen && (
+                                <div className="absolute right-0 mt-3 w-72 glass rounded-2xl shadow-2xl border border-white/20 overflow-hidden animate-scale-in">
                                 <div className="p-4 border-b border-gray-100">
                                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Signed in as</p>
                                     <p className="text-sm font-bold text-gray-900 truncate mt-1">
@@ -158,7 +169,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                     </button>
                                 </div>
                             </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 </div>
 

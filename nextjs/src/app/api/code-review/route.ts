@@ -22,11 +22,24 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ item: data })
   }
 
-  const { data, error } = await supabase
+  // Support limit and offset for pagination/archive
+  const limit = req.nextUrl.searchParams.get('limit')
+  const offset = req.nextUrl.searchParams.get('offset')
+  
+  let query = supabase
     .from('code_reviews')
     .select('*')
     .eq('owner', user.id)
     .order('created_at', { ascending: false })
+
+  if (limit) {
+    query = query.limit(Number(limit))
+  }
+  if (offset) {
+    query = query.range(Number(offset), Number(offset) + (limit ? Number(limit) : 100) - 1)
+  }
+
+  const { data, error } = await query
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ items: data })
@@ -34,23 +47,30 @@ export async function GET(req: NextRequest) {
 
 export async function POST(request: Request) {
   try {
+    // Check authentication first
+    const supabase = await createSSRClient()
+    const { data: { user }, error: userError } = await supabase.auth.getUser()
+    if (userError || !user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     // Frontend sends FormData, not JSON
     const formData = await request.formData()
     const file = formData.get('file') as File | null
     const model = formData.get('model') as string | null
 
-    // ADD DEBUG LOGGING HERE (new code only)
-    console.log(`\n${'*'.repeat(60)}`)
-    console.log(`🌐 [API /code-review] Received request`)
-    console.log(`${'*'.repeat(60)}`)
-    console.log(`📄 File: ${file?.name || 'No file'}`)
-    console.log(`📏 File size: ${file?.size || 0} bytes`)
-    console.log(`🤖 Model from client: "${model || 'default'}"`)
-    console.log(`${'*'.repeat(60)}\n`)
-    // END DEBUG LOGGING
-
     if (!file) {
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 })
+    }
+
+    // File size validation (500KB max for Free tier)
+    const MAX_FILE_SIZE = 500 * 1024 // 500KB
+    if (file.size > MAX_FILE_SIZE) {
+      return NextResponse.json({ 
+        error: `File too large for Free tier. Your file is ${(file.size / 1024).toFixed(1)}KB but Free tier supports up to ${MAX_FILE_SIZE / 1024}KB. Upgrade to Premium for 10MB file uploads!`,
+        type: 'file_too_large',
+        upgradeToPremium: true
+      }, { status: 413 })
     }
 
     // Read file content
@@ -64,35 +84,65 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing filename' }, { status: 400 })
     }
 
-    const result = await reviewCode({ code, filename, model: model || undefined })
-
-    // ADD DEBUG LOGGING HERE (new code only)
-    console.log(`✅ [API /code-review] Review completed successfully with model: ${result.model}`)
-    // END DEBUG LOGGING
-
-    // Store in database
-    const supabase = await createSSRClient()
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser()
-    if (userError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    // Character length validation (prevents extremely large files)
+    const MAX_CODE_LENGTH = 50000 // 50k characters (~12.5k tokens) for Free tier
+    if (code.length > MAX_CODE_LENGTH) {
+      return NextResponse.json({ 
+        error: `Code too long for Free tier. Your code has ${code.length.toLocaleString()} characters but Free tier supports up to ${MAX_CODE_LENGTH.toLocaleString()} characters. Upgrade to Premium for unlimited code length!`,
+        type: 'code_too_long',
+        upgradeToPremium: true
+      }, { status: 413 })
     }
 
+    // Rate limiting check - Query user's recent reviews (Free tier: 20/hour)
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
+    const { data: recentReviews, error: countError } = await supabase
+      .from('code_reviews')
+      .select('id', { count: 'exact', head: false })
+      .eq('owner', user.id)
+      .gte('created_at', oneHourAgo)
+
+    if (countError) {
+      // Continue anyway - don't block on rate limit check failure
+    } else {
+      const RATE_LIMIT_PER_HOUR = 20 // Free tier: 20 reviews per hour
+      const reviewCount = recentReviews?.length || 0
+      
+      if (reviewCount >= RATE_LIMIT_PER_HOUR) {
+        return NextResponse.json({ 
+          error: `Free tier rate limit reached! You've used ${reviewCount}/${RATE_LIMIT_PER_HOUR} reviews this hour. Upgrade to Premium for unlimited reviews with no waiting!`,
+          type: 'rate_limit_exceeded',
+          retryAfter: 3600, // seconds
+          upgradeToPremium: true
+        }, { status: 429 })
+      }
+    }
+
+    const result = await reviewCode({ code, filename, model: model || undefined })
+
+    // Store in database (user already authenticated at top of function)
     // The database schema uses different column names than the API
-    // ReviewResult type: { markdown: string; model: string; tokens: number | null }
+    // ReviewResult type: { structured, markdown, model, tokens }
     const row: TablesInsert<'code_reviews'> = {
       owner: user.id,
       file_name: filename,
       source_preview: code,
-      report_md: result.markdown,           // Use markdown property from result
+      report_md: result.markdown,
       model: result.model,
-      tokens: result.tokens ?? 0,           // Use tokens property from result
+      tokens: result.tokens ?? 0,
       status: 'completed',
+      // Add structured data if available
+      structured_data: result.structured ? JSON.parse(JSON.stringify(result.structured)) : null,
+      overall_score: result.structured?.summary.overallScore ?? null,
+      grade: result.structured?.summary.grade ?? null,
+      critical_issues: result.structured?.summary.criticalCount ?? 0,
+      high_issues: result.structured?.summary.highCount ?? 0,
+      medium_issues: result.structured?.summary.mediumCount ?? 0,
+      low_issues: result.structured?.summary.lowCount ?? 0,
+      total_issues: result.structured?.summary.totalIssues ?? 0,
+      security_score: result.structured?.metrics.security ?? null,
     }
 
-    // TypeScript workaround for Supabase insert type inference issue
     const { data, error } = await supabase
       .from('code_reviews')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -114,7 +164,6 @@ export async function POST(request: Request) {
       id: (data as any)?.id 
     })
   } catch (error: unknown) {
-    console.error('❌ [API /code-review] Error:', error)
     const err = error as {
       status?: number
       message?: string
@@ -122,7 +171,7 @@ export async function POST(request: Request) {
       errorType?: string
     }
     if (err.status === 429) {
-      console.warn('OpenAI 429', { type: err.errorType, ...err.headersSnapshot })
+      // Rate limit handling
     }
     return NextResponse.json(
       {
@@ -133,4 +182,23 @@ export async function POST(request: Request) {
       { status: err?.status === 429 ? 429 : 500 }
     )
   }
+}
+
+export async function DELETE(req: NextRequest) {
+  const supabase = await createSSRClient()
+  const { data: { user }, error: userError } = await supabase.auth.getUser()
+  if (userError || !user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const id = req.nextUrl.searchParams.get('id')
+  if (!id) return NextResponse.json({ error: 'Missing ID' }, { status: 400 })
+
+  // Delete only if owned by user
+  const { error } = await supabase
+    .from('code_reviews')
+    .delete()
+    .eq('id', Number(id))
+    .eq('owner', user.id)
+
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json({ success: true })
 }
