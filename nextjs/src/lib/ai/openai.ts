@@ -38,7 +38,7 @@ export function getOpenAIClient(selectedModel?: string) {
   return new OpenAI({ apiKey, baseURL })
 }
 
-export const DEFAULT_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini'
+export const DEFAULT_MODEL = process.env.OPENAI_MODEL || 'gemini-1.5-flash-latest'
 
 const MODEL_ALLOWLIST = new Set<string>([
   'gpt-4o-mini',
