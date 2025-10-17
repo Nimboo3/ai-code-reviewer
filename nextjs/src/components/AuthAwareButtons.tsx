@@ -33,18 +33,18 @@ export default function AuthAwareButtons({ variant = 'primary' }) {
         return isAuthenticated ? (
             <Link
                 href="/app"
-                className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+                className="gradient-bg-primary text-white px-5 py-2.5 rounded-xl font-semibold hover-glow transition-all duration-200 shadow-md"
             >
-                Go to Dashboard
+                Dashboard
             </Link>
         ) : (
             <>
-                <Link href="/auth/login" className="text-gray-600 hover:text-gray-900">
+                <Link href="/auth/login" className="text-gray-600 hover:text-primary-600 font-medium transition-colors duration-200">
                     Login
                 </Link>
                 <Link
                     href="/auth/register"
-                    className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
+                    className="gradient-bg-primary text-white px-5 py-2.5 rounded-xl font-semibold hover-glow transition-all duration-200 shadow-md"
                 >
                     Get Started
                 </Link>
@@ -56,7 +56,7 @@ export default function AuthAwareButtons({ variant = 'primary' }) {
     return isAuthenticated ? (
         <Link
             href="/app"
-            className="inline-flex items-center px-6 py-3 rounded-lg bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors"
+            className="inline-flex items-center px-8 py-4 rounded-xl gradient-bg-primary text-white font-bold hover-glow hover-scale transition-all duration-300 shadow-xl"
         >
             Go to Dashboard
             <ArrowRight className="ml-2 h-5 w-5" />
@@ -65,14 +65,14 @@ export default function AuthAwareButtons({ variant = 'primary' }) {
         <>
             <Link
                 href="/auth/register"
-                className="inline-flex items-center px-6 py-3 rounded-lg bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors"
+                className="inline-flex items-center px-8 py-4 rounded-xl gradient-bg-primary text-white font-bold hover-glow hover-scale transition-all duration-300 shadow-xl"
             >
                 Start Building Free
                 <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
             <Link
                 href="#features"
-                className="inline-flex items-center px-6 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center px-8 py-4 rounded-xl border-2 border-gray-300 text-gray-700 font-bold hover:border-primary-500 hover:bg-primary-50 hover:text-primary-700 transition-all duration-300 shadow-md hover:shadow-lg"
             >
                 Learn More
                 <ChevronRight className="ml-2 h-5 w-5" />

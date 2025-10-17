@@ -29,7 +29,8 @@
     "recharts": "^2.15.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "openai": "^4.73.0"
+    "openai": "^4.73.0",
+    "@google/generative-ai": "^0.21.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

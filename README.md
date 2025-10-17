@@ -9,14 +9,17 @@ AI Code Review Assistant — a focused tool and demo app that helps automate cod
 - Persistent review storage backed by Supabase (`public.code_reviews` table)
 - Authenticated UI (Supabase Auth) with optional MFA support
 - Simple API endpoints for submitting and fetching reviews (`/api/code-review`)
-- Pluggable LLM provider (OpenAI by default) with prompt templates for consistent, actionable feedback
+- Pluggable LLM provider (OpenAI, Google Gemini, or local Ollama) with prompt templates for consistent, actionable feedback
 - Example dashboard at `/app/code-review` for uploading files and viewing reports
 
 ## Architecture overview
 
 - Frontend: Next.js (App Router) + React + Tailwind CSS
 - Backend: Next.js Route Handlers (Node runtime) + Supabase (Postgres + Auth + Storage)
-- LLM: OpenAI (via API key) — prompts run server-side and results are stored in Postgres
+- LLM: Multiple providers supported:
+  - **OpenAI** (gpt-4o-mini, gpt-4o) — Fast & capable, ~$0.15 per 1M tokens, free tier has 3 RPM limit
+  - **Google Gemini** (gemini-1.5-flash-latest, gemini-1.5-pro-latest, gemini-2.0-flash-exp, gemini-2.5-flash-latest) — Free tier: 1500 requests/day, no credit card required (uses native Google SDK)
+  - **Local Ollama** (gemma3:4b, qwen3:4b, qwen3:8b, deepseek-rl:8b) — Unlimited offline usage, privacy-first, optimized for CPU
 
 ## Quick start — Local development
 
@@ -24,7 +27,10 @@ Prerequisites:
 - Node.js 18+
 - pnpm / npm / yarn
 - Supabase CLI (optional for local DB/migrations)
-- OpenAI API key (or other LLM provider credentials)
+- API key for one of:
+  - **OpenAI** (get from https://platform.openai.com/api-keys) — requires $5+ prepaid for 500 RPM, free tier is 3 RPM
+  - **Google Gemini** (get from https://aistudio.google.com/apikey) — 1500 free requests/day, no credit card
+  - **Local Ollama** (install from https://ollama.com/) — unlimited offline usage, no API key needed
 
 1. Clone the repository
 
@@ -41,11 +47,11 @@ npm install
 
 3. Prepare environment
 
-Copy the example env and fill values (replace placeholders):
+Copy the template and fill in your values:
 
 ```bash
-cp .env.template .env.local
-# Edit .env.local and set the values below
+cp .env.local.template .env.local
+# Edit .env.local and add your API keys
 ```
 
 Required environment variables (in `nextjs/.env.local`):
@@ -53,8 +59,13 @@ Required environment variables (in `nextjs/.env.local`):
 - NEXT_PUBLIC_SUPABASE_URL — your Supabase project URL
 - NEXT_PUBLIC_SUPABASE_ANON_KEY — Supabase anon/public key
 - PRIVATE_SUPABASE_SERVICE_KEY — Supabase service_role key (server-only)
-- OPENAI_API_KEY — API key for the LLM (OpenAI)
-- NEXT_PUBLIC_PRODUCTNAME — optional product name shown in UI (e.g., CodeReviewAI)
+- **Choose one AI provider:**
+  - OPENAI_API_KEY — for OpenAI models (gpt-4o-mini, gpt-4o)
+  - GEMINI_API_KEY — for Google Gemini models (gemini-1.5-flash, gemini-1.5-pro, gemini-2.0-flash-exp)
+  - *(or install Ollama for local models — no API key needed)*
+- NEXT_PUBLIC_PRODUCTNAME — optional product name shown in UI (default: "AI Code Reviewer")
+
+**Recommended for getting started:** Use GEMINI_API_KEY to get 1500 free requests/day with no credit card required.
 
 4. Apply Supabase migrations
 

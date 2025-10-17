@@ -58,16 +58,16 @@ export default function LoginPage() {
 
 
     return (
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="glass p-8 rounded-2xl shadow-2xl animate-fade-in">
             {error && (
-                <div className="mb-4 p-4 text-sm text-red-700 bg-red-100 rounded-lg">
+                <div className="mb-6 p-4 text-sm text-red-700 bg-red-50 border-l-4 border-red-500 rounded-lg animate-slide-up">
                     {error}
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="email" className="block text-sm font-semibold text-gray-900 mb-2">
                         Email address
                     </label>
                     <div className="mt-1">
@@ -79,13 +79,14 @@ export default function LoginPage() {
                             required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500"
+                            className="block w-full appearance-none rounded-xl border-2 border-gray-200 px-4 py-3 shadow-sm placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200 transition-all duration-200"
+                            placeholder="you@example.com"
                         />
                     </div>
                 </div>
 
                 <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="password" className="block text-sm font-semibold text-gray-900 mb-2">
                         Password
                     </label>
                     <div className="mt-1">
@@ -97,14 +98,15 @@ export default function LoginPage() {
                             required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500"
+                            className="block w-full appearance-none rounded-xl border-2 border-gray-200 px-4 py-3 shadow-sm placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200 transition-all duration-200"
+                            placeholder="••••••••"
                         />
                     </div>
                 </div>
 
                 <div className="flex items-center justify-between">
                     <div className="text-sm">
-                        <Link href="/auth/forgot-password" className="font-medium text-primary-600 hover:text-primary-500">
+                        <Link href="/auth/forgot-password" className="font-semibold text-primary-600 hover:text-primary-700 underline-offset-2 hover:underline transition-all duration-200">
                             Forgot your password?
                         </Link>
                     </div>
@@ -114,19 +116,29 @@ export default function LoginPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50"
+                        className="flex w-full justify-center items-center rounded-xl border border-transparent gradient-bg-primary py-3.5 px-4 text-sm font-bold text-white shadow-lg hover-glow transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {loading ? 'Signing in...' : 'Sign in'}
+                        {loading ? (
+                            <>
+                                <svg className="animate-spin -ml-1 mr-3 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                                </svg>
+                                Signing in...
+                            </>
+                        ) : (
+                            'Sign in'
+                        )}
                     </button>
                 </div>
             </form>
 
             <SSOButtons onError={setError} />
 
-            <div className="mt-6 text-center text-sm">
+            <div className="mt-8 text-center text-sm">
                 <span className="text-gray-600">Don&#39;t have an account?</span>
                 {' '}
-                <Link href="/auth/register" className="font-medium text-primary-600 hover:text-primary-500">
+                <Link href="/auth/register" className="font-semibold text-primary-600 hover:text-primary-700 transition-colors duration-200">
                     Sign up
                 </Link>
             </div>

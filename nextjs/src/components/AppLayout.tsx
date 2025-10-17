@@ -55,45 +55,45 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen mesh-background">
             {isSidebarOpen && (
                 <div
-                    className="fixed inset-0 bg-gray-600 bg-opacity-75 z-20 lg:hidden"
+                    className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-20 lg:hidden animate-fade-in"
                     onClick={toggleSidebar}
                 />
             )}
 
             {/* Sidebar */}
-            <div className={`fixed inset-y-0 left-0 w-64 bg-white shadow-lg transform transition-transform duration-200 ease-in-out z-30 
+            <div className={`fixed inset-y-0 left-0 w-64 glass-dark shadow-2xl transform transition-all duration-300 ease-out z-30 
                 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
 
-                <div className="h-16 flex items-center justify-between px-4 border-b">
-                    <span className="text-xl font-semibold text-primary-600">{productName}</span>
+                <div className="h-16 flex items-center justify-between px-6 border-b border-white/10">
+                    <span className="text-xl font-bold gradient-text">{productName}</span>
                     <button
                         onClick={toggleSidebar}
-                        className="lg:hidden text-gray-500 hover:text-gray-700"
+                        className="lg:hidden text-gray-400 hover:text-white transition-colors duration-200"
                     >
                         <X className="h-6 w-6" />
                     </button>
                 </div>
 
                 {/* Navigation */}
-                <nav className="mt-4 px-2 space-y-1">
+                <nav className="mt-6 px-3 space-y-2">
                     {navigation.map((item) => {
                         const isActive = pathname === item.href;
                         return (
                             <Link
                                 key={item.name}
                                 href={item.href}
-                                className={`group flex items-center px-2 py-2 text-sm font-medium rounded-md ${
+                                className={`group flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 ${
                                     isActive
-                                        ? 'bg-primary-50 text-primary-600'
-                                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                                        ? 'gradient-bg-primary text-white shadow-lg'
+                                        : 'text-gray-300 hover:bg-white/10 hover:text-white'
                                 }`}
                             >
                                 <item.icon
-                                    className={`mr-3 h-5 w-5 ${
-                                        isActive ? 'text-primary-500' : 'text-gray-400 group-hover:text-gray-500'
+                                    className={`mr-3 h-5 w-5 transition-transform duration-200 ${
+                                        isActive ? 'text-white scale-110' : 'text-gray-400 group-hover:text-white group-hover:scale-110'
                                     }`}
                                 />
                                 {item.name}
@@ -105,10 +105,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
 
             <div className="lg:pl-64">
-                <div className="sticky top-0 z-10 flex items-center justify-between h-16 bg-white shadow-sm px-4">
+                <div className="sticky top-0 z-10 flex items-center justify-between h-16 glass px-6">
                     <button
                         onClick={toggleSidebar}
-                        className="lg:hidden text-gray-500 hover:text-gray-700"
+                        className="lg:hidden text-gray-600 hover:text-gray-900 transition-colors duration-200"
                     >
                         <Menu className="h-6 w-6"/>
                     </button>
@@ -116,34 +116,34 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     <div className="relative ml-auto">
                         <button
                             onClick={() => setUserDropdownOpen(!isUserDropdownOpen)}
-                            className="flex items-center space-x-2 text-sm text-gray-700 hover:text-gray-900"
+                            className="flex items-center space-x-3 text-sm text-gray-700 hover:text-gray-900 transition-all duration-200 group"
                         >
-                            <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center">
-                                <span className="text-primary-700 font-medium">
+                            <div className="w-10 h-10 rounded-xl gradient-bg-primary flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow duration-200">
+                                <span className="text-white font-bold text-sm">
                                     {user ? getInitials(user.email) : '??'}
                                 </span>
                             </div>
-                            <span>{user?.email || 'Loading...'}</span>
-                            <ChevronDown className="h-4 w-4"/>
+                            <span className="font-medium hidden sm:inline">{user?.email || 'Loading...'}</span>
+                            <ChevronDown className="h-4 w-4 transition-transform duration-200 group-hover:translate-y-0.5"/>
                         </button>
 
                         {isUserDropdownOpen && (
-                            <div className="absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg border">
-                                <div className="p-2 border-b border-gray-100">
-                                    <p className="text-xs text-gray-500">Signed in as</p>
-                                    <p className="text-sm font-medium text-gray-900 truncate">
+                            <div className="absolute right-0 mt-3 w-72 glass rounded-2xl shadow-2xl border border-white/20 overflow-hidden animate-scale-in">
+                                <div className="p-4 border-b border-gray-100">
+                                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Signed in as</p>
+                                    <p className="text-sm font-bold text-gray-900 truncate mt-1">
                                         {user?.email}
                                     </p>
                                 </div>
-                                <div className="py-1">
+                                <div className="py-2">
                                     <button
                                         onClick={() => {
                                             setUserDropdownOpen(false);
                                             handleChangePassword()
                                         }}
-                                        className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                                        className="w-full flex items-center px-5 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors duration-150"
                                     >
-                                        <Key className="mr-3 h-4 w-4 text-gray-400"/>
+                                        <Key className="mr-3 h-5 w-5 text-gray-400"/>
                                         Change Password
                                     </button>
                                     <button
@@ -151,9 +151,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                             handleLogout();
                                             setUserDropdownOpen(false);
                                         }}
-                                        className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                                        className="w-full flex items-center px-5 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors duration-150"
                                     >
-                                        <LogOut className="mr-3 h-4 w-4 text-red-400"/>
+                                        <LogOut className="mr-3 h-5 w-5 text-red-400"/>
                                         Sign Out
                                     </button>
                                 </div>
@@ -162,7 +162,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     </div>
                 </div>
 
-                <main className="p-4">
+                <main className="p-6 min-h-screen">
                     {children}
                 </main>
             </div>
