@@ -94,25 +94,25 @@ export async function POST(request: Request) {
       }, { status: 413 })
     }
 
-    // Rate limiting check - Query user's recent reviews (Free tier: 20/hour)
-    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString()
+    // Rate limiting check - Query user's recent reviews (Free tier: 7/day)
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
     const { data: recentReviews, error: countError } = await supabase
       .from('code_reviews')
       .select('id', { count: 'exact', head: false })
       .eq('owner', user.id)
-      .gte('created_at', oneHourAgo)
+      .gte('created_at', oneDayAgo)
 
     if (countError) {
       // Continue anyway - don't block on rate limit check failure
     } else {
-      const RATE_LIMIT_PER_HOUR = 20 // Free tier: 20 reviews per hour
+      const RATE_LIMIT_PER_DAY = 7 // Free tier: 7 reviews per day
       const reviewCount = recentReviews?.length || 0
       
-      if (reviewCount >= RATE_LIMIT_PER_HOUR) {
+      if (reviewCount >= RATE_LIMIT_PER_DAY) {
         return NextResponse.json({ 
-          error: `Free tier rate limit reached! You've used ${reviewCount}/${RATE_LIMIT_PER_HOUR} reviews this hour. Upgrade to Premium for unlimited reviews with no waiting!`,
+          error: `Free tier rate limit reached! You've used ${reviewCount}/${RATE_LIMIT_PER_DAY} reviews today. Upgrade to Premium for unlimited reviews with no waiting!`,
           type: 'rate_limit_exceeded',
-          retryAfter: 3600, // seconds
+          retryAfter: 86400, // seconds (24 hours)
           upgradeToPremium: true
         }, { status: 429 })
       }

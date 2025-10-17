@@ -30,7 +30,7 @@ export default function HomePricing() {
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <Check className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">20 code reviews per hour</span>
+                  <span className="text-gray-700">7 code reviews per day</span>
                 </li>
                 <li className="flex items-start">
                   <Check className="h-5 w-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" />
@@ -112,7 +112,7 @@ export default function HomePricing() {
 
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-600">
-            All prices in USD. Free tier resets hourly. No credit card required for free tier.
+            All prices in USD. Free tier resets daily. No credit card required for free tier.
           </p>
         </div>
       </div>

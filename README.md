@@ -6,7 +6,7 @@ An AI-powered code review platform that provides automated analysis of your code
 
 - Automated code review with structured feedback (issues, metrics, suggestions)
 - Multiple AI provider support (OpenAI, Google Gemini, Local Ollama)
-- Two-tier pricing system (Free: 20 reviews/hour, Premium: unlimited)
+- Two-tier pricing system (Free: 7 reviews/day, Premium: unlimited)
 - Secure authentication with optional MFA
 - Review history and analytics dashboard
 - File size limits: 500KB (Free), 10MB (Premium)
