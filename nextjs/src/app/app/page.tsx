@@ -30,7 +30,7 @@ export default function DashboardContent() {
             {/* Welcome Header */}
             <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-8 md:p-12 shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent"></div>
-                <div className="relative z-10">
+                <div className="relative">
                     <div className="flex items-center gap-3 mb-4">
                         <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-lg">
                             <Sparkles className="h-8 w-8 text-white" />
@@ -135,7 +135,7 @@ export default function DashboardContent() {
                         </div>
                         <h3 className="font-bold text-gray-900">Free Tier Active</h3>
                     </div>
-                    <p className="text-sm text-gray-600">20 reviews/hour • 500KB files</p>
+                    <p className="text-sm text-gray-600">7 reviews/day • 500KB files</p>
                 </div>
 
                 <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-2xl p-6 border border-orange-200">

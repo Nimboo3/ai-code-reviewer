@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {usePathname, useRouter} from 'next/navigation';
 import {
@@ -17,11 +17,26 @@ import { createSPASassClient } from "@/lib/supabase/client";
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isUserDropdownOpen, setUserDropdownOpen] = useState(false);
+    const [shouldScrollToPricing, setShouldScrollToPricing] = useState(false);
     const pathname = usePathname();
     const router = useRouter();
 
 
     const { user } = useGlobal();
+
+    // Effect to handle scrolling to pricing section
+    useEffect(() => {
+        if (shouldScrollToPricing && pathname === '/') {
+            const timer = setTimeout(() => {
+                const pricingSection = document.getElementById('pricing');
+                if (pricingSection) {
+                    pricingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    setShouldScrollToPricing(false);
+                }
+            }, 100);
+            return () => clearTimeout(timer);
+        }
+    }, [pathname, shouldScrollToPricing]);
 
     const handleLogout = async () => {
         try {
@@ -104,7 +119,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
 
             <div className="lg:pl-64">
-                <div className="sticky top-0 z-10 flex items-center justify-between h-16 glass px-6">
+                <div className="sticky top-0 z-40 flex items-center justify-between h-16 glass px-6">
                     <button
                         onClick={toggleSidebar}
                         className="lg:hidden text-gray-600 hover:text-gray-900 transition-colors duration-200"
@@ -112,17 +127,29 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         <Menu className="h-6 w-6"/>
                     </button>
 
-                    <div className="relative ml-auto flex items-center gap-3">
+                    <div className="relative ml-auto flex items-center gap-3 z-50">
                         {/* Free Tier Badge */}
-                        <Link 
-                            href="/#pricing"
-                            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 border-2 border-blue-200 rounded-full text-xs font-bold text-blue-700 transition-all duration-200 hover:scale-105 shadow-sm hover:shadow-md group"
+                        <button
+                            onClick={() => {
+                                // If already on homepage, just scroll
+                                if (pathname === '/') {
+                                    const pricingSection = document.getElementById('pricing');
+                                    if (pricingSection) {
+                                        pricingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    }
+                                } else {
+                                    // Navigate to homepage and trigger scroll via useEffect
+                                    setShouldScrollToPricing(true);
+                                    router.push('/');
+                                }
+                            }}
+                            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 border-2 border-blue-200 rounded-full text-xs font-bold text-blue-700 transition-all duration-200 hover:scale-105 shadow-sm hover:shadow-md group cursor-pointer"
                         >
                             <svg className="w-3.5 h-3.5 text-blue-500 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
                             FREE TIER
-                        </Link>
+                        </button>
                         
                         <div className="relative">
                             <button

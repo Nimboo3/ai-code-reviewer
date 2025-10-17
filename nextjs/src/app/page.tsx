@@ -100,7 +100,7 @@ export default function Home() {
             <div className="text-center">
               <div className="inline-block animate-slide-up">
                 <span className="inline-block px-4 py-2 rounded-full bg-primary-100 text-primary-700 text-sm font-semibold mb-6">
-                  ✨ Powered by Advanced AI
+                  Multi-Model AI Analysis
                 </span>
               </div>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight animate-slide-up-delayed">
@@ -156,7 +156,9 @@ export default function Home() {
           </div>
         </section>
 
-        <HomePricing />
+        <div id="pricing">
+          <HomePricing />
+        </div>
 
         <section className="py-24 relative overflow-hidden">
           <div className="absolute inset-0 gradient-bg-primary opacity-95"></div>

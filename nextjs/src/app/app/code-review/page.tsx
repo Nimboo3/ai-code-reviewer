@@ -17,7 +17,7 @@ export default function CodeReviewPage() {
   const [items, setItems] = useState<ReviewItem[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [selectedModel, setSelectedModel] = useState('gemini-1.5-flash-latest') // Free tier default
+  const [selectedModel, setSelectedModel] = useState('gemini-2.0-flash-exp') // Default to latest recommended
   const [successNotification, setSuccessNotification] = useState<{
     show: boolean
     reportId: number | null
@@ -200,43 +200,44 @@ export default function CodeReviewPage() {
             name="model"
             value={selectedModel}
             onChange={(e) => setSelectedModel(e.target.value)}
-            className="w-full px-4 py-2.5 bg-white/80 backdrop-blur-sm border-2 border-gray-200 
-                       rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 
-                       focus:border-indigo-500 transition-all"
+            className="w-full px-4 py-3 bg-gradient-to-br from-white to-gray-50 border-2 border-gray-200 
+                       rounded-xl text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 
+                       focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm 
+                       hover:border-gray-300 cursor-pointer"
           >
-            <optgroup label="🌟 Recommended (Free Tier)">
-              <option value="gemini-1.5-flash-latest">Gemini 1.5 Flash (1500 free/day) ⭐</option>
-              <option value="gemma3:4b">Gemma3 4B (Local - No limits) ⭐</option>
-              <option value="qwen3:4b">Qwen3 4B (Local - Best for code) ⭐</option>
+            <optgroup label="─── Recommended ───">
+              <option value="gemini-2.0-flash-exp">Gemini 2.0 Flash — Fastest, latest model</option>
+              <option value="gemini-2.0-flash-thinking-exp-1219">Gemini 2.0 Flash Thinking — Extended reasoning</option>
             </optgroup>
             
-            <optgroup label="💰 Cloud Models (Paid/Limited)">
-              <option value="gpt-4o-mini">GPT-4o Mini ($0.15/1M tokens)</option>
-              <option value="gpt-4o">GPT-4o ($2.50/1M tokens)</option>
-              <option value="gemini-1.5-pro-latest">Gemini 1.5 Pro (1500 free/day)</option>
+            <optgroup label="─── Google Gemini ───">
+              <option value="gemini-1.5-flash-latest">Gemini 1.5 Flash — 1500 free per day</option>
+              <option value="gemini-1.5-pro-latest">Gemini 1.5 Pro — 1500 free per day</option>
             </optgroup>
             
-            <optgroup label="🚀 Latest Experimental (Free Tier)">
-              <option value="gemini-2.0-flash-exp">Gemini 2.0 Flash ⚡ (Fastest, Latest)</option>
-              <option value="gemini-2.0-flash-thinking-exp-1219">Gemini 2.0 Flash Thinking 🧠 (Extended reasoning)</option>
+            <optgroup label="─── OpenAI ───">
+              <option value="gpt-4o-mini">GPT-4o Mini — $0.15 per 1M tokens</option>
+              <option value="gpt-4o">GPT-4o — $2.50 per 1M tokens</option>
             </optgroup>
             
-            <optgroup label="💻 Local Ollama (Fast CPU Models)">
-              <option value="gemma3:1b">Gemma3 1B (Fastest - 1-2s)</option>
-              <option value="gemma3:4b">Gemma3 4B (Balanced - 3-5s) ⭐</option>
-              <option value="qwen3:4b">Qwen3 4B (Best for code - 3-5s) ⭐</option>
+            <optgroup label="─── Local (Fast) ───">
+              <option value="gemma3:1b">Gemma 3 1B — Fastest, 1-2 seconds</option>
+              <option value="gemma3:4b">Gemma 3 4B — Balanced, 3-5 seconds</option>
+              <option value="qwen3:4b">Qwen 3 4B — Best for code, 3-5 seconds</option>
             </optgroup>
             
-            <optgroup label="🐌 Local Ollama (Slower, Better Quality)">
-              <option value="qwen3:8b">Qwen3 8B (Better quality - 8-12s)</option>
-              <option value="deepseek-rl:8b">DeepSeek-RL 8B (Code-focused - 8-12s)</option>
-              <option value="qwen2.5-coder:7b">Qwen2.5-Coder 7B (Legacy)</option>
-              <option value="llama3.2:3b">Llama3.2 3B (General purpose)</option>
+            <optgroup label="─── Local (Quality) ───">
+              <option value="qwen3:8b">Qwen 3 8B — Better quality, 8-12 seconds</option>
+              <option value="deepseek-rl:8b">DeepSeek RL 8B — Code-focused, 8-12 seconds</option>
+              <option value="qwen2.5-coder:7b">Qwen 2.5 Coder 7B — Legacy</option>
+              <option value="llama3.2:3b">Llama 3.2 3B — General purpose</option>
             </optgroup>
           </select>
-          <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-gray-400"></span>
-            Local models require Ollama + (optional) LiteLLM proxy running on your machine.
+          <p className="text-xs text-gray-500 mt-2 flex items-center gap-1.5">
+            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Local models require Ollama running on your machine</span>
           </p>
         </div>
         
