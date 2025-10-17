@@ -139,7 +139,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                             </button>
 
                             {isUserDropdownOpen && (
-                                <div className="absolute right-0 mt-3 w-72 glass rounded-2xl shadow-2xl border border-white/20 overflow-hidden animate-scale-in">
+                                <div className="absolute right-0 mt-3 w-72 glass rounded-2xl shadow-2xl border border-white/20 overflow-hidden animate-scale-in z-50">
                                 <div className="p-4 border-b border-gray-100">
                                     <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Signed in as</p>
                                     <p className="text-sm font-bold text-gray-900 truncate mt-1">
