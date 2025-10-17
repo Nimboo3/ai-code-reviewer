@@ -33,7 +33,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     pricingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setShouldScrollToPricing(false);
                 }
-            }, 100);
+            }, 300); // Increased timeout to ensure content is loaded
             return () => clearTimeout(timer);
         }
     }, [pathname, shouldScrollToPricing]);
@@ -57,7 +57,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             : parts[0].slice(0, 2).toUpperCase();
     };
 
-    const productName = process.env.NEXT_PUBLIC_PRODUCTNAME || 'CodeReviewAI';
+    const productName = process.env.NEXT_PUBLIC_PRODUCTNAME || 'CodeReview.ai';
 
     const navigation = [
         { name: 'Home', href: '/app', icon: Home },

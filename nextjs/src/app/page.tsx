@@ -5,7 +5,7 @@ import AuthAwareButtons from '@/components/AuthAwareButtons';
 import HomePricing from "@/components/HomePricing";
 
 export default function Home() {
-  const productName = process.env.NEXT_PUBLIC_PRODUCTNAME || 'CodeReviewAI';
+  const productName = process.env.NEXT_PUBLIC_PRODUCTNAME || 'CodeReview.ai';
 
   const features = [
     {
@@ -100,7 +100,7 @@ export default function Home() {
             <div className="text-center">
               <div className="inline-block animate-slide-up">
                 <span className="inline-block px-4 py-2 rounded-full bg-primary-100 text-primary-700 text-sm font-semibold mb-6">
-                  Multi-Model AI Analysis
+                  AI Code Review Assistant
                 </span>
               </div>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight animate-slide-up-delayed">
@@ -108,7 +108,7 @@ export default function Home() {
                 <span className="block gradient-text mt-2">Catch bugs faster, ship with confidence</span>
               </h1>
               <p className="mt-8 text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed animate-slide-up-delayed">
-                {productName} helps teams automate code review with context-aware suggestions, security checks, and actionable feedback — seamlessly integrated into your workflow.
+                {productName} is your intelligent code review assistant that helps teams automate reviews with context-aware suggestions, security checks, and actionable feedback — seamlessly integrated into your workflow.
               </p>
               <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-slide-up-delayed">
                 <AuthAwareButtons />

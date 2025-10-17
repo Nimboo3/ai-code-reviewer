@@ -6,8 +6,8 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 
 export const metadata: Metadata = {
-  title: process.env.NEXT_PUBLIC_PRODUCTNAME,
-  description: "The best way to build your SaaS product.",
+  title: process.env.NEXT_PUBLIC_PRODUCTNAME || 'CodeReview.ai',
+  description: "AI-powered code review assistant that helps teams catch bugs faster and ship with confidence.",
 };
 
 export default function RootLayout({

@@ -6,10 +6,10 @@ export default function AuthLayout({
                                    }: {
     children: React.ReactNode;
 }) {
-    const productName = process.env.NEXT_PUBLIC_PRODUCTNAME;
+    const productName = process.env.NEXT_PUBLIC_PRODUCTNAME || 'CodeReview.ai';
     const testimonials = [
         {
-            quote: "AI Code Reviewer surfaced critical issues and helped our team fix security and style regressions before they reached production.",
+            quote: "CodeReview.ai surfaced critical issues and helped our team fix security and style regressions before they reached production.",
             author: "Anubhava Tripathi",
             role: "CTO, Kineton",
             avatar: "AT"
@@ -21,10 +21,10 @@ export default function AuthLayout({
             avatar: "KG"
         },
         {
-            quote: "The feedback is concise, prioritized, and immediately useful. Our release quality has noticeably improved.",
-            author: "Priya Nair",
-            role: "Senior Software Engineer, NimbusAI",
-            avatar: "PN"
+            quote: "Heard about CodeReview.ai from a peer at Oracle and decided to give it a try. The quality of insights has exceeded my expectations — absolutely not disappointed!",
+            author: "Karan Sharma",
+            role: "Software Developer, Société Générale",
+            avatar: "KS"
         }
     ];
 
@@ -80,7 +80,7 @@ export default function AuthLayout({
                                                 </div>
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-sm text-gray-700 mb-4 font-normal leading-relaxed italic">
+                                                <p className="text-base text-gray-700 mb-4 font-normal leading-relaxed italic">
                                                     &#34;{testimonial.quote}&#34;
                                                 </p>
                                                 <div className="mt-3 pt-3 border-t border-gray-200">
@@ -100,7 +100,7 @@ export default function AuthLayout({
                         
                         <div className="mt-10 pt-8 border-t border-white/20 text-center">
                             <p className="text-white/90 text-sm font-medium leading-relaxed">
-                                Trusted by teams using <span className="font-bold text-cyan-300">{productName}</span> to catch regressions and ship with confidence
+                                Trusted by teams using <span className="font-bold text-cyan-300">{productName}</span> to ship with confidence
                             </p>
                         </div>
                     </div>
