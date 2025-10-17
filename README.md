@@ -2,6 +2,12 @@
 
 An AI-powered code review platform that provides automated analysis of your code, identifying issues, suggesting improvements, and evaluating overall code quality using advanced language models.
 
+## 🎥 Demo Video
+
+Watch a full walkthrough of CodeReview.ai in action:
+
+
+
 ## Features
 
 - Automated code review with structured feedback (issues, metrics, suggestions)
