@@ -13,14 +13,14 @@ type User = {
 
 interface GlobalContextType {
     loading: boolean;
-    user: User | null;  // Add this
+    user: User | null;  
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 
 export function GlobalProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState<User | null>(null);  // Add this
+    const [user, setUser] = useState<User | null>(null);  
 
     useEffect(() => {
         async function loadData() {

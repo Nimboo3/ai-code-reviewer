@@ -11,7 +11,7 @@ export function createSPAClient() {
 
 export async function createSPASassClient() {
     const client = createSPAClient();
-    // This must be some bug that SupabaseClient is not properly recognized, so must be ignored
+    // must be some bug that SupabaseClient is not properly recognized, so must be ignored
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return new SassClient(client as any, ClientType.SPA);
 }
@@ -22,7 +22,7 @@ export async function createSPASassClientAuthenticated() {
     if (!user.data || !user.data.session) {
         window.location.href = '/auth/login';
     }
-    // This must be some bug that SupabaseClient is not properly recognized, so must be ignored
+    // must be some bug that SupabaseClient is not properly recognized, so must be ignored
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return new SassClient(client as any, ClientType.SPA);
 }
