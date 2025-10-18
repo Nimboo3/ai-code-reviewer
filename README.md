@@ -7,6 +7,10 @@ An AI-powered code review platform that provides automated analysis of your code
 Watch a full walkthrough of CodeReview.ai in action:
 
 
+https://github.com/user-attachments/assets/e66963f2-3e19-4621-b3d9-e1254cf9eb3b
+
+
+
 
 ## Features
 
