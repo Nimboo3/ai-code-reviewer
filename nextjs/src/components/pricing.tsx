@@ -83,7 +83,7 @@ export function Pricing({
         <label className="relative inline-flex items-center cursor-pointer">
           <Label>
             <Switch
-              ref={switchRef as any}
+              ref={switchRef as React.RefObject<HTMLButtonElement>}
               checked={!isMonthly}
               onCheckedChange={handleToggle}
               className="relative"

@@ -8,7 +8,6 @@ import {
     Activity,
     ArrowRight,
     Clock,
-    Shield,
     Zap,
     RefreshCw,
     Plus,
@@ -18,7 +17,6 @@ import {
     GitBranch,
     AlertCircle,
     CheckCircle2,
-    Timer,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useToast } from '@/components/ui/toast';

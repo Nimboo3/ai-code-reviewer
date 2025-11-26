@@ -4,17 +4,10 @@ import React, { useState } from 'react';
 import { 
     GitBranch, 
     Search,
-    Filter,
     Plus,
-    RefreshCw,
-    Settings,
-    ChevronRight,
     Clock,
-    GitPullRequest,
-    BarChart3,
     AlertTriangle,
     CheckCircle2,
-    ExternalLink,
     MoreVertical,
 } from 'lucide-react';
 import Link from 'next/link';

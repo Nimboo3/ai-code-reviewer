@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { createSPASassClient } from '@/lib/supabase/client';
 import { MFAVerification } from '@/components/MFAVerification';
@@ -12,11 +12,7 @@ export default function TwoFactorAuthPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    useEffect(() => {
-        checkMFAStatus();
-    }, []);
-
-    const checkMFAStatus = async () => {
+    const checkMFAStatus = useCallback(async () => {
         try {
             const supabase = await createSPASassClient();
             const client = supabase.getSupabaseClient();
@@ -41,7 +37,11 @@ export default function TwoFactorAuthPage() {
             setError(err instanceof Error ? err.message : 'An error occurred');
             setLoading(false);
         }
-    };
+    }, [router]);
+
+    useEffect(() => {
+        checkMFAStatus();
+    }, [checkMFAStatus]);
 
     const handleVerified = () => {
         router.push('/app');

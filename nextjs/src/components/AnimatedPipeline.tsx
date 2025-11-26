@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useTransform, useMotionValue, useAnimationFrame, useMotionTemplate } from 'framer-motion';
+import { motion, useTransform, useMotionValue, useAnimationFrame, useMotionTemplate, MotionValue } from 'framer-motion';
 import { GitPullRequest, GitMerge, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export function AnimatedPipeline() {
@@ -15,10 +15,10 @@ export function AnimatedPipeline() {
   const p2 = useMotionValue(0);
   const p3 = useMotionValue(0);
 
-  useAnimationFrame((t, delta) => {
+  useAnimationFrame((_t, delta) => {
     // Update particles with staggered start
-    const move = (val: any) => {
-      let current = val.get();
+    const move = (val: MotionValue<number>) => {
+      const current = val.get();
       // Add speed * delta. 
       // We want 0 to 100% over some time.
       // delta is in ms. 
@@ -33,12 +33,10 @@ export function AnimatedPipeline() {
     move(p3);
   });
 
-  // Opacity based on position (fade in/out)
-  const getOpacity = (mv: any) => useTransform(mv, [0, 50, 350, 2000, 2500], [0, 1, 1, 1, 1]);
-
-  const o1 = getOpacity(p1);
-  const o2 = getOpacity(p2);
-  const o3 = getOpacity(p3);
+  // Opacity based on position (fade in/out) - using useTransform at component level
+  const o1 = useTransform(p1, [0, 50, 350, 2000, 2500], [0, 1, 1, 1, 1]);
+  const o2 = useTransform(p2, [0, 50, 350, 2000, 2500], [0, 1, 1, 1, 1]);
+  const o3 = useTransform(p3, [0, 50, 350, 2000, 2500], [0, 1, 1, 1, 1]);
 
   return (
     <div 

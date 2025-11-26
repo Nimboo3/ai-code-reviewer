@@ -1,7 +1,7 @@
 'use client'
 
 import { Suspense, lazy, useRef, useCallback } from 'react'
-import type { Application, SPEObject } from '@splinetool/runtime'
+import type { Application } from '@splinetool/runtime'
 const Spline = lazy(() => import('@splinetool/react-spline'))
 
 interface SplineSceneProps {

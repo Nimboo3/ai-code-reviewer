@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createSPASassClient } from '@/lib/supabase/client';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Key, CheckCircle, XCircle, Loader2, Shield } from 'lucide-react';
+import { CheckCircle, XCircle, Loader2, Shield } from 'lucide-react';
 import {Factor} from "@supabase/auth-js";
 import { MFAEnrollTOTPParams } from '@supabase/auth-js';
 
