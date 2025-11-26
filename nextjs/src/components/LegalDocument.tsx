@@ -37,42 +37,42 @@ const LegalDocument: React.FC<LegalDocumentProps> = ({ filePath, title }) => {
     }, [filePath]);
 
     return (
-        <div className="w-full max-w-4xl mx-auto px-6 py-12">
-            {/* Minimal Header */}
-            <div className="mb-12 text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 mb-4">
-                    <FileText className="w-6 h-6 text-white" />
+        <div className="w-full max-w-4xl mx-auto">
+            {/* Dark Theme Header */}
+            <div className="mb-10 text-center">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 mb-4 shadow-lg shadow-cyan-500/20">
+                    <FileText className="w-7 h-7 text-white" />
                 </div>
-                <h1 className="text-4xl font-bold text-gray-900 tracking-tight">{title}</h1>
-                <div className="mt-4 h-1 w-20 mx-auto bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"></div>
+                <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">{title}</h1>
+                <div className="mt-4 h-1 w-20 mx-auto bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full"></div>
             </div>
 
-            {/* Content Area - Minimal White Card */}
-            <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 md:p-12 min-h-[400px]">
+            {/* Content Area - Dark Glass Card */}
+            <div className="min-h-[400px]">
                 {loading ? (
                     <div className="flex flex-col items-center justify-center h-[400px] space-y-4">
-                        <Loader2 className="w-10 h-10 animate-spin text-blue-600" />
-                        <p className="text-sm text-gray-500">Loading document...</p>
+                        <Loader2 className="w-10 h-10 animate-spin text-cyan-400" />
+                        <p className="text-sm text-gray-400">Loading document...</p>
                     </div>
                 ) : error ? (
                     <div className="flex flex-col items-center justify-center h-[400px] space-y-4">
-                        <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center">
-                            <span className="text-red-600 text-2xl">⚠</span>
+                        <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center">
+                            <span className="text-red-400 text-2xl">⚠</span>
                         </div>
-                        <p className="text-red-600 font-medium">{error}</p>
+                        <p className="text-red-400 font-medium">{error}</p>
                     </div>
                 ) : (
-                    <div className="prose prose-gray max-w-none">
+                    <div className="prose prose-invert max-w-none">
                         <ReactMarkdown
                             components={{
-                                h1: ({ children }) => <h1 className="text-3xl font-bold text-gray-900 mt-10 mb-4 pb-3 border-b border-gray-200">{children}</h1>,
-                                h2: ({ children }) => <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-3">{children}</h2>,
-                                h3: ({ children }) => <h3 className="text-xl font-medium text-gray-800 mt-6 mb-2">{children}</h3>,
+                                h1: ({ children }) => <h1 className="text-2xl md:text-3xl font-bold text-white mt-10 mb-4 pb-3 border-b border-white/[0.08]">{children}</h1>,
+                                h2: ({ children }) => <h2 className="text-xl md:text-2xl font-semibold text-white mt-8 mb-3">{children}</h2>,
+                                h3: ({ children }) => <h3 className="text-lg md:text-xl font-medium text-gray-200 mt-6 mb-2">{children}</h3>,
                                 ul: ({ children }) => <ul className="space-y-2 my-4 pl-6">{children}</ul>,
-                                li: ({ children }) => <li className="text-gray-700 leading-relaxed relative before:content-['•'] before:absolute before:-left-4 before:text-blue-500 before:font-bold">{children}</li>,
-                                p: ({ children }) => <p className="text-gray-700 leading-relaxed mb-4 text-[15px]">{children}</p>,
-                                strong: ({ children }) => <strong className="font-semibold text-gray-900">{children}</strong>,
-                                a: ({ children, href }) => <a href={href} className="text-blue-600 hover:text-blue-700 underline decoration-blue-300 hover:decoration-blue-600 transition-colors">{children}</a>,
+                                li: ({ children }) => <li className="text-gray-300 leading-relaxed relative before:content-['•'] before:absolute before:-left-4 before:text-cyan-400 before:font-bold">{children}</li>,
+                                p: ({ children }) => <p className="text-gray-300 leading-relaxed mb-4 text-[15px]">{children}</p>,
+                                strong: ({ children }) => <strong className="font-semibold text-white">{children}</strong>,
+                                a: ({ children, href }) => <a href={href} className="text-cyan-400 hover:text-cyan-300 underline decoration-cyan-500/30 hover:decoration-cyan-400 transition-colors">{children}</a>,
                             }}
                         >
                             {content}
@@ -82,7 +82,7 @@ const LegalDocument: React.FC<LegalDocumentProps> = ({ filePath, title }) => {
             </div>
 
             {/* Footer Note */}
-            <div className="mt-8 text-center">
+            <div className="mt-8 pt-6 border-t border-white/[0.06] text-center">
                 <p className="text-sm text-gray-500">
                     Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                 </p>

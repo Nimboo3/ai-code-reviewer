@@ -12,19 +12,19 @@ export function IssueCard({ issue }: IssueCardProps) {
   const [expanded, setExpanded] = useState(false)
 
   const categoryColors = {
-    bug: 'text-red-600',
-    security: 'text-purple-600',
-    performance: 'text-orange-600',
-    maintainability: 'text-blue-600',
-    style: 'text-gray-600',
-    'best-practice': 'text-green-600',
+    bug: 'text-red-400',
+    security: 'text-purple-400',
+    performance: 'text-orange-400',
+    maintainability: 'text-blue-400',
+    style: 'text-gray-400',
+    'best-practice': 'text-emerald-400',
   }
 
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
+    <div className="border border-white/[0.08] rounded-lg overflow-hidden bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full p-4 text-left hover:bg-gray-50 transition-colors"
+        className="w-full p-4 text-left hover:bg-white/[0.02] transition-colors"
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
@@ -34,18 +34,18 @@ export function IssueCard({ issue }: IssueCardProps) {
                 {issue.category.replace('-', ' ').toUpperCase()}
               </span>
               {issue.lineNumber && (
-                <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                <span className="text-xs text-gray-500 bg-white/[0.05] border border-white/[0.08] px-2 py-1 rounded">
                   Line {issue.lineNumber}
                 </span>
               )}
             </div>
-            <h3 className="font-semibold text-gray-900 mb-1">{issue.title}</h3>
+            <h3 className="font-semibold text-white mb-1">{issue.title}</h3>
             {!expanded && (
-              <p className="text-sm text-gray-600 line-clamp-2">{issue.description}</p>
+              <p className="text-sm text-gray-400 line-clamp-2">{issue.description}</p>
             )}
           </div>
           <svg
-            className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform ${expanded ? 'rotate-180' : ''}`}
+            className={`w-5 h-5 text-gray-500 flex-shrink-0 transition-transform ${expanded ? 'rotate-180' : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -56,31 +56,31 @@ export function IssueCard({ issue }: IssueCardProps) {
       </button>
 
       {expanded && (
-        <div className="px-4 pb-4 space-y-4 border-t border-gray-100 pt-4 bg-gray-50">
+        <div className="px-4 pb-4 space-y-4 border-t border-white/[0.06] pt-4 bg-white/[0.01]">
           <div>
-            <h4 className="text-sm font-semibold text-gray-700 mb-1">Description</h4>
-            <p className="text-sm text-gray-600">{issue.description}</p>
+            <h4 className="text-sm font-semibold text-gray-400 mb-1">Description</h4>
+            <p className="text-sm text-gray-300">{issue.description}</p>
           </div>
 
           {issue.codeSnippet && (
             <div>
-              <h4 className="text-sm font-semibold text-gray-700 mb-1">Code Snippet</h4>
-              <pre className="bg-gray-900 text-gray-100 p-3 rounded-lg overflow-x-auto text-xs">
+              <h4 className="text-sm font-semibold text-gray-400 mb-1">Code Snippet</h4>
+              <pre className="bg-[#0a0c0f] text-gray-300 p-3 rounded-lg overflow-x-auto text-xs border border-white/[0.06]">
                 <code>{issue.codeSnippet}</code>
               </pre>
             </div>
           )}
 
           <div>
-            <h4 className="text-sm font-semibold text-green-700 mb-1">💡 Suggestion</h4>
-            <p className="text-sm text-gray-600 bg-green-50 p-3 rounded-lg border border-green-200">
+            <h4 className="text-sm font-semibold text-emerald-400 mb-1">💡 Suggestion</h4>
+            <p className="text-sm text-gray-300 bg-emerald-500/10 p-3 rounded-lg border border-emerald-500/20">
               {issue.suggestion}
             </p>
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold text-orange-700 mb-1">⚠️ Impact</h4>
-            <p className="text-sm text-gray-600 bg-orange-50 p-3 rounded-lg border border-orange-200">
+            <h4 className="text-sm font-semibold text-orange-400 mb-1">⚠️ Impact</h4>
+            <p className="text-sm text-gray-300 bg-orange-500/10 p-3 rounded-lg border border-orange-500/20">
               {issue.impact}
             </p>
           </div>

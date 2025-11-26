@@ -24,12 +24,12 @@ export function MetricsChart({ metrics }: MetricsChartProps) {
         const getBarColor = () => {
           if (isComplexity) {
             // For complexity, lower is better
-            if (item.value <= 3) return 'bg-green-500'
+            if (item.value <= 3) return 'bg-emerald-500'
             if (item.value <= 6) return 'bg-yellow-500'
             return 'bg-red-500'
           }
           // For other metrics, higher is better
-          if (percentage >= 80) return 'bg-green-500'
+          if (percentage >= 80) return 'bg-emerald-500'
           if (percentage >= 60) return 'bg-blue-500'
           if (percentage >= 40) return 'bg-yellow-500'
           return 'bg-orange-500'
@@ -39,12 +39,12 @@ export function MetricsChart({ metrics }: MetricsChartProps) {
           <div key={item.label}>
             <div className="flex items-center justify-between mb-2">
               <div>
-                <span className="text-sm font-semibold text-gray-700">{item.label}</span>
+                <span className="text-sm font-semibold text-gray-300">{item.label}</span>
                 <span className="text-xs text-gray-500 ml-2">({item.description})</span>
               </div>
-              <span className="text-sm font-bold text-gray-900">{displayValue}</span>
+              <span className="text-sm font-bold text-white">{displayValue}</span>
             </div>
-            <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-3 bg-white/[0.05] rounded-full overflow-hidden border border-white/[0.06]">
               <div
                 className={`h-full ${getBarColor()} transition-all duration-500 rounded-full`}
                 style={{ width: `${percentage}%` }}
