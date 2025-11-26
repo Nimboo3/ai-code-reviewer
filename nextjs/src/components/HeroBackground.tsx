@@ -7,7 +7,7 @@ export function HeroBackground() {
   const { scrollY } = useScroll();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const rafId = useRef<number>();
+  const rafId = useRef<number | undefined>(undefined);
 
   // Smooth out the mouse movement with reduced stiffness for better performance
   const smoothMouseX = useSpring(mouseX, { stiffness: 30, damping: 20 });
