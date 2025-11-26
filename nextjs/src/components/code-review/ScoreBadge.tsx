@@ -7,7 +7,7 @@ interface ScoreBadgeProps {
 }
 
 export function ScoreBadge({ grade, score, size = 'md' }: ScoreBadgeProps) {
-  const colors = {
+  const colors: Record<ReviewGrade, string> = {
     'A+': 'from-emerald-500 to-green-600',
     'A': 'from-green-500 to-emerald-600',
     'B': 'from-blue-500 to-cyan-600',
@@ -25,7 +25,7 @@ export function ScoreBadge({ grade, score, size = 'md' }: ScoreBadgeProps) {
   return (
     <div className={`relative ${sizes[size]} flex items-center justify-center`}>
       <div className={`absolute inset-0 bg-gradient-to-br ${colors[grade]} rounded-full opacity-20 blur-xl`}></div>
-      <div className={`relative ${sizes[size]} bg-gradient-to-br ${colors[grade]} rounded-full flex flex-col items-center justify-center text-white font-bold shadow-2xl border-4 border-white/20`}>
+      <div className={`relative ${sizes[size]} bg-gradient-to-br ${colors[grade]} rounded-full flex flex-col items-center justify-center text-white font-bold shadow-2xl border-4 border-slate-800/40`}>
         <div className="leading-none">{grade}</div>
         <div className="text-xs font-normal opacity-90">{score}/100</div>
       </div>

@@ -17,7 +17,7 @@ export default function CodeReviewPage() {
   const [items, setItems] = useState<ReviewItem[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [selectedModel, setSelectedModel] = useState('gemini-2.0-flash-exp') // Default to latest recommended
+  const [selectedModel, setSelectedModel] = useState('gemini-2.0-flash-lite') // Default to best free tier model
   const [successNotification, setSuccessNotification] = useState<{
     show: boolean
     reportId: number | null
@@ -108,7 +108,7 @@ export default function CodeReviewPage() {
       {/* Success Notification Toast */}
       {successNotification.show && (
         <div className="fixed top-4 right-4 z-50 animate-slide-up">
-          <div className="bg-[#0f1117]/95 backdrop-blur-md p-4 rounded-xl shadow-2xl border border-emerald-500/30 max-w-md">
+          <div className="bg-[#2e333d]/95 backdrop-blur-md p-4 rounded-xl shadow-2xl border border-emerald-500/30 max-w-md">
             <div className="flex items-start gap-4">
               {/* Success Icon */}
               <div className="flex-shrink-0">
@@ -121,18 +121,18 @@ export default function CodeReviewPage() {
               
               {/* Content */}
               <div className="flex-1 min-w-0">
-                <h3 className="text-sm font-bold text-white mb-1">
+                <h3 className="text-sm font-bold text-slate-100 mb-1">
                   ✨ Review Complete!
                 </h3>
-                <p className="text-sm text-gray-400 mb-3">
-                  <span className="font-semibold text-white">{successNotification.fileName}</span> has been analyzed successfully.
+                <p className="text-sm text-slate-400 mb-3">
+                  <span className="font-semibold text-slate-100">{successNotification.fileName}</span> has been analyzed successfully.
                 </p>
                 
                 {/* Action Buttons */}
                 <div className="flex items-center gap-2">
                   <a
                     href={`/app/code-review?id=${successNotification.reportId}`}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-200"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/20 text-cyan-400 text-sm font-semibold rounded-lg hover:bg-cyan-500/30 transition-all duration-200 border border-cyan-500/30"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -142,7 +142,7 @@ export default function CodeReviewPage() {
                   </a>
                   <button
                     onClick={() => setSuccessNotification({ show: false, reportId: null, fileName: null })}
-                    className="inline-flex items-center gap-1 px-3 py-2 text-gray-400 hover:text-white text-sm font-medium rounded-lg hover:bg-white/5 transition-all duration-200"
+                    className="inline-flex items-center gap-1 px-3 py-2 text-slate-400 hover:text-slate-200 text-sm font-medium rounded-lg hover:bg-slate-800/60 transition-all duration-200"
                   >
                     Dismiss
                   </button>
@@ -152,7 +152,7 @@ export default function CodeReviewPage() {
               {/* Close Button */}
               <button
                 onClick={() => setSuccessNotification({ show: false, reportId: null, fileName: null })}
-                className="flex-shrink-0 text-gray-500 hover:text-gray-300 transition-colors"
+                className="flex-shrink-0 text-slate-500 hover:text-slate-300 transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -164,30 +164,30 @@ export default function CodeReviewPage() {
       )}
 
       <div>
-        <h1 className="text-3xl font-bold text-white">AI Code Review</h1>
-        <p className="mt-2 text-gray-400">Upload your code and get instant AI-powered feedback</p>
+        <h1 className="text-3xl font-bold text-slate-100">AI Code Review</h1>
+        <p className="mt-2 text-slate-400">Upload your code and get instant AI-powered feedback</p>
       </div>
       
-      <form onSubmit={onSubmit} className="bg-card/50 backdrop-blur-sm p-6 rounded-xl border border-white/[0.06] space-y-6 hover:border-white/[0.1] transition-colors">
+      <form onSubmit={onSubmit} className="bg-[#2e333d] backdrop-blur-sm p-6 rounded-xl border border-slate-700/50 space-y-6 hover:border-slate-600/50 transition-colors">
         <div>
-          <label className="block text-sm font-semibold text-white mb-2">
+          <label className="block text-sm font-semibold text-slate-100 mb-2">
             Upload source file
-            <span className="ml-2 text-xs font-normal text-gray-500">(Max 500KB)</span>
+            <span className="ml-2 text-xs font-normal text-slate-500">(Max 500KB)</span>
           </label>
           <div className="relative">
             <input 
               name="file" 
               type="file" 
               required 
-              className="block w-full text-sm text-gray-400
+              className="block w-full text-sm text-slate-400
                 file:mr-4 file:py-3 file:px-6
                 file:rounded-lg file:border-0
                 file:text-sm file:font-semibold
-                file:bg-gradient-to-r file:from-cyan-500 file:to-blue-600 file:text-white
-                file:cursor-pointer file:hover:shadow-lg file:hover:shadow-cyan-500/25 file:transition-all file:duration-200
+                file:bg-cyan-500/20 file:text-cyan-400 file:border file:border-cyan-500/30
+                file:cursor-pointer file:hover:bg-cyan-500/30 file:transition-all file:duration-200
                 cursor-pointer" 
             />
-            <p className="text-xs text-gray-500 mt-2 flex items-center gap-2">
+            <p className="text-xs text-slate-500 mt-2 flex items-center gap-2">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -197,41 +197,46 @@ export default function CodeReviewPage() {
         </div>
         
         <div>
-          <label className="block text-sm font-semibold text-white mb-2">AI Model</label>
+          <label className="block text-sm font-semibold text-slate-100 mb-2">AI Model</label>
           <select
             name="model"
             value={selectedModel}
             onChange={(e) => setSelectedModel(e.target.value)}
-            className="w-full px-4 py-3 bg-[#0a0c0f] border border-white/[0.1] 
-                       rounded-lg text-sm font-medium text-white focus:outline-none focus:ring-2 
+            className="w-full px-4 py-3 bg-slate-900/60 border border-slate-700/50 
+                       rounded-lg text-sm font-medium text-slate-200 focus:outline-none focus:ring-2 
                        focus:ring-cyan-500/30 focus:border-cyan-500/50 transition-all
-                       hover:border-white/[0.15] cursor-pointer"
+                       hover:border-slate-600/50 cursor-pointer"
           >
-            <optgroup label="─── Recommended ───" className="bg-[#0a0c0f] text-gray-300">
-              <option value="gemini-2.0-flash-exp">Gemini 2.0 Flash — Fastest, latest model</option>
-              <option value="gemini-2.0-flash-thinking-exp-1219">Gemini 2.0 Flash Thinking — Extended reasoning</option>
+            <optgroup label="─── Free Tier (Recommended) ───" className="bg-slate-900 text-slate-300">
+              <option value="gemini-2.0-flash-lite">Gemini 2.0 Flash-Lite — 30 RPM, 200/day (Best for speed)</option>
+              <option value="gemini-2.0-flash">Gemini 2.0 Flash — 15 RPM, 200/day (Balanced)</option>
+              <option value="gemini-2.5-flash-lite">Gemini 2.5 Flash-Lite — 15 RPM, 1000/day (High volume)</option>
+              <option value="gemini-2.5-flash">Gemini 2.5 Flash — 10 RPM, 250/day (Better quality)</option>
+              <option value="gemini-2.5-pro">Gemini 2.5 Pro — 2 RPM, 50/day (Best free quality)</option>
             </optgroup>
             
-            <optgroup label="─── Google Gemini ───" className="bg-[#0a0c0f] text-gray-300">
-              <option value="gemini-1.5-flash-latest">Gemini 1.5 Flash — 1500 free per day</option>
-              <option value="gemini-1.5-pro-latest">Gemini 1.5 Pro — 1500 free per day</option>
+            <optgroup label="─── Premium Models (Upgrade Required) ───" className="bg-slate-900 text-slate-300">
+              <option value="claude-opus-4" disabled>Claude Opus 4 — Upgrade to Premium</option>
+              <option value="claude-sonnet-4" disabled>Claude Sonnet 4 — Upgrade to Premium</option>
+              <option value="gpt-4.5" disabled>GPT-4.5 — Upgrade to Premium</option>
+              <option value="gpt-4o" disabled>GPT-4o — Upgrade to Premium</option>
+              <option value="gemini-2.5-pro-unlimited" disabled>Gemini 2.5 Pro (Unlimited) — Upgrade to Premium</option>
             </optgroup>
             
-            <optgroup label="─── OpenAI ───" className="bg-[#0a0c0f] text-gray-300">
+            <optgroup label="─── OpenAI (Pay-as-you-go) ───" className="bg-slate-900 text-slate-300">
               <option value="gpt-4o-mini">GPT-4o Mini — $0.15 per 1M tokens</option>
-              <option value="gpt-4o">GPT-4o — $2.50 per 1M tokens</option>
             </optgroup>
             
             {/* Only show Ollama models in local development */}
             {isLocalDev && (
               <>
-                <optgroup label="─── Local (Fast) ───" className="bg-[#0a0c0f] text-gray-300">
+                <optgroup label="─── Local (Fast) ───" className="bg-slate-900 text-slate-300">
                   <option value="gemma3:1b">Gemma 3 1B — Fastest, 1-2 seconds</option>
                   <option value="gemma3:4b">Gemma 3 4B — Balanced, 3-5 seconds</option>
                   <option value="qwen3:4b">Qwen 3 4B — Best for code, 3-5 seconds</option>
                 </optgroup>
                 
-                <optgroup label="─── Local (Quality) ───" className="bg-[#0a0c0f] text-gray-300">
+                <optgroup label="─── Local (Quality) ───" className="bg-slate-900 text-slate-300">
                   <option value="qwen3:8b">Qwen 3 8B — Better quality, 8-12 seconds</option>
                   <option value="deepseek-rl:8b">DeepSeek RL 8B — Code-focused, 8-12 seconds</option>
                   <option value="qwen2.5-coder:7b">Qwen 2.5 Coder 7B — Legacy</option>
@@ -241,15 +246,15 @@ export default function CodeReviewPage() {
             )}
           </select>
           {isLocalDev ? (
-            <p className="text-xs text-gray-500 mt-2 flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <p className="text-xs text-slate-500 mt-2 flex items-center gap-1.5">
+              <svg className="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>Local models require Ollama running on your machine</span>
             </p>
           ) : (
-            <p className="text-xs text-gray-500 mt-2 flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <p className="text-xs text-slate-500 mt-2 flex items-center gap-1.5">
+              <svg className="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>Cloud-hosted models - no setup required</span>
@@ -260,7 +265,7 @@ export default function CodeReviewPage() {
         <div className="flex items-center gap-3">
           <button 
             disabled={loading} 
-            className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="bg-cyan-500/20 text-cyan-400 px-6 py-3 rounded-lg font-semibold hover:bg-cyan-500/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed border border-cyan-500/30"
           >
             {loading ? (
               <span className="flex items-center gap-2">
@@ -282,28 +287,28 @@ export default function CodeReviewPage() {
               // Upgrade prompt for Free tier limits
               <div className="relative bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-transparent border border-cyan-500/20 p-6 rounded-xl animate-slide-up">
                 <div className="absolute top-0 right-0 -mt-3 -mr-3">
-                  <div className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                  <div className="bg-cyan-500/20 text-cyan-400 text-xs font-bold px-3 py-1 rounded-full border border-cyan-500/30">
                     UPGRADE AVAILABLE
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md shadow-cyan-500/25">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center border border-cyan-500/30">
+                      <svg className="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
                     </div>
                   </div>
                   
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-white mb-2">Free Tier Limit Reached</h3>
-                    <p className="text-gray-400 text-sm mb-4">{error.replace(' 🚀', '')}</p>
+                    <h3 className="text-lg font-bold text-slate-100 mb-2">Free Tier Limit Reached</h3>
+                    <p className="text-slate-400 text-sm mb-4">{error.replace(' 🚀', '')}</p>
                     
                     <div className="flex flex-wrap gap-3">
                       <Link 
                         href="/#pricing"
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-cyan-500/25 transition-all duration-200"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-cyan-500/20 text-cyan-400 font-semibold rounded-lg hover:bg-cyan-500/30 transition-all duration-200 border border-cyan-500/30"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
@@ -313,15 +318,15 @@ export default function CodeReviewPage() {
                       
                       <button 
                         onClick={() => setError(null)}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/5 backdrop-blur-sm text-gray-300 font-medium rounded-lg border border-white/[0.1] hover:border-white/[0.2] hover:bg-white/10 transition-all duration-200"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-800/60 text-slate-300 font-medium rounded-lg border border-slate-700/50 hover:border-slate-600/50 hover:bg-slate-700/60 transition-all duration-200"
                       >
                         Dismiss
                       </button>
                     </div>
                     
-                    <div className="mt-4 pt-4 border-t border-white/[0.08]">
-                      <p className="text-xs text-gray-400 font-medium mb-2">✨ Premium Benefits:</p>
-                      <div className="grid grid-cols-2 gap-2 text-xs text-gray-500">
+                    <div className="mt-4 pt-4 border-t border-slate-800/60">
+                      <p className="text-xs text-slate-400 font-medium mb-2">✨ Premium Benefits:</p>
+                      <div className="grid grid-cols-2 gap-2 text-xs text-slate-500">
                         <div className="flex items-center gap-1">
                           <svg className="w-3 h-3 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -361,54 +366,54 @@ export default function CodeReviewPage() {
         )}
       </form>
 
-      <div className="bg-card/50 backdrop-blur-sm rounded-xl overflow-hidden border border-white/[0.06]">
-        <div className="px-6 py-4 border-b border-white/[0.06]">
-          <h2 className="font-bold text-white flex items-center gap-2">
+      <div className="bg-[#2e333d] backdrop-blur-sm rounded-xl overflow-hidden border border-slate-700/50">
+        <div className="px-6 py-4 border-b border-slate-800/60">
+          <h2 className="font-bold text-slate-100 flex items-center gap-2">
             ⏱️ Recent Reviews
-            <span className="text-sm font-normal text-gray-500">(Last 5)</span>
+            <span className="text-sm font-normal text-slate-500">(Last 5)</span>
           </h2>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             View or delete reviews from the <Link href="/app/code-review/archive" className="text-cyan-400 hover:underline font-medium">All Reviews</Link> section
           </p>
         </div>
-        <ul className="divide-y divide-white/[0.04]">
+        <ul className="divide-y divide-slate-800/40">
           {items.map((it, idx) => (
             <li 
               key={it.id} 
-              className="p-6 hover:bg-white/[0.02] transition-colors duration-200 group animate-fade-in"
+              className="p-6 hover:bg-slate-800/30 transition-colors duration-200 group animate-fade-in"
               style={{animationDelay: `${idx * 0.05}s`}}
             >
               <div className="flex items-center justify-between gap-6">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="font-semibold text-white group-hover:text-cyan-400 transition-colors">
+                    <div className="font-semibold text-slate-100 group-hover:text-cyan-400 transition-colors">
                       {it.file_name}
                     </div>
                     {it.grade && (
                       <div className={`
                         px-2 py-0.5 rounded-md text-xs font-bold
-                        ${it.grade === 'A+' || it.grade === 'A' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : ''}
-                        ${it.grade === 'B' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' : ''}
-                        ${it.grade === 'C' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' : ''}
-                        ${it.grade === 'D' || it.grade === 'F' ? 'bg-red-500/20 text-red-400 border border-red-500/30' : ''}
+                        ${it.grade === 'A+' || it.grade === 'A' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : ''}
+                        ${it.grade === 'B' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' : ''}
+                        ${it.grade === 'C' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : ''}
+                        ${it.grade === 'D' || it.grade === 'F' ? 'bg-red-500/10 text-red-400 border border-red-500/20' : ''}
                       `}>
                         {it.grade} {it.overall_score !== null && `(${it.overall_score}/100)`}
                       </div>
                     )}
                     {it.total_issues !== null && it.total_issues > 0 && (
-                      <div className="px-2 py-0.5 bg-orange-500/20 text-orange-400 border border-orange-500/30 rounded-md text-xs font-medium">
+                      <div className="px-2 py-0.5 bg-orange-500/10 text-orange-400 border border-orange-500/20 rounded-md text-xs font-medium">
                         {it.total_issues} issue{it.total_issues !== 1 ? 's' : ''}
                       </div>
                     )}
                   </div>
-                  <div className="text-sm text-gray-500 flex items-center gap-2">
+                  <div className="text-sm text-slate-500 flex items-center gap-2">
                     <span>{new Date(it.created_at).toLocaleString()}</span>
-                    <span className="text-gray-600">•</span>
-                    <span className="px-2 py-0.5 bg-white/[0.05] border border-white/[0.08] rounded-md text-xs font-medium text-gray-400">{it.language || 'unknown'}</span>
+                    <span className="text-slate-600">•</span>
+                    <span className="px-2 py-0.5 bg-slate-800/60 border border-slate-700/50 rounded-md text-xs font-medium text-slate-400">{it.language || 'unknown'}</span>
                   </div>
                 </div>
                 <a 
-                  className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-200 flex-shrink-0" 
+                  className="bg-cyan-500/20 text-cyan-400 px-4 py-2 rounded-lg font-medium hover:bg-cyan-500/30 transition-all duration-200 flex-shrink-0 border border-cyan-500/30" 
                   href={`/app/code-review/${it.id}`}
                 >
                   View Report
@@ -418,12 +423,12 @@ export default function CodeReviewPage() {
           ))}
           {items.length === 0 && !loading && (
             <li className="p-8 text-center">
-              <div className="text-gray-500 text-sm">
+              <div className="text-slate-500 text-sm">
                 <svg className="mx-auto h-12 w-12 mb-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                <p className="font-medium text-gray-400">No reviews yet</p>
-                <p className="text-xs mt-1 text-gray-500">Upload a file above to get started</p>
+                <p className="font-medium text-slate-400">No reviews yet</p>
+                <p className="text-xs mt-1 text-slate-500">Upload a file above to get started</p>
               </div>
             </li>
           )}

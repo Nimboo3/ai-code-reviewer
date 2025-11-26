@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "13.0.5"
   }
   graphql_public: {
     Tables: {
@@ -41,100 +41,319 @@ export type Database = {
     Tables: {
       code_reviews: {
         Row: {
-          id: number
           created_at: string
-          owner: string
-          file_name: string
-          language: string | null
-          source_preview: string | null
-          report_md: string | null
-          status: string
-          model: string | null
-          tokens: number | null
-          structured_data: Json | null
-          overall_score: number | null
-          grade: string | null
           critical_issues: number | null
+          file_name: string
+          grade: string | null
           high_issues: number | null
-          medium_issues: number | null
+          id: number
+          language: string | null
           low_issues: number | null
-          total_issues: number | null
+          medium_issues: number | null
+          model: string | null
+          overall_score: number | null
+          owner: string
+          report_md: string | null
           security_score: number | null
+          source_preview: string | null
+          status: string
+          structured_data: Json | null
+          tokens: number | null
+          total_issues: number | null
         }
         Insert: {
-          id?: number
           created_at?: string
-          owner: string
-          file_name: string
-          language?: string | null
-          source_preview?: string | null
-          report_md?: string | null
-          status?: string
-          model?: string | null
-          tokens?: number | null
-          structured_data?: Json | null
-          overall_score?: number | null
-          grade?: string | null
           critical_issues?: number | null
+          file_name: string
+          grade?: string | null
           high_issues?: number | null
-          medium_issues?: number | null
+          id?: number
+          language?: string | null
           low_issues?: number | null
-          total_issues?: number | null
+          medium_issues?: number | null
+          model?: string | null
+          overall_score?: number | null
+          owner: string
+          report_md?: string | null
           security_score?: number | null
+          source_preview?: string | null
+          status?: string
+          structured_data?: Json | null
+          tokens?: number | null
+          total_issues?: number | null
         }
         Update: {
-          id?: number
           created_at?: string
-          owner?: string
-          file_name?: string
-          language?: string | null
-          source_preview?: string | null
-          report_md?: string | null
-          status?: string
-          model?: string | null
-          tokens?: number | null
-          structured_data?: Json | null
-          overall_score?: number | null
-          grade?: string | null
           critical_issues?: number | null
+          file_name?: string
+          grade?: string | null
           high_issues?: number | null
-          medium_issues?: number | null
+          id?: number
+          language?: string | null
           low_issues?: number | null
-          total_issues?: number | null
+          medium_issues?: number | null
+          model?: string | null
+          overall_score?: number | null
+          owner?: string
+          report_md?: string | null
           security_score?: number | null
+          source_preview?: string | null
+          status?: string
+          structured_data?: Json | null
+          tokens?: number | null
+          total_issues?: number | null
         }
         Relationships: []
       }
-      todo_list: {
+      file_reviews: {
         Row: {
+          content_hash: string
           created_at: string
-          description: string | null
-          done: boolean
-          done_at: string | null
+          file_size: number | null
+          filename: string
+          grade: string | null
           id: number
-          owner: string
-          title: string
-          urgent: boolean
+          language: string | null
+          model: string | null
+          overall_score: number | null
+          review_data: Json | null
+          tokens_used: number | null
+          total_issues: number | null
         }
         Insert: {
+          content_hash: string
           created_at?: string
-          description?: string | null
-          done?: boolean
-          done_at?: string | null
+          file_size?: number | null
+          filename: string
+          grade?: string | null
           id?: number
-          owner: string
-          title: string
-          urgent?: boolean
+          language?: string | null
+          model?: string | null
+          overall_score?: number | null
+          review_data?: Json | null
+          tokens_used?: number | null
+          total_issues?: number | null
         }
         Update: {
+          content_hash?: string
           created_at?: string
-          description?: string | null
-          done?: boolean
-          done_at?: string | null
+          file_size?: number | null
+          filename?: string
+          grade?: string | null
           id?: number
-          owner?: string
-          title?: string
-          urgent?: boolean
+          language?: string | null
+          model?: string | null
+          overall_score?: number | null
+          review_data?: Json | null
+          tokens_used?: number | null
+          total_issues?: number | null
+        }
+        Relationships: []
+      }
+      github_connections: {
+        Row: {
+          access_token: string
+          connected_at: string
+          created_at: string
+          github_avatar_url: string | null
+          github_email: string | null
+          github_user_id: number
+          github_username: string
+          id: number
+          scope: string | null
+          token_type: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_token: string
+          connected_at?: string
+          created_at?: string
+          github_avatar_url?: string | null
+          github_email?: string | null
+          github_user_id: number
+          github_username: string
+          id?: number
+          scope?: string | null
+          token_type?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_token?: string
+          connected_at?: string
+          created_at?: string
+          github_avatar_url?: string | null
+          github_email?: string | null
+          github_user_id?: number
+          github_username?: string
+          id?: number
+          scope?: string | null
+          token_type?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      github_repositories: {
+        Row: {
+          architecture_score: number | null
+          auto_review_enabled: boolean | null
+          created_at: string
+          default_branch: string | null
+          github_repo_id: number
+          id: number
+          is_private: boolean | null
+          language: string | null
+          last_synced_at: string | null
+          owner_login: string
+          repo_full_name: string
+          repo_name: string
+          security_score: number | null
+          tech_debt_score: number | null
+          updated_at: string
+          user_id: string
+          webhook_id: number | null
+          webhook_secret: string | null
+        }
+        Insert: {
+          architecture_score?: number | null
+          auto_review_enabled?: boolean | null
+          created_at?: string
+          default_branch?: string | null
+          github_repo_id: number
+          id?: number
+          is_private?: boolean | null
+          language?: string | null
+          last_synced_at?: string | null
+          owner_login: string
+          repo_full_name: string
+          repo_name: string
+          security_score?: number | null
+          tech_debt_score?: number | null
+          updated_at?: string
+          user_id: string
+          webhook_id?: number | null
+          webhook_secret?: string | null
+        }
+        Update: {
+          architecture_score?: number | null
+          auto_review_enabled?: boolean | null
+          created_at?: string
+          default_branch?: string | null
+          github_repo_id?: number
+          id?: number
+          is_private?: boolean | null
+          language?: string | null
+          last_synced_at?: string | null
+          owner_login?: string
+          repo_full_name?: string
+          repo_name?: string
+          security_score?: number | null
+          tech_debt_score?: number | null
+          updated_at?: string
+          user_id?: string
+          webhook_id?: number | null
+          webhook_secret?: string | null
+        }
+        Relationships: []
+      }
+      pr_reviews: {
+        Row: {
+          base_sha: string | null
+          created_at: string
+          critical_issues: number | null
+          grade: string | null
+          head_sha: string
+          high_issues: number | null
+          id: number
+          low_issues: number | null
+          medium_issues: number | null
+          model: string | null
+          overall_score: number | null
+          pr_number: number
+          pr_title: string | null
+          repo_full_name: string
+          review_data: Json | null
+          review_duration_ms: number | null
+          risk_level: string | null
+          tokens_used: number | null
+          total_issues: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          base_sha?: string | null
+          created_at?: string
+          critical_issues?: number | null
+          grade?: string | null
+          head_sha: string
+          high_issues?: number | null
+          id?: number
+          low_issues?: number | null
+          medium_issues?: number | null
+          model?: string | null
+          overall_score?: number | null
+          pr_number: number
+          pr_title?: string | null
+          repo_full_name: string
+          review_data?: Json | null
+          review_duration_ms?: number | null
+          risk_level?: string | null
+          tokens_used?: number | null
+          total_issues?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          base_sha?: string | null
+          created_at?: string
+          critical_issues?: number | null
+          grade?: string | null
+          head_sha?: string
+          high_issues?: number | null
+          id?: number
+          low_issues?: number | null
+          medium_issues?: number | null
+          model?: string | null
+          overall_score?: number | null
+          pr_number?: number
+          pr_title?: string | null
+          repo_full_name?: string
+          review_data?: Json | null
+          review_duration_ms?: number | null
+          risk_level?: string | null
+          tokens_used?: number | null
+          total_issues?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_usage: {
+        Row: {
+          code_reviews_count: number | null
+          date: string
+          id: number
+          pr_reviews_count: number | null
+          tokens_used: number | null
+          user_id: string
+        }
+        Insert: {
+          code_reviews_count?: number | null
+          date?: string
+          id?: number
+          pr_reviews_count?: number | null
+          tokens_used?: number | null
+          user_id: string
+        }
+        Update: {
+          code_reviews_count?: number | null
+          date?: string
+          id?: number
+          pr_reviews_count?: number | null
+          tokens_used?: number | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -143,7 +362,23 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      check_rate_limit: {
+        Args: {
+          p_daily_limit?: number
+          p_limit_type?: string
+          p_user_id: string
+        }
+        Returns: boolean
+      }
+      increment_usage: {
+        Args: {
+          p_code_reviews?: number
+          p_pr_reviews?: number
+          p_tokens?: number
+          p_user_id: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
@@ -280,10 +515,26 @@ export const Constants = {
   },
 } as const
 
-// Structured Code Review Types
+// Custom types for AI code review
 export type IssueSeverity = 'critical' | 'high' | 'medium' | 'low' | 'info'
 export type IssueCategory = 'bug' | 'security' | 'performance' | 'maintainability' | 'style' | 'best-practice'
 export type ReviewGrade = 'A+' | 'A' | 'B' | 'C' | 'D' | 'F'
+
+// Notification types
+export type NotificationType = 'info' | 'success' | 'warning' | 'error'
+
+export interface Notification {
+  id: string
+  user_id: string
+  title: string
+  message: string
+  type: NotificationType
+  read: boolean
+  dismissed: boolean
+  link: string | null
+  created_at: string
+  updated_at: string
+}
 
 export interface ReviewIssue {
   id: string
@@ -291,22 +542,22 @@ export interface ReviewIssue {
   category: IssueCategory
   title: string
   description: string
-  lineNumber?: number
-  codeSnippet?: string
+  lineNumber: number | null
+  codeSnippet: string | null
   suggestion: string
   impact: string
 }
 
 export interface ReviewMetrics {
-  complexity: number // 1-10
-  maintainability: number // 0-100
-  readability: number // 0-100
-  testability: number // 0-100
-  security: number // 0-100
+  complexity: number
+  maintainability: number
+  readability: number
+  testability: number
+  security: number
 }
 
 export interface ReviewSummary {
-  overallScore: number // 0-100
+  overallScore: number
   grade: ReviewGrade
   totalIssues: number
   criticalCount: number
@@ -321,9 +572,4 @@ export interface StructuredReview {
   metrics: ReviewMetrics
   strengths: string[]
   recommendations: string[]
-  metadata: {
-    reviewedAt: string
-    model: string
-    tokens: number | null
-  }
 }

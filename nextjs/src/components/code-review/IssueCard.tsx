@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import type { ReviewIssue } from '@/lib/types'
+import type { ReviewIssue, IssueCategory } from '@/lib/types'
 import { SeverityBadge } from './SeverityBadge'
 
 interface IssueCardProps {
@@ -11,7 +11,7 @@ interface IssueCardProps {
 export function IssueCard({ issue }: IssueCardProps) {
   const [expanded, setExpanded] = useState(false)
 
-  const categoryColors = {
+  const categoryColors: Record<IssueCategory, string> = {
     bug: 'text-red-400',
     security: 'text-purple-400',
     performance: 'text-orange-400',
@@ -21,10 +21,10 @@ export function IssueCard({ issue }: IssueCardProps) {
   }
 
   return (
-    <div className="border border-white/[0.08] rounded-lg overflow-hidden bg-white/[0.02] hover:bg-white/[0.04] transition-colors">
+    <div className="border border-slate-700/50 rounded-lg overflow-hidden bg-slate-800/40 hover:bg-slate-800/60 transition-colors">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full p-4 text-left hover:bg-white/[0.02] transition-colors"
+        className="w-full p-4 text-left hover:bg-slate-800/20 transition-colors"
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
@@ -34,18 +34,18 @@ export function IssueCard({ issue }: IssueCardProps) {
                 {issue.category.replace('-', ' ').toUpperCase()}
               </span>
               {issue.lineNumber && (
-                <span className="text-xs text-gray-500 bg-white/[0.05] border border-white/[0.08] px-2 py-1 rounded">
+                <span className="text-xs text-slate-400 bg-slate-800/60 border border-slate-700/50 px-2 py-1 rounded">
                   Line {issue.lineNumber}
                 </span>
               )}
             </div>
-            <h3 className="font-semibold text-white mb-1">{issue.title}</h3>
+            <h3 className="font-semibold text-slate-100 mb-1">{issue.title}</h3>
             {!expanded && (
-              <p className="text-sm text-gray-400 line-clamp-2">{issue.description}</p>
+              <p className="text-sm text-slate-400 line-clamp-2">{issue.description}</p>
             )}
           </div>
           <svg
-            className={`w-5 h-5 text-gray-500 flex-shrink-0 transition-transform ${expanded ? 'rotate-180' : ''}`}
+            className={`w-5 h-5 text-slate-500 flex-shrink-0 transition-transform ${expanded ? 'rotate-180' : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -56,16 +56,16 @@ export function IssueCard({ issue }: IssueCardProps) {
       </button>
 
       {expanded && (
-        <div className="px-4 pb-4 space-y-4 border-t border-white/[0.06] pt-4 bg-white/[0.01]">
+        <div className="px-4 pb-4 space-y-4 border-t border-slate-800/60 pt-4 bg-slate-900/20">
           <div>
-            <h4 className="text-sm font-semibold text-gray-400 mb-1">Description</h4>
-            <p className="text-sm text-gray-300">{issue.description}</p>
+            <h4 className="text-sm font-semibold text-slate-400 mb-1">Description</h4>
+            <p className="text-sm text-slate-300">{issue.description}</p>
           </div>
 
           {issue.codeSnippet && (
             <div>
-              <h4 className="text-sm font-semibold text-gray-400 mb-1">Code Snippet</h4>
-              <pre className="bg-[#0a0c0f] text-gray-300 p-3 rounded-lg overflow-x-auto text-xs border border-white/[0.06]">
+              <h4 className="text-sm font-semibold text-slate-400 mb-1">Code Snippet</h4>
+              <pre className="bg-slate-950 text-slate-300 p-3 rounded-lg overflow-x-auto text-xs border border-slate-800/60">
                 <code>{issue.codeSnippet}</code>
               </pre>
             </div>
@@ -73,14 +73,14 @@ export function IssueCard({ issue }: IssueCardProps) {
 
           <div>
             <h4 className="text-sm font-semibold text-emerald-400 mb-1">💡 Suggestion</h4>
-            <p className="text-sm text-gray-300 bg-emerald-500/10 p-3 rounded-lg border border-emerald-500/20">
+            <p className="text-sm text-slate-300 bg-emerald-500/10 p-3 rounded-lg border border-emerald-500/20">
               {issue.suggestion}
             </p>
           </div>
 
           <div>
             <h4 className="text-sm font-semibold text-orange-400 mb-1">⚠️ Impact</h4>
-            <p className="text-sm text-gray-300 bg-orange-500/10 p-3 rounded-lg border border-orange-500/20">
+            <p className="text-sm text-slate-300 bg-orange-500/10 p-3 rounded-lg border border-orange-500/20">
               {issue.impact}
             </p>
           </div>

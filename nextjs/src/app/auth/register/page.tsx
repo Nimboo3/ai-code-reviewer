@@ -81,21 +81,21 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="bg-card/50 backdrop-blur-sm border border-white/[0.06] p-8 rounded-xl">
-            <div className="mb-6 text-center">
-                <h2 className="text-2xl font-bold text-white">Create your account</h2>
-                <p className="mt-2 text-sm text-gray-400">Start a free trial and run your first AI-powered review in minutes.</p>
+        <div className="bg-card/50 backdrop-blur-sm border border-white/[0.06] p-6 rounded-xl">
+            <div className="mb-4 text-center">
+                <h2 className="text-xl font-bold text-white">Create your account</h2>
+                <p className="mt-1 text-sm text-gray-400">Start your free AI-powered code review trial.</p>
             </div>
 
             {error && (
-                <div className="mb-6 p-4 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg">
+                <div className="mb-4 p-3 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg">
                     {error}
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1.5">
                         Email address
                     </label>
                     <input
@@ -106,13 +106,13 @@ export default function RegisterPage() {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
+                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-3.5 py-2.5 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
                         placeholder="you@example.com"
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1.5">
                         Password
                     </label>
                     <input
@@ -123,13 +123,13 @@ export default function RegisterPage() {
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
+                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-3.5 py-2.5 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
                         placeholder="••••••••"
                     />
                     
                     {/* Password Strength Indicator */}
                     {password && (
-                        <div className="mt-3 space-y-2">
+                        <div className="mt-2 space-y-1.5">
                             <div className="flex items-center gap-2">
                                 <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
                                     <div 
@@ -153,16 +153,16 @@ export default function RegisterPage() {
                                 </span>
                             </div>
                             
-                            <div className="grid grid-cols-1 gap-1 text-xs">
+                            <div className="grid grid-cols-2 gap-x-3 gap-y-0.5 text-[11px]">
                                 {[
-                                    { check: passwordValidation.checks.minLength, label: 'At least 8 characters' },
-                                    { check: passwordValidation.checks.hasUpperCase, label: 'One uppercase letter' },
-                                    { check: passwordValidation.checks.hasLowerCase, label: 'One lowercase letter' },
-                                    { check: passwordValidation.checks.hasNumber, label: 'One number' },
-                                    { check: passwordValidation.checks.hasSpecialChar, label: 'One special character' },
+                                    { check: passwordValidation.checks.minLength, label: '8+ characters' },
+                                    { check: passwordValidation.checks.hasUpperCase, label: 'Uppercase' },
+                                    { check: passwordValidation.checks.hasLowerCase, label: 'Lowercase' },
+                                    { check: passwordValidation.checks.hasNumber, label: 'Number' },
+                                    { check: passwordValidation.checks.hasSpecialChar, label: 'Special char' },
                                 ].map((item, idx) => (
-                                    <div key={idx} className={`flex items-center gap-1.5 ${item.check ? 'text-emerald-400' : 'text-gray-500'}`}>
-                                        {item.check ? <Check className="w-3.5 h-3.5" /> : <X className="w-3.5 h-3.5" />}
+                                    <div key={idx} className={`flex items-center gap-1 ${item.check ? 'text-emerald-400' : 'text-gray-500'}`}>
+                                        {item.check ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />}
                                         <span>{item.label}</span>
                                     </div>
                                 ))}
@@ -172,7 +172,7 @@ export default function RegisterPage() {
                 </div>
 
                 <div>
-                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-1.5">
                         Confirm Password
                     </label>
                     <input
@@ -183,7 +183,7 @@ export default function RegisterPage() {
                         required
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
+                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-3.5 py-2.5 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
                         placeholder="••••••••"
                     />
                 </div>
@@ -216,7 +216,7 @@ export default function RegisterPage() {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="flex w-full justify-center items-center rounded-lg bg-white py-3 px-4 text-sm font-bold text-black hover:bg-gray-100 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex w-full justify-center items-center rounded-lg bg-white py-2.5 px-4 text-sm font-bold text-black hover:bg-gray-100 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {loading ? (
                         <>
@@ -234,7 +234,7 @@ export default function RegisterPage() {
 
             <SSOButtons onError={setError}/>
 
-            <div className="mt-8 text-center text-sm">
+            <div className="mt-5 text-center text-sm">
                 <span className="text-gray-400">Already have an account?</span>
                 {' '}
                 <Link href="/auth/login" className="font-semibold text-cyan-400 hover:text-cyan-300 transition-colors duration-200">

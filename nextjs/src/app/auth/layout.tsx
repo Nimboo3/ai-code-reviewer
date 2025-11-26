@@ -32,9 +32,9 @@ export default function AuthLayout({
     ];
 
     return (
-        <div className="flex h-screen overflow-hidden bg-[#13161c]">
+        <div className="flex min-h-screen bg-[#13161c]">
             {/* Left side - Auth Form */}
-            <div className="w-full lg:w-1/2 flex flex-col justify-center px-4 sm:px-6 lg:px-8 relative overflow-y-auto bg-[#171a21]">
+            <div className="w-full lg:w-1/2 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 relative bg-[#171a21]">
                 {/* Subtle gradient glow */}
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(148,163,184,0.06),transparent_50%)]" />
                 <div className="absolute inset-0 bg-grid-pattern-small opacity-[0.02]" />
@@ -48,7 +48,7 @@ export default function AuthLayout({
                 </Link>
 
                 <motion.div 
-                    className="sm:mx-auto sm:w-full sm:max-w-md relative z-10"
+                    className="w-full sm:max-w-md relative z-10"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
@@ -64,7 +64,7 @@ export default function AuthLayout({
                 </motion.div>
 
                 <motion.div 
-                    className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10"
+                    className="mt-6 w-full sm:max-w-md relative z-10"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 }}

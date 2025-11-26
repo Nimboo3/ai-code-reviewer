@@ -19,10 +19,24 @@ import { Textarea } from '@/components/ui/textarea';
 import { CheckCircle, Loader2, Plus, Trash2, AlertCircle, ListTodo } from 'lucide-react';
 import Confetti from '@/components/Confetti';
 
-import { Database } from '@/lib/types';
+// Local types for todo_list (legacy feature)
+interface Task {
+    id: number;
+    created_at: string;
+    title: string;
+    description: string | null;
+    done: boolean;
+    urgent: boolean;
+    owner: string;
+}
 
-type Task = Database['public']['Tables']['todo_list']['Row'];
-type NewTask = Database['public']['Tables']['todo_list']['Insert'];
+interface NewTask {
+    title: string;
+    description: string | null;
+    urgent: boolean;
+    owner: string;
+    done: boolean;
+}
 
 interface CreateTaskDialogProps {
     onTaskCreated: () => Promise<void>;
@@ -71,17 +85,17 @@ function CreateTaskDialog({ onTaskCreated }: CreateTaskDialogProps) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:shadow-lg hover:shadow-cyan-500/25 transition-all">
+                <Button className="bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30 transition-all border border-cyan-500/30">
                     <Plus className="h-4 w-4 mr-2" />
                     Add Task
                 </Button>
             </DialogTrigger>
-            <DialogContent className="bg-[#0f1117] border-white/[0.1]">
+            <DialogContent className="bg-[#2e333d] border-slate-600/40">
                 <DialogHeader>
-                    <DialogTitle className="text-white">Create New Task</DialogTitle>
+                    <DialogTitle className="text-slate-100">Create New Task</DialogTitle>
                 </DialogHeader>
                 {error && (
-                    <Alert variant="destructive" className="bg-red-500/10 border-red-500/30 text-red-400">
+                    <Alert variant="destructive" className="bg-red-500/10 border-red-500/20 text-red-400">
                         <AlertCircle className="h-4 w-4" />
                         <AlertDescription>{error}</AlertDescription>
                     </Alert>
@@ -94,7 +108,7 @@ function CreateTaskDialog({ onTaskCreated }: CreateTaskDialogProps) {
                             onChange={(e) => setNewTaskTitle(e.target.value)}
                             placeholder="Task title"
                             required
-                            className="bg-[#0a0c0f] border-white/[0.1] text-white placeholder:text-gray-500 focus:border-cyan-500/50 focus:ring-cyan-500/20"
+                            className="bg-slate-900/60 border-slate-700/50 text-slate-200 placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-cyan-500/20"
                         />
                     </div>
                     <div className="space-y-2">
@@ -103,7 +117,7 @@ function CreateTaskDialog({ onTaskCreated }: CreateTaskDialogProps) {
                             onChange={(e) => setNewTaskDescription(e.target.value)}
                             placeholder="Task description (optional)"
                             rows={3}
-                            className="bg-[#0a0c0f] border-white/[0.1] text-white placeholder:text-gray-500 focus:border-cyan-500/50 focus:ring-cyan-500/20"
+                            className="bg-slate-900/60 border-slate-700/50 text-slate-200 placeholder:text-slate-500 focus:border-cyan-500/50 focus:ring-cyan-500/20"
                         />
                     </div>
                     <div className="flex items-center justify-between">
@@ -112,14 +126,14 @@ function CreateTaskDialog({ onTaskCreated }: CreateTaskDialogProps) {
                                 type="checkbox"
                                 checked={isUrgent}
                                 onChange={(e) => setIsUrgent(e.target.checked)}
-                                className="rounded border-white/[0.2] bg-white/5 focus:ring-cyan-500/50 text-cyan-500"
+                                className="rounded border-slate-700/50 bg-slate-800/60 focus:ring-cyan-500/50 text-cyan-500"
                             />
-                            <span className="text-sm text-gray-400">Mark as urgent</span>
+                            <span className="text-sm text-slate-400">Mark as urgent</span>
                         </label>
                         <Button
                             type="submit"
                             disabled={loading}
-                            className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:shadow-lg hover:shadow-cyan-500/25"
+                            className="bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30 border border-cyan-500/30"
                         >
                             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                             Create Task
@@ -204,18 +218,18 @@ export default function TaskManagementPage() {
         <div className="max-w-4xl mx-auto space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+                    <h1 className="text-3xl font-bold text-slate-100 flex items-center gap-3">
                         <ListTodo className="h-8 w-8 text-cyan-400" />
                         Task Management
                     </h1>
-                    <p className="mt-2 text-gray-400">Manage your tasks and to-dos</p>
+                    <p className="mt-2 text-slate-400">Manage your tasks and to-dos</p>
                 </div>
                 <CreateTaskDialog onTaskCreated={loadTasks} />
             </div>
 
-            <div className="bg-card/50 backdrop-blur-sm rounded-xl border border-white/[0.06] p-6">
+            <div className="bg-[#2e333d] backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
                 {error && (
-                    <Alert variant="destructive" className="mb-6 bg-red-500/10 border-red-500/30 text-red-400">
+                    <Alert variant="destructive" className="mb-6 bg-red-500/10 border-red-500/20 text-red-400">
                         <AlertCircle className="h-4 w-4" />
                         <AlertDescription>{error}</AlertDescription>
                     </Alert>
@@ -226,8 +240,8 @@ export default function TaskManagementPage() {
                         onClick={() => setFilter(null)}
                         size="sm"
                         className={filter === null 
-                            ? "bg-cyan-500 text-white hover:bg-cyan-600" 
-                            : "bg-white/5 text-gray-400 border border-white/[0.08] hover:bg-white/10"
+                            ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30" 
+                            : "bg-slate-800/60 text-slate-400 border border-slate-700/50 hover:bg-slate-700/60"
                         }
                     >
                         All Tasks
@@ -236,8 +250,8 @@ export default function TaskManagementPage() {
                         onClick={() => setFilter(false)}
                         size="sm"
                         className={filter === false 
-                            ? "bg-cyan-500 text-white hover:bg-cyan-600" 
-                            : "bg-white/5 text-gray-400 border border-white/[0.08] hover:bg-white/10"
+                            ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30" 
+                            : "bg-slate-800/60 text-slate-400 border border-slate-700/50 hover:bg-slate-700/60"
                         }
                     >
                         Active
@@ -246,8 +260,8 @@ export default function TaskManagementPage() {
                         onClick={() => setFilter(true)}
                         size="sm"
                         className={filter === true 
-                            ? "bg-cyan-500 text-white hover:bg-cyan-600" 
-                            : "bg-white/5 text-gray-400 border border-white/[0.08] hover:bg-white/10"
+                            ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/30" 
+                            : "bg-slate-800/60 text-slate-400 border border-slate-700/50 hover:bg-slate-700/60"
                         }
                     >
                         Completed
@@ -256,14 +270,14 @@ export default function TaskManagementPage() {
 
                 <div className="space-y-3 relative">
                     {loading && (
-                        <div className="absolute inset-0 bg-background/50 flex items-center justify-center backdrop-blur-sm rounded-lg z-10">
+                        <div className="absolute inset-0 bg-[#2e333d]/50 flex items-center justify-center backdrop-blur-sm rounded-lg z-10">
                             <Loader2 className="h-8 w-8 animate-spin text-cyan-400" />
                         </div>
                     )}
 
                     {tasks.length === 0 ? (
                         <div className="text-center py-8">
-                            <p className="text-gray-500">No tasks found</p>
+                            <p className="text-slate-500">No tasks found</p>
                         </div>
                     ) : (
                         tasks.map((task) => (
@@ -271,26 +285,26 @@ export default function TaskManagementPage() {
                                 key={task.id}
                                 className={`p-4 rounded-lg transition-colors border ${
                                     task.done 
-                                        ? 'bg-white/[0.01] border-white/[0.04]' 
-                                        : 'bg-white/[0.02] border-white/[0.06]'
+                                        ? 'bg-slate-800/20 border-slate-800/40' 
+                                        : 'bg-slate-800/40 border-slate-700/40'
                                 } ${
                                     task.urgent && !task.done ? 'border-red-500/30' : ''
                                 }`}
                             >
                                 <div className="flex items-start justify-between gap-4">
                                     <div className="flex-1 min-w-0">
-                                        <h3 className={`font-medium ${task.done ? 'line-through text-gray-500' : 'text-white'}`}>
+                                        <h3 className={`font-medium ${task.done ? 'line-through text-slate-500' : 'text-slate-100'}`}>
                                             {task.title}
                                         </h3>
                                         {task.description && (
-                                            <p className="mt-1 text-sm text-gray-500">{task.description}</p>
+                                            <p className="mt-1 text-sm text-slate-500">{task.description}</p>
                                         )}
                                         <div className="mt-2 flex items-center gap-2">
-                                            <span className="text-xs text-gray-600">
+                                            <span className="text-xs text-slate-600">
                                                 Created: {new Date(task.created_at).toLocaleDateString()}
                                             </span>
                                             {task.urgent && !task.done && (
-                                                <span className="px-2 py-0.5 text-xs bg-red-500/10 text-red-400 border border-red-500/30 rounded-full">
+                                                <span className="px-2 py-0.5 text-xs bg-red-500/10 text-red-400 border border-red-500/20 rounded-full">
                                                     Urgent
                                                 </span>
                                             )}
