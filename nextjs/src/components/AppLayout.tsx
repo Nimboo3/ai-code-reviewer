@@ -101,7 +101,7 @@ function AppLayoutInner({ children }: { children: React.ReactNode }) {
             <div className={`fixed inset-y-0 left-0 w-64 bg-[#272b34] border-r border-slate-700/40 transform transition-all duration-300 ease-out z-30 flex flex-col
                 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
 
-                <div className="h-16 flex items-center justify-between px-6 border-b border-slate-700/40">
+                <div className="h-14 flex items-center justify-between px-6 border-b border-slate-700/40">
                     <Link href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
                         <div className="w-8 h-8 bg-gradient-to-br from-slate-100 to-slate-300 rounded-lg flex items-center justify-center shadow-sm">
                             <Hexagon className="w-4 h-4 text-slate-900" strokeWidth={2.5} />
