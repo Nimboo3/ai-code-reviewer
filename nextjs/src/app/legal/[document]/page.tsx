@@ -40,7 +40,7 @@ export default function LegalPage({ params }: LegalPageParams) {
     const { title, path } = legalDocuments[document];
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="bg-white/[0.03] backdrop-blur-sm rounded-xl border border-white/[0.06] p-6 md:p-8">
             <LegalDocument
                 title={title}
                 filePath={path}

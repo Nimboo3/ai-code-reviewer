@@ -1,9 +1,9 @@
 'use client';
 
-import { CheckCircle } from 'lucide-react';
+import { Mail, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
-import {useState} from "react";
-import {createSPASassClient} from "@/lib/supabase/client";
+import { useState } from "react";
+import { createSPASassClient } from "@/lib/supabase/client";
 
 export default function VerifyEmailPage() {
     const [email, setEmail] = useState('');
@@ -21,8 +21,8 @@ export default function VerifyEmailPage() {
             setLoading(true);
             setError('');
             const supabase = await createSPASassClient();
-            const {error} = await supabase.resendVerificationEmail(email);
-            if(error) {
+            const { error } = await supabase.resendVerificationEmail(email);
+            if (error) {
                 setError(error.message);
                 return;
             }
@@ -39,50 +39,51 @@ export default function VerifyEmailPage() {
     }
 
     return (
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-card/50 backdrop-blur-sm border border-white/[0.06] p-8 rounded-xl">
             <div className="text-center">
                 <div className="flex justify-center mb-4">
-                    <CheckCircle className="h-16 w-16 text-green-500" />
+                    <div className="w-16 h-16 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+                        <Mail className="h-8 w-8 text-cyan-400" />
+                    </div>
                 </div>
 
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                <h2 className="text-2xl font-bold text-white mb-2">
                     Check your email
                 </h2>
 
-                <p className="text-gray-600 mb-8">
-                    We&#39;ve sent you an email with a verification link.
+                <p className="text-gray-400 mb-6 text-sm leading-relaxed">
+                    We&apos;ve sent you an email with a verification link.
                     Please check your inbox and click the link to verify your account.
                 </p>
 
                 <div className="space-y-4">
                     <p className="text-sm text-gray-500">
-                        Didn&#39;t receive the email? Check your spam folder or enter your email to resend:
+                        Didn&apos;t receive the email? Check your spam folder or enter your email to resend:
                     </p>
 
                     {error && (
-                        <div className="text-sm text-red-600 bg-red-50 rounded-md p-3">
+                        <div className="text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg p-3">
                             {error}
                         </div>
                     )}
 
                     {success && (
-                        <div className="text-sm text-green-600 bg-green-50 rounded-md p-3">
+                        <div className="text-sm text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-3 flex items-center justify-center gap-2">
+                            <CheckCircle className="w-4 h-4" />
                             Verification email has been resent successfully.
                         </div>
                     )}
 
-                    <div className="mt-4">
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email address"
-                            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 text-sm"
-                        />
-                    </div>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter your email address"
+                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200 text-sm"
+                    />
 
                     <button
-                        className="text-primary-600 hover:text-primary-500 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="text-cyan-400 hover:text-cyan-300 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         onClick={resendVerificationEmail}
                         disabled={loading}
                     >
@@ -90,10 +91,10 @@ export default function VerifyEmailPage() {
                     </button>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-gray-200">
+                <div className="mt-8 pt-6 border-t border-white/[0.06]">
                     <Link
                         href="/auth/login"
-                        className="text-sm font-medium text-primary-600 hover:text-primary-500"
+                        className="text-sm font-medium text-cyan-400 hover:text-cyan-300 transition-colors"
                     >
                         Return to login
                     </Link>

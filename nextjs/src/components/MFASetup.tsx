@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createSPASassClient } from '@/lib/supabase/client';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Key, CheckCircle, XCircle, Loader2 } from 'lucide-react';
+import { Key, CheckCircle, XCircle, Loader2, Shield } from 'lucide-react';
 import {Factor} from "@supabase/auth-js";
 import { MFAEnrollTOTPParams } from '@supabase/auth-js';
 
@@ -131,28 +130,28 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
 
     if (loading) {
         return (
-            <Card>
-                <CardContent className="flex justify-center items-center p-6">
-                    <Loader2 className="h-6 w-6 animate-spin" />
-                </CardContent>
-            </Card>
+            <div className="bg-card/50 backdrop-blur-sm rounded-xl border border-white/[0.06] p-6">
+                <div className="flex justify-center items-center">
+                    <Loader2 className="h-6 w-6 animate-spin text-cyan-400" />
+                </div>
+            </div>
         );
     }
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                    <Key className="h-5 w-5" />
+        <div className="bg-card/50 backdrop-blur-sm rounded-xl border border-white/[0.06] hover:border-white/[0.1] transition-colors">
+            <div className="p-6 border-b border-white/[0.06]">
+                <h2 className="flex items-center gap-2 text-xl font-bold text-white mb-1">
+                    <Shield className="h-5 w-5 text-emerald-400" />
                     Two-Factor Authentication (2FA)
-                </CardTitle>
-                <CardDescription>
+                </h2>
+                <p className="text-sm text-gray-500">
                     Add an additional layer of security to your account
-                </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
+                </p>
+            </div>
+            <div className="p-6 space-y-4">
                 {error && (
-                    <Alert variant="destructive">
+                    <Alert variant="destructive" className="bg-red-500/10 border-red-500/30 text-red-400">
                         <AlertDescription>{error}</AlertDescription>
                     </Alert>
                 )}
@@ -160,15 +159,15 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
                 {factors.length > 0 && step === 'list' && (
                     <div className="space-y-4">
                         {factors.map((factor) => (
-                            <div key={factor.id} className="flex items-center justify-between p-4 border rounded-lg">
+                            <div key={factor.id} className="flex items-center justify-between p-4 bg-white/[0.02] border border-white/[0.08] rounded-lg">
                                 <div className="flex items-center gap-3">
                                     {factor.status === 'verified' ? (
-                                        <CheckCircle className="h-5 w-5 text-green-500" />
+                                        <CheckCircle className="h-5 w-5 text-emerald-400" />
                                     ) : (
-                                        <XCircle className="h-5 w-5 text-red-500" />
+                                        <XCircle className="h-5 w-5 text-red-400" />
                                     )}
                                     <div>
-                                        <p className="font-medium">
+                                        <p className="font-medium text-white">
                                             {factor.friendly_name || 'Authenticator App'}
                                         </p>
                                         <p className="text-sm text-gray-500">
@@ -179,7 +178,7 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
                                 <button
                                     onClick={() => unenrollFactor(factor.id)}
                                     disabled={actionInProgress}
-                                    className="px-3 py-1 text-sm text-red-600 hover:text-red-700 disabled:opacity-50"
+                                    className="px-3 py-1 text-sm text-red-400 hover:text-red-300 disabled:opacity-50 transition-colors"
                                 >
                                     Remove
                                 </button>
@@ -191,7 +190,7 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
                 {step === 'name' && (
                     <div className="space-y-4">
                         <div className="space-y-2">
-                            <label htmlFor="friendly-name" className="block text-sm font-medium text-gray-700">
+                            <label htmlFor="friendly-name" className="block text-sm font-medium text-gray-400">
                                 Device Name
                             </label>
                             <input
@@ -199,7 +198,8 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
                                 type="text"
                                 value={friendlyName}
                                 onChange={(e) => setFriendlyName(e.target.value)}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
+                                className="mt-1 block w-full rounded-lg bg-[#0a0c0f] border border-white/[0.1] px-4 py-2.5 text-white text-sm
+                                           focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 transition-all"
                                 placeholder="e.g., Work Phone, Personal iPhone"
                                 autoFocus
                             />
@@ -212,14 +212,14 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
                             <button
                                 onClick={resetEnrollment}
                                 disabled={actionInProgress}
-                                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
+                                className="px-4 py-2 text-sm font-medium text-gray-400 bg-white/5 border border-white/[0.1] rounded-lg hover:bg-white/10 hover:border-white/[0.15] transition-all disabled:opacity-50"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={startEnrollment}
                                 disabled={actionInProgress || !friendlyName.trim()}
-                                className="flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50"
+                                className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all disabled:opacity-50"
                             >
                                 {actionInProgress ? 'Processing...' : 'Continue'}
                             </button>
@@ -234,13 +234,13 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
                                 <img
                                     src={qr}
                                     alt="QR Code"
-                                    className="w-48 h-48 border rounded-lg p-2"
+                                    className="w-48 h-48 border border-white/[0.1] rounded-lg p-2 bg-white"
                                 />
                             )}
                         </div>
 
                         <div className="space-y-2">
-                            <label htmlFor="verify-code" className="block text-sm font-medium text-gray-700">
+                            <label htmlFor="verify-code" className="block text-sm font-medium text-gray-400">
                                 Verification Code
                             </label>
                             <input
@@ -248,7 +248,8 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
                                 type="text"
                                 value={verifyCode}
                                 onChange={(e) => setVerifyCode(e.target.value.trim())}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
+                                className="mt-1 block w-full rounded-lg bg-[#0a0c0f] border border-white/[0.1] px-4 py-2.5 text-white text-sm
+                                           focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/50 transition-all"
                                 placeholder="Enter code from your authenticator app"
                             />
                         </div>
@@ -257,14 +258,14 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
                             <button
                                 onClick={resetEnrollment}
                                 disabled={actionInProgress}
-                                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
+                                className="px-4 py-2 text-sm font-medium text-gray-400 bg-white/5 border border-white/[0.1] rounded-lg hover:bg-white/10 hover:border-white/[0.15] transition-all disabled:opacity-50"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={verifyFactor}
                                 disabled={actionInProgress || verifyCode.length === 0}
-                                className="flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50"
+                                className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all disabled:opacity-50"
                             >
                                 {actionInProgress ? 'Verifying...' : 'Verify'}
                             </button>
@@ -274,7 +275,7 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
 
                 {step === 'list' && (
                     <div className="space-y-4">
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-500">
                             {factors.length === 0
                                 ? 'Protect your account with two-factor authentication. When enabled, you\'ll need to enter a code from your authenticator app in addition to your password when signing in.'
                                 : 'You can add additional authentication methods or remove existing ones.'}
@@ -282,14 +283,14 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
                         <button
                             onClick={() => setStep('name')}
                             disabled={actionInProgress}
-                            className="w-full py-3 px-6 gradient-bg-primary text-white font-semibold rounded-xl 
-                                       hover:shadow-lg hover-scale transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full py-3 px-6 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg 
+                                       hover:shadow-lg hover:shadow-cyan-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             {actionInProgress ? 'Processing...' : 'Add New Authentication Method'}
                         </button>
                     </div>
                 )}
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     );
 }

@@ -1,9 +1,12 @@
+'use client';
+
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Hexagon } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export default function AuthLayout({
-                                       children,
-                                   }: {
+    children,
+}: {
     children: React.ReactNode;
 }) {
     const productName = process.env.NEXT_PUBLIC_PRODUCTNAME || 'CodeReview.ai';
@@ -29,80 +32,113 @@ export default function AuthLayout({
     ];
 
     return (
-        <div className="flex min-h-screen">
-            <div className="w-full lg:w-1/2 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white relative">
+        <div className="flex h-screen overflow-hidden bg-[#13161c]">
+            {/* Left side - Auth Form */}
+            <div className="w-full lg:w-1/2 flex flex-col justify-center px-4 sm:px-6 lg:px-8 relative overflow-y-auto bg-[#171a21]">
+                {/* Subtle gradient glow */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(148,163,184,0.06),transparent_50%)]" />
+                <div className="absolute inset-0 bg-grid-pattern-small opacity-[0.02]" />
+                
                 <Link
                     href="/"
-                    className="absolute left-8 top-8 flex items-center text-sm font-medium text-gray-600 hover:text-primary-600 transition-all duration-200 group"
+                    className="absolute left-6 top-6 flex items-center text-sm font-medium text-gray-400 hover:text-white transition-all duration-200 group z-10"
                 >
                     <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-200" />
                     Back to Homepage
                 </Link>
 
-                <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                    <h2 className="text-center text-4xl font-bold tracking-tight gradient-text">
+                <motion.div 
+                    className="sm:mx-auto sm:w-full sm:max-w-md relative z-10"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <div className="flex items-center justify-center gap-2.5 mb-2">
+                        <div className="w-10 h-10 bg-white rounded-md flex items-center justify-center">
+                            <Hexagon className="w-5 h-5 text-black" strokeWidth={2.5} />
+                        </div>
+                    </div>
+                    <h2 className="text-center text-3xl font-bold tracking-tight text-white">
                         {productName}
                     </h2>
-                </div>
+                </motion.div>
 
-                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
+                <motion.div 
+                    className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                >
                     {children}
-                </div>
+                </motion.div>
             </div>
 
+            {/* Right side - Testimonials */}
             <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-                {/* Modern gradient background with mesh effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-violet-700"></div>
-                <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.2),transparent_50%),radial-gradient(circle_at_80%_80%,rgba(255,255,255,0.15),transparent_50%)]"></div>
+                {/* Darker background for contrast */}
+                <div className="absolute inset-0 bg-[#0c0e12]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_30%_30%,rgba(100,116,139,0.08),transparent_50%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_40%_at_70%_80%,rgba(71,85,105,0.06),transparent_50%)]" />
+                <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]" />
                 
                 <div className="relative w-full flex items-center justify-center p-12">
-                    <div className="space-y-8 max-w-lg animate-fade-in">
-                        <div className="space-y-3">
-                            <h3 className="text-white text-3xl font-bold leading-tight">
+                    <div className="space-y-6 max-w-lg">
+                        <motion.div 
+                            className="space-y-3"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <h3 className="text-white text-2xl font-bold leading-tight">
                                 Trusted by engineering leaders and developers
                             </h3>
-                            <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full"></div>
-                        </div>
+                            <div className="h-px w-20 bg-gradient-to-r from-slate-400 to-slate-600"></div>
+                        </motion.div>
                         
-                        <div className="space-y-5">
+                        <div className="space-y-4">
                             {testimonials.map((testimonial, index) => (
-                                <div
+                                <motion.div
                                     key={index}
-                                    className="relative group"
-                                    style={{animationDelay: `${index * 0.15}s`}}
+                                    initial={{ opacity: 0, x: 30 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                                 >
-                                    {/* Enhanced card with better contrast */}
-                                    <div className="relative bg-white/95 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/20 hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] transition-all duration-300 hover:-translate-y-1">
-                                        <div className="flex items-start space-x-4">
+                                    <div className="relative bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] rounded-xl p-5 hover:bg-white/[0.04] hover:border-white/[0.08] transition-all duration-300">
+                                        <div className="flex items-start gap-4">
                                             <div className="flex-shrink-0">
-                                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm shadow-lg">
+                                                <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-slate-500 to-slate-600 flex items-center justify-center text-white font-bold text-sm">
                                                     {testimonial.avatar}
                                                 </div>
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-base text-gray-700 mb-4 font-normal leading-relaxed italic">
-                                                    &#34;{testimonial.quote}&#34;
+                                                <p className="text-sm text-gray-300 mb-3 leading-relaxed">
+                                                    &quot;{testimonial.quote}&quot;
                                                 </p>
-                                                <div className="mt-3 pt-3 border-t border-gray-200">
-                                                    <p className="text-sm font-bold text-gray-900">
+                                                <div className="border-t border-white/[0.05] pt-3">
+                                                    <p className="text-sm font-semibold text-white">
                                                         {testimonial.author}
                                                     </p>
-                                                    <p className="text-xs text-indigo-600 font-medium mt-0.5">
+                                                    <p className="text-xs text-slate-400 mt-0.5">
                                                         {testimonial.role}
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
                         
-                        <div className="mt-10 pt-8 border-t border-white/20 text-center">
-                            <p className="text-white/90 text-sm font-medium leading-relaxed">
-                                Trusted by teams using <span className="font-bold text-cyan-300">{productName}</span> to ship with confidence
+                        <motion.div 
+                            className="pt-6 border-t border-white/[0.05] text-center"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, delay: 0.6 }}
+                        >
+                            <p className="text-gray-500 text-sm">
+                                Trusted by teams using <span className="font-semibold text-slate-300">{productName}</span> to ship with confidence
                             </p>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>
