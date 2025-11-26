@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
     /* Minimal Dark Theme Palette - Premium adjustments */
     --background: 216 18% 5%; /* #0b0d10 */
