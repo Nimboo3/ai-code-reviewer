@@ -99,7 +99,7 @@ function RobotPlaceholder() {
         <span className="absolute top-[60%] left-[10%] text-cyan-500/20 text-xs font-mono animate-float-particle" style={{ animationDelay: '2s' }}>01</span>
         <span className="absolute top-[70%] right-[15%] text-blue-500/20 text-xs font-mono animate-float-particle" style={{ animationDelay: '0.5s' }}>=&gt;</span>
         <span className="absolute top-[45%] left-[25%] text-cyan-400/20 text-xs font-mono animate-float-particle" style={{ animationDelay: '1.5s' }}>**</span>
-        <span className="absolute top-[50%] right-[25%] text-blue-400/20 text-xs font-mono animate-float-particle" style={{ animationDelay: '2.5s' }}>//</span>
+        <span className="absolute top-[50%] right-[25%] text-blue-400/20 text-xs font-mono animate-float-particle" style={{ animationDelay: '2.5s' }}>{'/'}</span>
       </div>
       
       <style jsx>{`
