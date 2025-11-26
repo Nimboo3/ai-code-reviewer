@@ -324,7 +324,7 @@ export default function Home() {
                                 image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
                                 name: 'Marcus Chen',
                                 username: '@marcuschen',
-                                text: 'The architecture analysis caught a circular dependency that would have caused major issues down the line. The risk scoring on PRs is incredibly accurate.',
+                                text: 'The architecture analysis caught a circular dependency that would have caused major issues down the line.',
                                 social: 'https://twitter.com'
                             },
                             {
@@ -345,7 +345,7 @@ export default function Home() {
                                 image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
                                 name: 'Emily Watson',
                                 username: '@emilywatson',
-                                text: 'The AI agents are brilliant. Test Generator wrote 80% of our missing tests automatically. Security Scout catches issues we never would have found.',
+                                text: 'The AI agents are brilliant. Test Generator wrote 80% of our missing tests automatically. It catches issues we never would have found.',
                                 social: 'https://twitter.com'
                             },
                             {
@@ -444,7 +444,7 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="pt-4 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-2">
               <p className="text-sm text-gray-600">
                 © {new Date().getFullYear()} {productName}. All rights reserved.
               </p>
