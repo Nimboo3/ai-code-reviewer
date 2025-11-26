@@ -32,12 +32,12 @@ export default function AuthLayout({
     ];
 
     return (
-        <div className="flex min-h-screen bg-[#13161c]">
+        <div className="flex h-screen overflow-hidden bg-[#1e232b]">
             {/* Left side - Auth Form */}
-            <div className="w-full lg:w-1/2 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 relative bg-[#171a21]">
+            <div className="w-full lg:w-1/2 flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative bg-[#252a33]">
                 {/* Subtle gradient glow */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(148,163,184,0.06),transparent_50%)]" />
-                <div className="absolute inset-0 bg-grid-pattern-small opacity-[0.02]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(148,163,184,0.08),transparent_50%)]" />
+                <div className="absolute inset-0 bg-grid-pattern-small opacity-[0.03]" />
                 
                 <Link
                     href="/"
@@ -76,10 +76,10 @@ export default function AuthLayout({
             {/* Right side - Testimonials */}
             <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
                 {/* Darker background for contrast */}
-                <div className="absolute inset-0 bg-[#0c0e12]" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_30%_30%,rgba(100,116,139,0.08),transparent_50%)]" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_40%_at_70%_80%,rgba(71,85,105,0.06),transparent_50%)]" />
-                <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]" />
+                <div className="absolute inset-0 bg-[#1a1f26]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_30%_30%,rgba(100,116,139,0.1),transparent_50%)]" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_40%_at_70%_80%,rgba(71,85,105,0.08),transparent_50%)]" />
+                <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
                 
                 <div className="relative w-full flex items-center justify-center p-12">
                     <div className="space-y-6 max-w-lg">
@@ -103,7 +103,7 @@ export default function AuthLayout({
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                                 >
-                                    <div className="relative bg-white/[0.02] backdrop-blur-sm border border-white/[0.05] rounded-xl p-5 hover:bg-white/[0.04] hover:border-white/[0.08] transition-all duration-300">
+                                    <div className="relative bg-white/[0.04] backdrop-blur-sm border border-white/[0.08] rounded-xl p-5 hover:bg-white/[0.06] hover:border-white/[0.12] transition-all duration-300">
                                         <div className="flex items-start gap-4">
                                             <div className="flex-shrink-0">
                                                 <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-slate-500 to-slate-600 flex items-center justify-center text-white font-bold text-sm">

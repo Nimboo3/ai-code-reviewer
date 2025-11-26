@@ -81,10 +81,10 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="bg-card/50 backdrop-blur-sm border border-white/[0.06] p-6 rounded-xl">
+        <div className="bg-[#2e343f] border border-slate-600/40 p-6 rounded-xl shadow-xl">
             <div className="mb-4 text-center">
                 <h2 className="text-xl font-bold text-white">Create your account</h2>
-                <p className="mt-1 text-sm text-gray-400">Start your free AI-powered code review trial.</p>
+                <p className="mt-1 text-sm text-slate-400">Start your free AI-powered code review trial.</p>
             </div>
 
             {error && (
@@ -93,9 +93,9 @@ export default function RegisterPage() {
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3">
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1.5">
+                    <label htmlFor="email" className="block text-sm font-medium text-slate-200 mb-1.5">
                         Email address
                     </label>
                     <input
@@ -106,13 +106,13 @@ export default function RegisterPage() {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-3.5 py-2.5 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
+                        className="block w-full rounded-lg bg-slate-800/60 border border-slate-600/50 px-3.5 py-2.5 text-white placeholder-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
                         placeholder="you@example.com"
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1.5">
+                    <label htmlFor="password" className="block text-sm font-medium text-slate-200 mb-1.5">
                         Password
                     </label>
                     <input
@@ -123,15 +123,15 @@ export default function RegisterPage() {
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-3.5 py-2.5 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
+                        className="block w-full rounded-lg bg-slate-800/60 border border-slate-600/50 px-3.5 py-2.5 text-white placeholder-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
                         placeholder="••••••••"
                     />
                     
                     {/* Password Strength Indicator */}
                     {password && (
-                        <div className="mt-2 space-y-1.5">
+                        <div className="mt-2 space-y-1">
                             <div className="flex items-center gap-2">
-                                <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                                <div className="flex-1 h-1.5 bg-slate-700 rounded-full overflow-hidden">
                                     <div 
                                         className={`h-full transition-all duration-300 ${
                                             passwordValidation.strength === 'strong' 
@@ -161,7 +161,7 @@ export default function RegisterPage() {
                                     { check: passwordValidation.checks.hasNumber, label: 'Number' },
                                     { check: passwordValidation.checks.hasSpecialChar, label: 'Special char' },
                                 ].map((item, idx) => (
-                                    <div key={idx} className={`flex items-center gap-1 ${item.check ? 'text-emerald-400' : 'text-gray-500'}`}>
+                                    <div key={idx} className={`flex items-center gap-1 ${item.check ? 'text-emerald-400' : 'text-slate-500'}`}>
                                         {item.check ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />}
                                         <span>{item.label}</span>
                                     </div>
@@ -172,7 +172,7 @@ export default function RegisterPage() {
                 </div>
 
                 <div>
-                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-1.5">
+                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-200 mb-1.5">
                         Confirm Password
                     </label>
                     <input
@@ -183,7 +183,7 @@ export default function RegisterPage() {
                         required
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-3.5 py-2.5 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
+                        className="block w-full rounded-lg bg-slate-800/60 border border-slate-600/50 px-3.5 py-2.5 text-white placeholder-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
                         placeholder="••••••••"
                     />
                 </div>
@@ -196,11 +196,11 @@ export default function RegisterPage() {
                             type="checkbox"
                             checked={acceptedTerms}
                             onChange={(e) => setAcceptedTerms(e.target.checked)}
-                            className="h-4 w-4 rounded border-white/20 bg-white/5 text-cyan-500 focus:ring-cyan-500/50 cursor-pointer"
+                            className="h-4 w-4 rounded border-slate-500 bg-slate-700 text-cyan-500 focus:ring-cyan-500/50 cursor-pointer"
                         />
                     </div>
                     <div className="ml-3 text-sm leading-relaxed">
-                        <label htmlFor="terms" className="text-gray-400 cursor-pointer">
+                        <label htmlFor="terms" className="text-slate-300 cursor-pointer">
                             I agree to the{' '}
                             <Link href="/legal/terms" className="font-medium text-cyan-400 hover:text-cyan-300" target="_blank">
                                 Terms of Service

@@ -56,7 +56,7 @@ export default function LoginPage() {
     }, [showMFAPrompt, router]);
 
     return (
-        <div className="bg-card/50 backdrop-blur-sm border border-white/[0.06] p-6 rounded-xl">
+        <div className="bg-[#2e343f] border border-slate-600/40 p-6 rounded-xl shadow-xl">
             {error && (
                 <div className="mb-4 p-3 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg">
                     {error}
@@ -65,7 +65,7 @@ export default function LoginPage() {
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1.5">
+                    <label htmlFor="email" className="block text-sm font-medium text-slate-200 mb-1.5">
                         Email address
                     </label>
                     <input
@@ -76,13 +76,13 @@ export default function LoginPage() {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-3.5 py-2.5 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
+                        className="block w-full rounded-lg bg-slate-800/60 border border-slate-600/50 px-3.5 py-2.5 text-white placeholder-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
                         placeholder="you@example.com"
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1.5">
+                    <label htmlFor="password" className="block text-sm font-medium text-slate-200 mb-1.5">
                         Password
                     </label>
                     <input
@@ -93,7 +93,7 @@ export default function LoginPage() {
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-3.5 py-2.5 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
+                        className="block w-full rounded-lg bg-slate-800/60 border border-slate-600/50 px-3.5 py-2.5 text-white placeholder-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
                         placeholder="••••••••"
                     />
                 </div>
