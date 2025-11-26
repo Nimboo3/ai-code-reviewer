@@ -38,19 +38,18 @@ export function getOpenAIClient(selectedModel?: string) {
   return new OpenAI({ apiKey, baseURL })
 }
 
-export const DEFAULT_MODEL = process.env.OPENAI_MODEL || 'gemini-1.5-flash-latest'
+export const DEFAULT_MODEL = process.env.OPENAI_MODEL || 'gemini-2.0-flash'
 
 const MODEL_ALLOWLIST = new Set<string>([
   'gpt-4o-mini',
   'gpt-4o-mini-2024-07-18',
   'gpt-4o',
   'gpt-4-turbo',
-  'gemini-1.5-flash-latest',
-  'gemini-1.5-pro-latest',
-  'gemini-1.5-flash-002',
-  'gemini-1.5-pro-002',
-  'gemini-2.0-flash-exp',
-  'gemini-2.0-flash-thinking-exp-1219',
+  'gemini-1.5-flash',
+  'gemini-1.5-pro',
+  'gemini-2.0-flash',
+  'gemini-2.0-flash-lite',
+  'gemini-2.5-flash-preview-05-20',
   'gemma3:1b',
   'gemma3:4b',
   'qwen3:4b',
@@ -187,13 +186,13 @@ function generateMarkdownFromStructured(review: StructuredReview): string {
   
   if (strengths.length > 0) {
     md += `## Strengths\n\n`
-    strengths.forEach(s => md += `- ${s}\n`)
+    strengths.forEach((s: string) => md += `- ${s}\n`)
     md += `\n`
   }
   
   if (issues.length > 0) {
     md += `## Issues\n\n`
-    const grouped = issues.reduce((acc, issue) => {
+    const grouped = issues.reduce((acc: Record<string, typeof issues>, issue: typeof issues[0]) => {
       if (!acc[issue.severity]) acc[issue.severity] = []
       acc[issue.severity].push(issue)
       return acc
@@ -203,7 +202,7 @@ function generateMarkdownFromStructured(review: StructuredReview): string {
       const items = grouped[severity]
       if (items && items.length > 0) {
         md += `### ${severity.toUpperCase()}\n\n`
-        items.forEach(issue => {
+        items.forEach((issue: typeof issues[0]) => {
           md += `#### ${issue.title}\n`
           md += `**Category:** ${issue.category}\n`
           md += `${issue.description}\n\n`
@@ -216,7 +215,7 @@ function generateMarkdownFromStructured(review: StructuredReview): string {
   
   if (recommendations.length > 0) {
     md += `## Recommendations\n\n`
-    recommendations.forEach(r => md += `- ${r}\n`)
+    recommendations.forEach((r: string) => md += `- ${r}\n`)
     md += `\n`
   }
   

@@ -5,8 +5,16 @@ interface SeverityBadgeProps {
   count?: number
 }
 
+interface SeverityConfig {
+  bg: string
+  text: string
+  border: string
+  icon: string
+  label: string
+}
+
 export function SeverityBadge({ severity, count }: SeverityBadgeProps) {
-  const config = {
+  const config: Record<IssueSeverity, SeverityConfig> = {
     critical: {
       bg: 'bg-red-500/10',
       text: 'text-red-400',

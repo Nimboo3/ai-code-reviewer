@@ -120,11 +120,11 @@ export default function AgentsPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'available':
-        return <span className="px-2 py-1 rounded text-xs bg-green-500/20 text-green-400">Available</span>;
+        return <span className="px-2 py-1 rounded text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Available</span>;
       case 'coming-soon':
-        return <span className="px-2 py-1 rounded text-xs bg-yellow-500/20 text-yellow-400">Coming Soon</span>;
+        return <span className="px-2 py-1 rounded text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20">Coming Soon</span>;
       case 'installed':
-        return <span className="px-2 py-1 rounded text-xs bg-cyan-500/20 text-cyan-400">Installed</span>;
+        return <span className="px-2 py-1 rounded text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Installed</span>;
       default:
         return null;
     }
@@ -133,11 +133,11 @@ export default function AgentsPage() {
   const getPricingBadge = (pricing: string) => {
     switch (pricing) {
       case 'included':
-        return <span className="text-xs text-green-400">Included</span>;
+        return <span className="text-xs text-emerald-400">Included</span>;
       case 'pro':
-        return <span className="text-xs text-purple-400">Pro</span>;
+        return <span className="text-xs text-violet-400">Pro</span>;
       case 'enterprise':
-        return <span className="text-xs text-orange-400">Enterprise</span>;
+        return <span className="text-xs text-amber-400">Enterprise</span>;
       default:
         return null;
     }
@@ -147,7 +147,7 @@ export default function AgentsPage() {
     <div className="min-h-screen p-6">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white mb-2">Agents Marketplace</h1>
+        <h1 className="text-2xl font-bold text-slate-100 mb-2">Agents Marketplace</h1>
         <p className="text-slate-400">Extend your code review capabilities with AI-powered agents</p>
       </div>
 
@@ -159,7 +159,7 @@ export default function AgentsPage() {
             placeholder="Search agents..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2.5 bg-[#151922] border border-white/[0.08] rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/50"
+            className="w-full px-4 py-2.5 bg-[#2e333d] border border-slate-700/40 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-slate-600"
           />
         </div>
         <div className="flex gap-2 overflow-x-auto pb-2">
@@ -169,8 +169,8 @@ export default function AgentsPage() {
               onClick={() => setSelectedCategory(category)}
               className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
                 selectedCategory === category
-                  ? 'bg-cyan-600 text-white'
-                  : 'bg-[#151922] text-slate-400 hover:text-white hover:bg-[#1a1f29]'
+                  ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                  : 'bg-[#2e333d] text-slate-400 hover:text-slate-200 hover:bg-[#363c48] border border-slate-700/40'
               }`}
             >
               {category}
@@ -181,19 +181,19 @@ export default function AgentsPage() {
 
       {/* Stats Bar */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div className="bg-[#151922] rounded-xl p-4 border border-white/[0.06]">
+        <div className="bg-[#2e333d] rounded-xl p-4 border border-slate-700/50">
           <div className="text-sm text-slate-400 mb-1">Total Agents</div>
-          <div className="text-2xl font-bold text-white">{mockAgents.length}</div>
+          <div className="text-2xl font-bold text-slate-100">{mockAgents.length}</div>
         </div>
-        <div className="bg-[#151922] rounded-xl p-4 border border-white/[0.06]">
+        <div className="bg-[#2e333d] rounded-xl p-4 border border-slate-700/50">
           <div className="text-sm text-slate-400 mb-1">Available</div>
-          <div className="text-2xl font-bold text-green-400">{mockAgents.filter(a => a.status === 'available').length}</div>
+          <div className="text-2xl font-bold text-emerald-400">{mockAgents.filter(a => a.status === 'available').length}</div>
         </div>
-        <div className="bg-[#151922] rounded-xl p-4 border border-white/[0.06]">
+        <div className="bg-[#2e333d] rounded-xl p-4 border border-slate-700/50">
           <div className="text-sm text-slate-400 mb-1">Coming Soon</div>
-          <div className="text-2xl font-bold text-yellow-400">{mockAgents.filter(a => a.status === 'coming-soon').length}</div>
+          <div className="text-2xl font-bold text-amber-400">{mockAgents.filter(a => a.status === 'coming-soon').length}</div>
         </div>
-        <div className="bg-[#151922] rounded-xl p-4 border border-white/[0.06]">
+        <div className="bg-[#2e333d] rounded-xl p-4 border border-slate-700/50">
           <div className="text-sm text-slate-400 mb-1">Total Installs</div>
           <div className="text-2xl font-bold text-cyan-400">{mockAgents.reduce((acc, a) => acc + a.installs, 0).toLocaleString()}</div>
         </div>
@@ -204,16 +204,16 @@ export default function AgentsPage() {
         {filteredAgents.map((agent) => (
           <div
             key={agent.id}
-            className="bg-[#151922] rounded-xl p-5 border border-white/[0.06] hover:border-cyan-500/30 transition-all group"
+            className="bg-[#2e333d] rounded-xl p-5 border border-slate-700/50 hover:border-slate-600/50 transition-all group"
           >
             {/* Header */}
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-[#101318] border border-white/[0.06] flex items-center justify-center text-2xl">
+                <div className="w-12 h-12 rounded-xl bg-slate-800/60 border border-slate-700/50 flex items-center justify-center text-2xl">
                   {agent.icon}
                 </div>
                 <div>
-                  <h3 className="text-white font-medium">{agent.name}</h3>
+                  <h3 className="text-slate-100 font-medium">{agent.name}</h3>
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-slate-500">{agent.category}</span>
                     <span className="text-slate-600">•</span>
@@ -234,24 +234,24 @@ export default function AgentsPage() {
               {agent.features.slice(0, 3).map((feature, i) => (
                 <span
                   key={i}
-                  className="px-2 py-1 rounded-full text-xs bg-[#101318] text-slate-400 border border-white/[0.04]"
+                  className="px-2 py-1 rounded-full text-xs bg-slate-800/60 text-slate-400 border border-slate-700/40"
                 >
                   {feature}
                 </span>
               ))}
               {agent.features.length > 3 && (
-                <span className="px-2 py-1 rounded-full text-xs bg-[#101318] text-slate-500 border border-white/[0.04]">
+                <span className="px-2 py-1 rounded-full text-xs bg-slate-800/60 text-slate-500 border border-slate-700/40">
                   +{agent.features.length - 3} more
                 </span>
               )}
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between pt-3 border-t border-white/[0.06]">
+            <div className="flex items-center justify-between pt-3 border-t border-slate-800/60">
               <div className="flex items-center gap-4 text-sm text-slate-500">
                 {agent.rating > 0 && (
                   <span className="flex items-center gap-1">
-                    <span className="text-yellow-400">★</span>
+                    <span className="text-amber-400">★</span>
                     {agent.rating}
                   </span>
                 )}
@@ -262,21 +262,21 @@ export default function AgentsPage() {
               {agent.status === 'available' ? (
                 <button
                   onClick={() => showComingSoon()}
-                  className="px-4 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-sm font-medium transition-colors"
+                  className="px-4 py-1.5 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg text-sm font-medium transition-colors border border-cyan-500/30"
                 >
                   Install
                 </button>
               ) : agent.status === 'coming-soon' ? (
                 <button
                   onClick={() => showComingSoon()}
-                  className="px-4 py-1.5 bg-slate-700 text-slate-400 rounded-lg text-sm font-medium cursor-not-allowed"
+                  className="px-4 py-1.5 bg-slate-800/60 text-slate-400 rounded-lg text-sm font-medium cursor-not-allowed border border-slate-700/50"
                 >
                   Notify Me
                 </button>
               ) : (
                 <button
                   onClick={() => showComingSoon()}
-                  className="px-4 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg text-sm font-medium transition-colors"
+                  className="px-4 py-1.5 bg-slate-800/60 hover:bg-slate-700/60 text-slate-300 rounded-lg text-sm font-medium transition-colors border border-slate-700/50"
                 >
                   Configure
                 </button>
@@ -290,14 +290,14 @@ export default function AgentsPage() {
       {filteredAgents.length === 0 && (
         <div className="text-center py-16">
           <div className="text-4xl mb-4">🔍</div>
-          <h3 className="text-lg font-medium text-white mb-2">No agents found</h3>
+          <h3 className="text-lg font-medium text-slate-100 mb-2">No agents found</h3>
           <p className="text-slate-400 mb-4">Try adjusting your search or filter criteria</p>
           <button
             onClick={() => {
               setSearchQuery('');
               setSelectedCategory('All');
             }}
-            className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg text-sm font-medium transition-colors"
+            className="px-4 py-2 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-400 rounded-lg text-sm font-medium transition-colors border border-cyan-500/30"
           >
             Clear Filters
           </button>
@@ -305,15 +305,15 @@ export default function AgentsPage() {
       )}
 
       {/* Request Agent CTA */}
-      <div className="mt-8 bg-gradient-to-r from-cyan-600/20 to-purple-600/20 rounded-xl p-6 border border-cyan-500/20">
+      <div className="mt-8 bg-gradient-to-r from-slate-800/50 to-slate-700/30 rounded-xl p-6 border border-slate-700/40">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-white font-medium text-lg mb-1">Can&apos;t find what you need?</h3>
+            <h3 className="text-slate-100 font-medium text-lg mb-1">Can&apos;t find what you need?</h3>
             <p className="text-slate-400 text-sm">Request a custom agent or suggest a new feature for the marketplace.</p>
           </div>
           <button
             onClick={() => showComingSoon()}
-            className="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm font-medium transition-colors border border-white/10"
+            className="px-6 py-2.5 bg-slate-700/50 hover:bg-slate-600/50 text-slate-200 rounded-lg text-sm font-medium transition-colors border border-slate-600/50"
           >
             Request Agent
           </button>

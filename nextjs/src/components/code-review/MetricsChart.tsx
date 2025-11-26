@@ -39,12 +39,12 @@ export function MetricsChart({ metrics }: MetricsChartProps) {
           <div key={item.label}>
             <div className="flex items-center justify-between mb-2">
               <div>
-                <span className="text-sm font-semibold text-gray-300">{item.label}</span>
-                <span className="text-xs text-gray-500 ml-2">({item.description})</span>
+                <span className="text-sm font-semibold text-slate-300">{item.label}</span>
+                <span className="text-xs text-slate-500 ml-2">({item.description})</span>
               </div>
-              <span className="text-sm font-bold text-white">{displayValue}</span>
+              <span className="text-sm font-bold text-slate-100">{displayValue}</span>
             </div>
-            <div className="h-3 bg-white/[0.05] rounded-full overflow-hidden border border-white/[0.06]">
+            <div className="h-3 bg-slate-700/50 rounded-full overflow-hidden border border-slate-600/40">
               <div
                 className={`h-full ${getBarColor()} transition-all duration-500 rounded-full`}
                 style={{ width: `${percentage}%` }}

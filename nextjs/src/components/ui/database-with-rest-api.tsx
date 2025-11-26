@@ -109,15 +109,15 @@ const DatabaseWithRestApi = ({
           <g>
             <rect
               fill="#18181B"
-              x="14"
+              x="5"
               y="5"
-              width="34"
+              width="40"
               height="10"
               rx="5"
             ></rect>
-            <DatabaseIcon x="18" y="7.5"></DatabaseIcon>
+            {/* <DatabaseIcon x="9" y="7.5"></DatabaseIcon> */}
             <text
-              x="28"
+              x="13"
               y="12"
               fill="white"
               stroke="none"
@@ -133,13 +133,13 @@ const DatabaseWithRestApi = ({
               fill="#18181B"
               x="60"
               y="5"
-              width="34"
+              width="40"
               height="10"
               rx="5"
             ></rect>
-            <DatabaseIcon x="64" y="7.5"></DatabaseIcon>
+            {/* <DatabaseIcon x="64" y="7.5"></DatabaseIcon> */}
             <text
-              x="74"
+              x="71"
               y="12"
               fill="white"
               stroke="none"
@@ -159,9 +159,9 @@ const DatabaseWithRestApi = ({
               height="10"
               rx="5"
             ></rect>
-            <DatabaseIcon x="112" y="7.5"></DatabaseIcon>
+            {/* <DatabaseIcon x="112" y="7.5"></DatabaseIcon> */}
             <text
-              x="122"
+              x="117"
               y="12"
               fill="white"
               stroke="none"
@@ -181,9 +181,9 @@ const DatabaseWithRestApi = ({
               height="10"
               rx="5"
             ></rect>
-            <DatabaseIcon x="154" y="7.5"></DatabaseIcon>
+            {/* <DatabaseIcon x="154" y="7.5"></DatabaseIcon> */}
             <text
-              x="165"
+              x="163"
               y="12"
               fill="white"
               stroke="none"
@@ -280,25 +280,3 @@ const DatabaseWithRestApi = ({
 };
 
 export default DatabaseWithRestApi;
-
-const DatabaseIcon = ({ x = "0", y = "0" }: { x: string; y: string }) => {
-  return (
-    <svg
-      x={x}
-      y={y}
-      xmlns="http://www.w3.org/2000/svg"
-      width="5"
-      height="5"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="white"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <ellipse cx="12" cy="5" rx="9" ry="3" />
-      <path d="M3 5V19A9 3 0 0 0 21 19V5" />
-      <path d="M3 12A9 3 0 0 0 21 12" />
-    </svg>
-  );
-};

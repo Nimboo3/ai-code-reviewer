@@ -171,23 +171,23 @@ export default function FileManagementPage() {
     return (
         <div className="max-w-4xl mx-auto space-y-6">
             <div>
-                <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+                <h1 className="text-3xl font-bold text-slate-100 flex items-center gap-3">
                     <HardDrive className="h-8 w-8 text-cyan-400" />
                     File Management
                 </h1>
-                <p className="mt-2 text-gray-400">Upload, download, and share your files</p>
+                <p className="mt-2 text-slate-400">Upload, download, and share your files</p>
             </div>
 
-            <div className="bg-card/50 backdrop-blur-sm rounded-xl border border-white/[0.06] p-6 space-y-6">
+            <div className="bg-[#2e333d] backdrop-blur-sm rounded-xl border border-slate-700/50 p-6 space-y-6">
                 {error && (
-                    <Alert variant="destructive" className="mb-4 bg-red-500/10 border-red-500/30 text-red-400">
+                    <Alert variant="destructive" className="mb-4 bg-red-500/10 border-red-500/20 text-red-400">
                         <AlertCircle className="h-4 w-4"/>
                         <AlertDescription>{error}</AlertDescription>
                     </Alert>
                 )}
 
                 {success && (
-                    <Alert className="mb-4 bg-emerald-500/10 border-emerald-500/30 text-emerald-400">
+                    <Alert className="mb-4 bg-emerald-500/10 border-emerald-500/20 text-emerald-400">
                         <CheckCircle className="h-4 w-4"/>
                         <AlertDescription>{success}</AlertDescription>
                     </Alert>
@@ -195,10 +195,10 @@ export default function FileManagementPage() {
 
                 <div className="flex items-center justify-center w-full">
                     <label
-                        className={`w-full flex flex-col items-center px-4 py-8 bg-white/[0.02] rounded-xl cursor-pointer transition-all border-2 border-dashed ${
+                        className={`w-full flex flex-col items-center px-4 py-8 bg-slate-800/30 rounded-xl cursor-pointer transition-all border-2 border-dashed ${
                             isDragging
                                 ? 'border-cyan-500 bg-cyan-500/10'
-                                : 'border-white/[0.1] hover:border-cyan-500/50 hover:bg-white/[0.03]'
+                                : 'border-slate-700/50 hover:border-cyan-500/50 hover:bg-slate-800/50'
                         }`}
                         onDragEnter={handleDragEnter}
                         onDragOver={handleDragOver}
@@ -206,7 +206,7 @@ export default function FileManagementPage() {
                         onDrop={handleDrop}
                     >
                         <Upload className="w-8 h-8 text-cyan-400"/>
-                        <span className="mt-2 text-base text-gray-400">
+                        <span className="mt-2 text-base text-slate-400">
                             {uploading
                                 ? 'Uploading...'
                                 : isDragging
@@ -229,16 +229,16 @@ export default function FileManagementPage() {
                         </div>
                     )}
                     {!loading && files.length === 0 ? (
-                        <p className="text-center text-gray-500 py-8">No files uploaded yet</p>
+                        <p className="text-center text-slate-500 py-8">No files uploaded yet</p>
                     ) : (
                         files.map((file) => (
                             <div
                                 key={file.name}
-                                className="flex items-center justify-between p-4 bg-white/[0.02] rounded-lg border border-white/[0.06] hover:bg-white/[0.04] transition-colors"
+                                className="flex items-center justify-between p-4 bg-slate-800/40 rounded-lg border border-slate-700/40 hover:bg-slate-800/60 transition-colors"
                             >
                                 <div className="flex items-center space-x-3">
-                                    <FileIcon className="h-6 w-6 text-gray-500"/>
-                                    <span className="font-medium text-white">{file.name.split('/').pop()}</span>
+                                    <FileIcon className="h-6 w-6 text-slate-500"/>
+                                    <span className="font-medium text-slate-100">{file.name.split('/').pop()}</span>
                                 </div>
                                 <div className="flex items-center space-x-2">
                                     <button
@@ -276,10 +276,10 @@ export default function FileManagementPage() {
                     setShareUrl('');
                     setSelectedFile(null);
                 }}>
-                    <DialogContent className="bg-[#0f1117] border-white/[0.1]">
+                    <DialogContent className="bg-[#2e333d] border-slate-600/40">
                         <DialogHeader>
-                            <DialogTitle className="text-white">Share {selectedFile?.split('/').pop()}</DialogTitle>
-                            <DialogDescription className="text-gray-400">
+                            <DialogTitle className="text-slate-100">Share {selectedFile?.split('/').pop()}</DialogTitle>
+                            <DialogDescription className="text-slate-400">
                                 Copy the link below to share your file. This link will expire in 24 hours.
                             </DialogDescription>
                         </DialogHeader>
@@ -288,7 +288,7 @@ export default function FileManagementPage() {
                                 type="text"
                                 value={shareUrl}
                                 readOnly
-                                className="flex-1 p-2 border border-white/[0.1] rounded-lg bg-[#0a0c0f] text-white text-sm"
+                                className="flex-1 p-2 border border-slate-700/50 rounded-lg bg-slate-900/60 text-slate-200 text-sm"
                             />
                             <button
                                 onClick={() => copyToClipboard(shareUrl)}
@@ -297,7 +297,7 @@ export default function FileManagementPage() {
                                 <Copy className="h-5 w-5"/>
                                 {showCopiedMessage && (
                                     <span
-                                        className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-cyan-500 text-white text-xs px-2 py-1 rounded">
+                                        className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-cyan-500/20 text-cyan-400 text-xs px-2 py-1 rounded border border-cyan-500/30">
                                         Copied!
                                     </span>
                                 )}
@@ -308,16 +308,16 @@ export default function FileManagementPage() {
 
                 {/* Delete Confirmation Dialog */}
                 <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-                    <AlertDialogContent className="bg-[#0f1117] border-white/[0.1]">
+                    <AlertDialogContent className="bg-[#2e333d] border-slate-600/40">
                         <AlertDialogHeader>
-                            <AlertDialogTitle className="text-white">Delete File</AlertDialogTitle>
-                            <AlertDialogDescription className="text-gray-400">
+                            <AlertDialogTitle className="text-slate-100">Delete File</AlertDialogTitle>
+                            <AlertDialogDescription className="text-slate-400">
                                 Are you sure you want to delete this file? This action cannot be undone.
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                            <AlertDialogCancel className="bg-white/5 border-white/[0.1] text-gray-300 hover:bg-white/10">Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={handleDelete} className="bg-red-600 hover:bg-red-700 text-white">
+                            <AlertDialogCancel className="bg-slate-800/60 border-slate-700/50 text-slate-300 hover:bg-slate-700/60">Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={handleDelete} className="bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30">
                                 Delete
                             </AlertDialogAction>
                         </AlertDialogFooter>

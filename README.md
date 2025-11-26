@@ -1,47 +1,47 @@
 # CodeReview.ai
 
-An AI-powered code review platform that provides automated analysis of your code, identifying issues, suggesting improvements, and evaluating overall code quality using advanced language models.
+An AI-powered code review platform that provides instant, automated analysis of your code—identifying bugs, security vulnerabilities, and suggesting improvements using advanced language models.
 
-##  Demo 
+## ✨ Features
 
-Check out the live vercel link!
+### Core Features
+- **AI-Powered Code Review** - Instant analysis with structured feedback (issues, metrics, suggestions)
+- **Multiple AI Models** - Google Gemini (free tier), OpenAI GPT, and local Ollama support
+- **PR Review Dashboard** - Track pull requests, architecture health, and tech debt
+- **GitHub Integration** - Connect repos and get automated PR reviews
+- **Notifications System** - Real-time alerts for reviews and activity
+- **Dark Mode UI** - Modern, clean interface with lighter dark theme
 
+### Security & Auth
+- Secure authentication with Supabase Auth
+- Optional MFA (Two-Factor Authentication)
+- SSO support (Google, GitHub)
+- Row Level Security (RLS) on all data
 
+### Pricing Tiers
+- **Free Tier**: 10 reviews/day, 500KB file limit
+- **Premium**: Unlimited reviews, 10MB file limit, priority support
 
+## 🛠 Tech Stack
 
-## Features
-
-- Automated code review with structured feedback (issues, metrics, suggestions)
-- Multiple AI provider support (Google Gemini, OpenAI GPT, Local Ollama for development)
-- Two-tier pricing system (Free: 10 reviews/day, Premium: unlimited)
-- Secure authentication with optional MFA
-- Review history and analytics dashboard
-- File size limits: 500KB (Free), 10MB (Premium)
-- Persistent storage via Supabase
-
-## Tech Stack
-
-- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
+- **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS, Framer Motion
 - **Backend**: Next.js API Routes, Supabase (PostgreSQL + Auth + Storage)
-- **AI Models** (Production):
-  - Google Gemini (gemini-1.5-flash, gemini-1.5-pro, gemini-2.0-flash, gemini-2.0-flash-thinking)
+- **AI Models**:
+  - Google Gemini (gemini-2.0-flash, gemini-2.0-flash-lite, gemini-2.5-flash, gemini-2.5-pro)
   - OpenAI GPT (gpt-4o-mini, gpt-4o)
-- **AI Models** (Local Development Only):
-  - Ollama (gemma3, qwen3, deepseek-rl, llama3.2)
+  - Local: Ollama (qwen2.5-coder, gemma3, llama3.2)
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
 - Node.js 18+
 - npm/yarn/pnpm
 - Supabase account
-- AI provider API key (at least one required):
-  - **Google Gemini API key** ([Get here](https://aistudio.google.com/apikey)) - **Recommended**: 1500 free requests/day
-  - **OpenAI API key** ([Get here](https://platform.openai.com/api-keys)) - Paid usage
-  - **Local Ollama** ([Install here](https://ollama.com/)) - For local development only (won't work in production)
-
-> **Note**: Ollama models are only available when running locally (`npm run dev`). Production deployments (Vercel) only support cloud-hosted models (Gemini and OpenAI).
+- AI provider API key (at least one):
+  - **Google Gemini** ([Get free key](https://aistudio.google.com/apikey)) - **Recommended**: 1500 free requests/day
+  - **OpenAI** ([Get key](https://platform.openai.com/api-keys)) - Pay-as-you-go
+  - **Ollama** ([Install](https://ollama.com/)) - Free, local only
 
 ### Installation
 
@@ -65,23 +65,23 @@ Edit `.env.local`:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-PRIVATE_SUPABASE_SERVICE_KEY=your_supabase_service_key
 
-# Choose one AI provider:
-OPENAI_API_KEY=your_openai_key
-# OR
-GEMINI_API_KEY=your_gemini_key
-# OR install Ollama for local models
+# AI Provider (choose one or more)
+GEMINI_API_KEY=your_gemini_key      # Recommended - FREE tier
+OPENAI_API_KEY=your_openai_key      # Optional - paid
+
+# OAuth (optional)
+NEXT_PUBLIC_SSO_PROVIDERS=google,github
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
 ```
 
 4. **Apply database migrations**
 ```bash
 npx supabase login
-npx supabase link
-npx supabase migrations up --linked
+npx supabase link --project-ref your-project-ref
+npx supabase db push
 ```
-
-Alternatively, run SQL files from `supabase/migrations/` in your Supabase SQL editor.
 
 5. **Start development server**
 ```bash
@@ -90,69 +90,83 @@ npm run dev
 
 6. **Open the application**
 
-Visit [http://localhost:3000](http://localhost:3000) and create an account to start reviewing code.
+Visit [http://localhost:3000](http://localhost:3000)
 
-## Deployment
-
-### Deploy to Vercel
-
-1. Push your repository to GitHub
-2. Create a new project in Vercel and import your repository
-3. Add environment variables in Vercel project settings
-4. Deploy
-
-### Supabase Configuration
-
-Update `supabase/config.toml` with your production URLs:
-```toml
-site_url = "https://your-domain.com"
-additional_redirect_urls = ["https://your-domain.com/**"]
-```
-
-## API Endpoints
-
-### POST `/api/code-review`
-Submit code for review
-- **Input**: FormData with `file` and optional `model`
-- **Response**: Review result with markdown, model info, and database ID
-
-### GET `/api/code-review/[id]`
-Retrieve a specific code review
-- **Response**: Stored review data
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 nextjs/
 ├── src/
-│   ├── app/              # Next.js App Router pages
-│   │   ├── api/          # API routes
-│   │   ├── app/          # Protected app pages
-│   │   └── auth/         # Authentication pages
-│   ├── components/       # React components
-│   └── lib/              # Utilities and AI integrations
+│   ├── app/                    # Next.js App Router
+│   │   ├── api/                # API routes
+│   │   │   ├── code-review/    # Code review endpoints
+│   │   │   ├── notifications/  # Notifications API
+│   │   │   └── github/         # GitHub integration
+│   │   ├── app/                # Protected app pages
+│   │   │   ├── dashboard/      # PR review dashboard
+│   │   │   ├── code-review/    # Code review interface
+│   │   │   ├── projects/       # GitHub projects
+│   │   │   └── agents/         # AI agents
+│   │   └── auth/               # Authentication pages
+│   ├── components/             # React components
+│   │   ├── ui/                 # UI primitives
+│   │   └── code-review/        # Review-specific components
+│   └── lib/                    # Utilities
+│       ├── ai/                 # AI integrations
+│       ├── supabase/           # Database client
+│       └── context/            # React context
 ├── public/
-│   └── terms/            # Legal documents
+│   └── terms/                  # Legal documents
 └── supabase/
-    └── migrations/       # Database migrations
+    └── migrations/             # Database migrations
 ```
 
-## Security Notes
+##  API Endpoints
 
-- Never commit `.env.local` or expose API keys
-- Keep `PRIVATE_SUPABASE_SERVICE_KEY` server-side only
-- All API keys are validated on the server
-- Rate limiting enforced for free tier users
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/code-review` | POST | Submit code for AI review |
+| `/api/code-review/[id]` | GET | Get a specific review |
+| `/api/notifications` | GET | Fetch user notifications |
+| `/api/notifications` | PATCH | Mark notification read/dismissed |
+| `/api/github/repos` | GET | List connected GitHub repos |
+| `/api/github/review` | POST | Review a GitHub PR |
 
-## License
+##  Deployment
 
-Licensed under the Apache License 2.0 - see [LICENSE](LICENSE) file for details.
+### Vercel (Recommended)
 
-## Contributing
+1. Push to GitHub
+2. Import project in [Vercel](https://vercel.com)
+3. Add environment variables
+4. Deploy
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+### Environment Variables for Production
 
-## Links
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=xxx
+PRIVATE_SUPABASE_SERVICE_KEY=xxx
+GEMINI_API_KEY=xxx
+```
 
+##  Security
+
+- All API keys validated server-side only
+- Row Level Security (RLS) on all tables
+- Rate limiting for free tier users
+- Never commit `.env.local`
+
+##  License
+
+Licensed under Apache License 2.0 - see [LICENSE](LICENSE) file.
+
+##  Contributing
+
+Contributions welcome! Please submit a Pull Request.
+
+##  Links
+
+- **Live Demo**: [codereview.ai](https://ai-code-reviewer-vert.vercel.app/)
 - **Repository**: [github.com/Nimboo3/ai-code-reviewer](https://github.com/Nimboo3/ai-code-reviewer)
-- **Issues**: [github.com/Nimboo3/ai-code-reviewer/issues](https://github.com/Nimboo3/ai-code-reviewer/issues)
+- **Issues**: [Report a bug](https://github.com/Nimboo3/ai-code-reviewer/issues)

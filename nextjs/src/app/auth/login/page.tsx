@@ -56,16 +56,16 @@ export default function LoginPage() {
     }, [showMFAPrompt, router]);
 
     return (
-        <div className="bg-card/50 backdrop-blur-sm border border-white/[0.06] p-8 rounded-xl">
+        <div className="bg-card/50 backdrop-blur-sm border border-white/[0.06] p-6 rounded-xl">
             {error && (
-                <div className="mb-6 p-4 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg">
+                <div className="mb-4 p-3 text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg">
                     {error}
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1.5">
                         Email address
                     </label>
                     <input
@@ -76,13 +76,13 @@ export default function LoginPage() {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
+                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-3.5 py-2.5 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
                         placeholder="you@example.com"
                     />
                 </div>
 
                 <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1.5">
                         Password
                     </label>
                     <input
@@ -93,7 +93,7 @@ export default function LoginPage() {
                         required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-4 py-3 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
+                        className="block w-full rounded-lg bg-white/[0.03] border border-white/[0.08] px-3.5 py-2.5 text-white placeholder-gray-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all duration-200"
                         placeholder="••••••••"
                     />
                 </div>
@@ -110,7 +110,7 @@ export default function LoginPage() {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="flex w-full justify-center items-center rounded-lg bg-white py-3 px-4 text-sm font-bold text-black hover:bg-gray-100 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex w-full justify-center items-center rounded-lg bg-white py-2.5 px-4 text-sm font-bold text-black hover:bg-gray-100 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {loading ? (
                         <>
@@ -128,7 +128,7 @@ export default function LoginPage() {
 
             <SSOButtons onError={setError} />
 
-            <div className="mt-8 text-center text-sm">
+            <div className="mt-5 text-center text-sm">
                 <span className="text-gray-400">Don&apos;t have an account?</span>
                 {' '}
                 <Link href="/auth/register" className="font-semibold text-cyan-400 hover:text-cyan-300 transition-colors duration-200">
