@@ -3,6 +3,12 @@ import {cookies} from 'next/headers'
 import {ClientType, SassClient} from "@/lib/supabase/unified";
 import {Database} from "@/lib/types";
 
+interface CookieToSet {
+    name: string
+    value: string
+    options?: Record<string, unknown>
+}
+
 export async function createSSRClient() {
     const cookieStore = await cookies()
 
@@ -14,7 +20,7 @@ export async function createSSRClient() {
                 getAll() {
                     return cookieStore.getAll()
                 },
-                setAll(cookiesToSet) {
+                setAll(cookiesToSet: CookieToSet[]) {
                     try {
                         cookiesToSet.forEach(({ name, value, options }) =>
                             cookieStore.set(name, value, options)
